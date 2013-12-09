@@ -1,0 +1,6 @@
+{
+    "name"    : "Mustermann",
+    "vorname" : "Max",
+    "alter"   : 42,
+    "hobbys"  : ["Joggen", "Lesen"]
+}

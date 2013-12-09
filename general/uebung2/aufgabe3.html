@@ -1,0 +1,210 @@
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>GUI Example</title>
+
+    <style>
+        body {
+            background-color: #ffc;
+            font-family: sans-serif;
+        }
+
+        #myCanvas {
+            border: solid 1px black;
+            position: relative;
+            float: left;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        #out {
+            clear: both;
+        }
+    </style>
+
+    <!-- include our UI "class" files -->
+    <script type="text/javascript" src="Widget.js"></script>
+    <script type="text/javascript" src="Button.js"></script>
+    <script type="text/javascript" src="Container.js"></script>
+
+    <script type='text/javascript'>
+        // UI container root element
+        var panel = null;
+
+        // client code:
+        // our GUI test
+        function setupGui(canvas) {
+            var ctx = canvas.getContext("2d");
+
+            // clear canvas
+            ctx.fillStyle = 'rgb(255,255,255)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            //var btn = new Button(70, 50, 120, 40, "B1", "Klick mich");
+            //btn.draw(ctx);
+
+            if (!panel) {
+                var c1 = new Container( 0,   0, 400, 400, "C1");
+                var c2 = new Container(50, 150, 350, 150, "C2");
+
+                var w = 120, h = 40;
+                var b1 = new Button( 70,  50, w, h, "B1", "Klick mich");
+                var b2 = new Button(100, 200, w, h, "B2", "Abbrechen");
+                var b3 = new Button(250, 200, w, h, "B2", "OK");
+
+                c2.addChild(b2);
+                c2.addChild(b3);
+                c1.addChild(b1);
+                c1.addChild(c2);
+
+                // attach observers or event listeners respectively
+                var out = document.getElementById("out");
+
+                b1.attach( function(event) {
+                    out.innerHTML = "I am first observer and clicked button is " + event.target._id;
+                    alert("Hallo");
+                } );
+                b2.attach( function(event) {
+                    out.innerHTML = "I am second observer and clicked button is " + event.target._id;
+                } );
+                b3.attach( function(event) {
+                    out.innerHTML = "I am third observer and clicked button is " + event.target._id;
+                } );
+
+                panel = c1;
+            }
+            panel.draw(ctx);
+        }
+
+
+        // --------------- OLD CODE FROM TEMPLATE GOES HERE -------------------
+        // let's first declare some ugly globals here...
+        var mouse_drag_x = 0, mouse_drag_y = 0;
+        var last_mouse_drag_x = -1, last_mouse_drag_y = -1;
+        var mouse_dragging = false;
+
+        var pen_col = 'rgb(0,0,0)';
+        var pen_size = 1;
+
+        function clearImage(canvas) {
+            // get the 2d drawing context
+            var context = canvas.getContext("2d");
+
+            // clear canvas
+            context.fillStyle = 'rgb(255,255,255)';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            // some defaults
+            context.lineCap = "round";
+            context.lineWidth = pen_size;
+            context.strokeStyle = pen_col;
+
+            // ---------- MAKE SURE THAT ON REDRAW GUI IS ALSO DRAWN ----------
+            if (panel) {
+                panel.draw(context);
+            }
+            // ---------- MAKE SURE THAT ON REDRAW GUI IS ALSO DRAWN ----------
+        }
+
+        function updateImage(canvas) {
+            if (!mouse_dragging)
+                return;
+
+            // on first click, only set start point of stroke
+            if (last_mouse_drag_x < 0 || last_mouse_drag_y < 0) {
+                last_mouse_drag_x = mouse_drag_x;
+                last_mouse_drag_y = mouse_drag_y;
+            }
+
+            var context = canvas.getContext("2d");
+
+            context.lineWidth = pen_size;
+            context.strokeStyle = pen_col;
+
+            // draw a line
+            context.beginPath();
+            context.moveTo(last_mouse_drag_x, last_mouse_drag_y);
+            context.lineTo(mouse_drag_x, mouse_drag_y);
+            context.closePath();
+            context.stroke();
+
+            last_mouse_drag_x = mouse_drag_x;
+            last_mouse_drag_y = mouse_drag_y;
+        }
+
+
+        // add event listeners to canvas object
+        function attachMouseHandler(canvas) {
+            canvas.addEventListener('mousedown', function (evt) {
+                mouse_dragging = true;
+                mouse_drag_x = evt.layerX;
+                mouse_drag_y = evt.layerY;
+
+                updateImage(canvas);
+            }, false);
+
+            canvas.addEventListener('mouseup', function (evt) {
+                mouse_dragging = false;
+                last_mouse_drag_x = -1;
+                last_mouse_drag_y = -1;
+
+                updateImage(canvas);
+
+                // -------- TRIGGER SELF-MADE EVENT HANDLING ON MOUSEUP -------
+                // pass mouse position and release state to our "GUI"
+                if (panel) {
+                    panel.inside(evt.layerX, evt.layerY, false, true);
+                }
+                // -------- TRIGGER SELF-MADE EVENT HANDLING ON MOUSEUP -------
+            }, false);
+
+            canvas.addEventListener('mouseout', function (evt) {
+                mouse_dragging = false;
+                last_mouse_drag_x = -1;
+                last_mouse_drag_y = -1;
+
+                updateImage(canvas);
+            }, false);
+
+            canvas.addEventListener('mousemove', function (evt) {
+                if (!mouse_dragging)
+                    return;
+
+                mouse_drag_x = evt.layerX;
+                mouse_drag_y = evt.layerY;
+
+                updateImage(canvas);
+            }, false);
+        }
+
+        function main() {
+            var myCanvas = document.getElementById("myCanvas");
+
+            attachMouseHandler(myCanvas);
+            clearImage(myCanvas);
+        }
+    </script>
+</head>
+
+<body onload='main();'>
+
+<h1>GUIs selbstgemacht</h1>
+<h2>Mit dem HTML5 &lt;canvas&gt; Element</h2>
+
+<canvas width='400' height='400' id='myCanvas'></canvas>
+
+<div>
+    <button type="button" onclick="clearImage(document.getElementById('myCanvas'));">
+        Clear Image
+    </button>
+    <br>
+    <button type="button" onclick="setupGui(document.getElementById('myCanvas'));">
+        Setup GUI
+    </button>
+</div>
+
+<!-- Output element for our self-made listeners -->
+<div id="out"></div>
+
+</body>
+</html>

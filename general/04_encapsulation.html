@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="description" content="HTML and CSS code skeleton">
+    <title>JavaScript f&uuml;r Fortgeschrittene</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        label {
+            width: 60px;
+            display: inline-block;
+        }
+        #help {
+            margin-top: 15px;
+        }
+        #tab {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+        thead tr:nth-of-type(odd){
+            background: rgb(220,220,220);
+        }
+        tbody tr:nth-of-type(even){
+            background: rgb(220,220,220);
+        }
+
+        #ziel {
+            border: 1px solid black;
+            width: 400px;
+            height: 400px;
+            background: rgb(220,220,220);
+            float: right;
+            text-align: center;
+            cursor: pointer;
+        }
+        #img {
+            cursor: pointer;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var MyAPP = {};
+
+        MyAPP.myModule = (function() {
+            "use strict";
+
+            // private section
+            var myPrivateVar = "Private variable can be accessed only from within myModule";
+
+            var myPrivateMethod = function () {
+                console.log("private method can be accessed only from within myModule");
+            };
+
+            // public section
+            return {
+                myPublicProperty: "Variable accessible as myModule.myPublicProperty",
+
+                myPublicMethod: function () {
+                    console.log("Method accessible as myModule.myPublicMethod()");
+
+                    // We can access "public" members using this
+                    console.log(this.myPublicProperty);
+
+                    // Here we access "private" methods and variables
+                    myPrivateMethod();
+                    console.log(myPrivateVar);
+                }
+            };
+        })(); // cause anonymous function to execute and return object
+
+        function testInheritance() {
+            var Hund = function(name, besitzer) {
+                this._name = name;
+                this._besitzer = besitzer;
+            };
+
+            Hund.prototype.bellen = function() {
+                console.log(this._name + " sagt: Wau wau wau!");
+            };
+
+            //var waldi = new Hund("Waldi", "Krause");
+            //waldi.bellen();
+
+            var Dackel = function(name, besitzer, club) {
+                Hund.call(this, name, besitzer);
+                this._club = club;
+            };
+
+            // set up prototype chain
+            Dackel.prototype = new Hund("", "");
+
+            // set constructor to Dackel
+            Dackel.prototype.constructor = Dackel;
+
+            Dackel.prototype.getSpruch = function() {
+                console.log(this._besitzer + " sagt: Ordnung muss sein!");
+            };
+
+            var waldi = new Dackel("Waldi", "Krause", "Teckel e.V.");
+
+            waldi.bellen();
+            waldi.getSpruch();
+
+            // wrap subclassing process in extend function
+            /*
+            function extend(subClass, superClass) {
+                var F = function() {};
+                F.prototype = superClass.prototype;
+
+                subClass.prototype = new F();
+                subClass.prototype.constructor = subClass;
+
+                subClass.parentClass = superClass.prototype;
+            }
+
+            var Boxer = function(name, besitzer, bissig) {
+                Boxer.parentClass.constructor.call(this, name, besitzer);
+                this._bissig = bissig;
+            };
+            extend(Boxer, Hund);
+
+            Boxer.prototype.isBissig = function() {
+                return this._bissig;
+            };
+
+            var nero = new Boxer("Nero", "Meier", true);
+
+            nero.bellen();
+            console.log((nero.isBissig() ? "Bissiger " : "Lieber ") + "Hund");
+            */
+
+            waldi.getClub = function() {
+                var that = this;
+                var club = function() {
+                    return that._club.toLowerCase();
+                }();
+                return club;
+            };
+            waldi.bell = "Kläff kläff!";
+            console.log(waldi.getClub() + "\n" + waldi.bell);
+        }
+
+        function testCheckInterface() {
+            var obj = {
+                value: 0,
+
+                // Implements Summable
+                add: function(other) {
+                    this.value += other.value;
+                },
+                sub: function(other) {
+                    this.value -= other.value;
+                },
+
+                // Implements Multipliable
+                mul: function(other) {
+                    this.value *= other.value;
+                },
+                div: function(other) {
+                    if (other.value != 0)
+                        this.value /= other.value;
+                }
+            };
+
+            /*for (var prop in obj) {
+                if (obj.hasOwnProperty(prop)) {
+                    console.log(prop + " (" + (typeof obj[prop]) + "): " + obj[prop]);
+                }
+            }*/
+
+            var Summable = [ 'add', 'sub' ];    //, 'set'
+            //var Multipliable = [ 'mul', 'div' ];
+
+            for (var i=0; i<Summable.length; i++) {
+                var f = obj[Summable[i]];
+                if (!f || typeof f !== "function") {
+                    console.warn('No method "' + Summable[i] + '" found!');
+                    break;
+                }
+            }
+        }
+
+        function setupHelp() {
+            var helpText = [
+                {id: 'name',  help: 'Ihr Vor- und Nachname'},
+                {id: 'age',   help: 'Ihr Alter (mind. 16 Jahre)'},
+                {id: 'email', help: 'Ihre Email-Adresse'}
+            ];
+            var helpDiv = document.getElementById('help');
+
+            for (var i=0; i<helpText.length; i++) {
+                /*document.getElementById(helpText[i].id).addEventListener("focus", function() {
+                    helpDiv.innerHTML = helpText[i].help;
+                }, false);*/
+                document.getElementById(helpText[i].id).addEventListener("focus", (function(pos) {
+                    return function() { helpDiv.innerHTML = helpText[pos].help; }
+                })(i), false);
+            }
+        }
+
+        function main() {
+            setupHelp();
+
+            /*var addHandlers = function(nodes) {
+                for (var i = 0; i < nodes.length; i++) {
+                    nodes[i].onclick = (function(c) {
+                        return function(evt) { alert(c); };
+                    })(i);
+                }
+            };
+            addHandlers(document.getElementsByTagName("label"));*/
+
+            // module pattern test
+            MyAPP.myModule.myPublicMethod();
+
+            // yet another test - inheritance
+            //testInheritance();
+
+            // Introspection
+            //testCheckInterface();
+        }
+    </script>
+</head>
+
+<body onload="main();">
+<div class="container">
+    <div class="header">
+        <h1 class="header">JavaScript f&uuml;r Fortgeschrittene</h1>
+    </div>
+
+    <div class="navigation">
+        <h2 class="navigation">Menu</h2>
+        <ul>
+            <li><a href="javascript:alert('Noop')">Item 1</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h2>Comics abonnieren</h2>
+
+        <fieldset style="width: 370px;">
+            <legend>Persönliche Daten</legend>
+            <form action="" onsubmit="return false;">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name"><br>
+                <label for="age">Alter:</label>
+                <input type="text" id="age" name="age"><br>
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email"><br>
+                <input type="reset" value="Abbrechen">
+                <input type="submit" value="Absenden">
+            </form>
+            <div id="help">Bitte geben Sie Ihre Daten ein.</div>
+        </fieldset>
+
+        <div id="tab">
+        <table cellpadding="5">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Vorname</th>
+                <th>Email</th>
+                <th>Gruppe</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Smith</td>
+                <td>John</td>
+                <td>foo@bar.com</td>
+                <td align="right">
+                    <input type="button" value="add">
+                    <input type="button" value="remove">
+                </td>
+            </tr>
+            <tr>
+                <td>Doe</td>
+                <td>Jane</td>
+                <td>jane@doe.org</td>
+                <td align="right">
+                    <input type="button" value="add">
+                    <input type="button" value="remove">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <img src="todo.jpg" alt="TOD-O-Liste" id="img" draggable="true" ondragstart="drag(event)">
+
+        <div id="ziel" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="allowDrop(event)"></div>
+    </div>
+
+    <div class="footer">
+        Closure example taken from
+        <a href="https://developer.mozilla.org/de/docs/JavaScript/Guide/Closures">mozilla.org</a>.
+    </div>
+</div>
+
+<script>
+    var drag = function(event) {
+        if (event.dataTransfer && event.target) {
+            var name = event.target.id;
+            event.dataTransfer.setData("text/plain", name);
+        }
+    };
+
+    var drop = function(event) {
+        if (event.dataTransfer) {
+            var data = event.dataTransfer.getData("text/plain");
+            if (data) {
+                if (data.indexOf("todo.jpg") >= 0) data = "img";
+                event.target.appendChild(document.getElementById(data));
+            }
+        }
+
+        event.preventDefault();
+        //event.stopPropagation();
+        return false;
+    };
+
+    var allowDrop = function(event) {
+        event.preventDefault();
+        //event.stopPropagation();
+        return false;
+    };
+</script>
+
+</body>
+</html>

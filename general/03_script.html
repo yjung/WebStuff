@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="description" content="HTML and CSS code skeleton">
+    <title>HTML Grundgerüst</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="main.js"></script>
+</head>
+
+<body onload="/*initialize();*/">
+<div class="container">
+    <div class="header">
+        <h1 class="header">Titel der Web-Page</h1>
+    </div>
+    <div class="navigation">
+        <h2 class="navigation">Menu</h2>
+        <ul>
+            <li><a href="default.html">Home</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h2>Eine Überschrift</h2>
+        <p>Das ist ein Absatz, aber hier erscheint bald noch mehr.</p>
+        <p>Rest ist TODO...</p>
+        <img src="todo.jpg" alt="TOD-O-Liste" id="img"><br>
+
+        <p id="likeIt">&nbsp;</p>
+        <fieldset>
+            <legend>Like it?</legend>
+            <input type="button" value="Gefällt mir" onclick="setLikeState(true);">
+            <input type="button" value="Gefällt mir nicht" onclick="setLikeState(false);">
+        </fieldset>
+    </div>
+
+    <div class="footer">
+        Mehr auf
+        <a id="w3s" href="http://www.w3schools.com/html/" target="_blank">www.w3schools.com</a>
+    </div>
+</div>
+
+<script>
+    //alert("Nerviger Alert");
+    //document.write("<br>Hello JavaScript World!");
+    //test();
+
+    testDataTypes();
+
+    var arr = [4, 17, 815, 4711];
+    var i = 42, b = false, str = "bla";
+
+    //var arrSq = [1, 2, 3, 4, 5].map(function(l) { return l*l; });
+    //console.log(arrSq.toString());
+
+    testScope(arr, i, b, str);
+
+    console.log("\narr: " + arr.toString() +
+            " i: " + i + " b: " + b + " str: " + str);
+
+    testFunctions();
+
+    window.onload = function() {
+        //initialize();
+
+        var img = document.getElementById("img");
+        img.addEventListener("mouseover", function(evt) {
+            img.style.border = "2px solid black";
+        }, false);
+        img.addEventListener("mouseout", function(evt) {
+            img.style.border = "none";
+        }, false);
+    };
+</script>
+</body>
+</html>

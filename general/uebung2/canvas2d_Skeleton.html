@@ -1,0 +1,127 @@
+<html>
+<head>
+    <title>Canvas Example</title>
+
+    <style>
+        body {
+            background-color: #ffc;
+            font-family: sans-serif;
+        }
+
+        #myCanvas {
+            border: solid 1px black;
+            position: relative;
+            float: left;
+            cursor: pointer;
+        }
+    </style>
+
+    <script type='text/javascript'>
+        // let's first declare some ugly globals here...
+        var mouse_drag_x = 0, mouse_drag_y = 0;
+        var last_mouse_drag_x = -1, last_mouse_drag_y = -1;
+        var mouse_dragging = false;
+
+        var pen_col = 'rgb(0,0,0)';
+        var pen_size = 1;
+
+        function clearImage(canvas) {
+            // get the 2d drawing context
+            var context = canvas.getContext("2d");
+
+            // clear canvas
+            context.fillStyle = 'rgb(255,255,255)';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            // some defaults
+            context.lineCap = "round";
+            context.lineWidth = pen_size;
+            context.strokeStyle = pen_col;
+        }
+
+        function updateImage(canvas) {
+            if (!mouse_dragging)
+                return;
+
+            // on first click, only set start point of stroke
+            if (last_mouse_drag_x < 0 || last_mouse_drag_y < 0) {
+                last_mouse_drag_x = mouse_drag_x;
+                last_mouse_drag_y = mouse_drag_y;
+            }
+
+            var context = canvas.getContext("2d");
+
+            context.lineWidth = pen_size;
+            context.strokeStyle = pen_col;
+
+            // draw a line
+            context.beginPath();
+            context.moveTo(last_mouse_drag_x, last_mouse_drag_y);
+            context.lineTo(mouse_drag_x, mouse_drag_y);
+            context.closePath();
+            context.stroke();
+
+            last_mouse_drag_x = mouse_drag_x;
+            last_mouse_drag_y = mouse_drag_y;
+        }
+
+        // add event listeners to canvas object
+        function attachMouseHandler(canvas) {
+            canvas.addEventListener('mousedown', function (evt) {
+                mouse_dragging = true;
+                mouse_drag_x = evt.layerX;
+                mouse_drag_y = evt.layerY;
+
+                updateImage(canvas);
+            }, false);
+
+            canvas.addEventListener('mouseup', function (evt) {
+                mouse_dragging = false;
+                last_mouse_drag_x = -1;
+                last_mouse_drag_y = -1;
+
+                updateImage(canvas);
+            }, false);
+
+            canvas.addEventListener('mouseout', function (evt) {
+                mouse_dragging = false;
+                last_mouse_drag_x = -1;
+                last_mouse_drag_y = -1;
+
+                updateImage(canvas);
+            }, false);
+
+            canvas.addEventListener('mousemove', function (evt) {
+                if (!mouse_dragging)
+                    return;
+
+                mouse_drag_x = evt.layerX;
+                mouse_drag_y = evt.layerY;
+
+                updateImage(canvas);
+            }, false);
+        }
+
+        function main() {
+            var myCanvas = document.getElementById("myCanvas");
+
+            attachMouseHandler(myCanvas);
+            clearImage(myCanvas);
+        }
+    </script>
+</head>
+
+<body onload='main();'>
+
+<h1>2D painting via the HTML5 &lt;canvas&gt; tag</h1>
+
+<canvas width='400' height='400' id='myCanvas'></canvas>
+
+<div>
+    <button type="button" onclick="clearImage(document.getElementById('myCanvas'));">
+        Clear Image
+    </button>
+</div>
+
+</body>
+</html>

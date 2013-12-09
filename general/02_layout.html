@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="description" content="HTML and CSS code skeleton">
+    <title>HTML Grundgerüst</title>
+
+    <!--
+    <link rel="stylesheet" type="text/css" href="">
+    -->
+    <style type="text/css">
+        body {
+            font-family: Arial,sans-serif;
+            margin: 0;
+            padding: 0;
+            border: none;
+            color: rgb(70,70,70);
+        }
+
+        div.container {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            line-height: 150%;
+            background-color: #ddd;
+        }
+        div.header, div.footer {
+            padding: 10px;
+            color: white;
+            background-color: gray;
+            clear: left;
+        }
+        h1.header {
+            padding: 10px;
+            margin: 0 0 0 130px;
+        }
+        div.navigation {
+            float: left;
+            width: 100px;
+            margin: 0;
+            padding: 15px;
+        }
+        div.content {
+            margin-left: 130px;
+            padding: 15px;
+            border-left: 1px solid gray;
+            background-color: #fff;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        li a {
+            display: block;
+            width: 115px;
+        }
+        li a:hover {
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1 class="header">Titel der Web-Page</h1>
+    </div>
+    <div class="navigation">
+        <h2 class="navigation">Menu</h2>
+        <ul>
+            <li><a href="default.html">Home</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <h2>Eine Überschrift</h2>
+        <p>Das ist ein Absatz, aber hier erscheint bald noch mehr.</p>
+        <p>Rest ist TODO...</p>
+        <img src="todo.jpg" alt="TOD-O-Liste"><br>
+        <!--form action="foo.php" onsubmit="return true;">
+            <input type="text" name="ort" size="30">
+            <input type="password" name="pwd">
+            <input type="checkbox" value="w" checked>
+            <input type="reset">
+            <input type="submit" value="Senden">
+            <select>
+                <option>Äpfel</option>
+                <option selected>Birnen</option>
+            </select>
+        </form-->
+    </div>
+    <div class="footer">
+        Mehr auf
+        <a href="http://www.w3schools.com/html/" target="_blank">www.w3schools.com</a>
+    </div>
+</div>
+</body>
+</html>

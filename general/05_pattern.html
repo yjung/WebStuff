@@ -1,0 +1,76 @@
+<html>
+<head>
+    <script type="text/javascript">
+        function Subject() {
+            this.state = {
+                value: 0
+            };
+
+            this.observers = [];
+
+            this.attach = function (observer) {
+                this.observers.push(observer);
+            };
+
+            this.detach = function (observer) {
+                for (var i = this.observers.length - 1; i >= 0; i--) {
+                    if (this.observers[i] === observer) {
+                        this.observers.splice(i, 1);
+                    }
+                }
+            };
+
+            this.notify = function () {
+                for (var i = this.observers.length - 1; i >= 0; i--) {
+                    if (this.observers[i].update)
+                        this.observers[i].update(this.state);
+                    else if (typeof(this.observers[i]) == "function") {
+                        this.observers[i].call(null, this.state);
+                    }
+                }
+            };
+
+            // concrete method, exemplarily change inner state
+            this.setState = function (value) {
+                this.state.value = value;
+                this.notify();
+            };
+        }
+
+        function ObserverA() {
+            this.update = function (evt) {
+                document.write("I am observer A and subject value is " + evt.value + ".<br>");
+            };
+        }
+
+        function ObserverB() {
+            this.update = function (evt) {
+                document.write("I am observer B and subject value is " + evt.value + ".<br>");
+            };
+        }
+    </script>
+</head>
+<body>
+<script type="text/javascript">
+    // write a little test case for our implementation
+    var subject = new Subject();
+
+    var observerA = new ObserverA();
+    subject.attach(observerA);
+
+    var observerB = new ObserverB();
+    subject.attach(observerB);
+
+    subject.setState(42);
+
+    document.write("<br>");
+    subject.detach(observerA);
+
+    subject.attach(function (event) {
+        document.write("I am observer C and subject value is " + event.value + ".<br>");
+    });
+
+    subject.setState(23);
+</script>
+</body>
+</html>

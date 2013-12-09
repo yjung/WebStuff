@@ -1,0 +1,22 @@
+[
+    {
+        "Name"    : "Mustermann",
+        "Vorname" : "Max",
+        "Email"   : "max@mustermann.de"
+    },
+    {
+        "Name"    : "Mustermann",
+        "Vorname" : "Moritz",
+        "Email"   : "moritz@mustermann.de"
+    },
+    {
+        "Name"    : "Smith",
+        "Vorname" : "John",
+        "Email"   : "foo@bar.com"
+    },
+    {
+        "Name"    : "Doe",
+        "Vorname" : "Jane",
+        "Email"   : "jane@doe.org"
+    }
+]

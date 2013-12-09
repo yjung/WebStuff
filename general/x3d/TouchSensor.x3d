@@ -1,0 +1,28 @@
+<X3D>
+  <Scene>
+	<Transform translation="-1 0 0">
+	    <Shape>
+	        <Box DEF="box" size="1 1 1"></Box>
+	        <Appearance>
+	            <Material diffuseColor="1 0.0 0.0"></Material>
+	        </Appearance>
+	    </Shape>
+		<TouchSensor DEF="TS" />
+	</Transform>
+	<Transform DEF="T" translation="0 0 0">
+	    <Shape>
+	        <Box USE="box"></Box>
+	        <Appearance>
+	            <Material diffuseColor="0.0 0.0 1"></Material>
+	        </Appearance>
+	    </Shape>
+	</Transform>
+	
+	<TimeSensor DEF="TIME" cycleInterval="1.0" loop="false" />
+	<PositionInterpolator DEF="PI" key="0 0.5 1.0" keyValue="0 0 0, 3 0 0, 0 0 0" />
+	
+	<ROUTE fromNode="TS" fromField="touchTime" toNode="TIME" toField="startTime" />
+	<ROUTE fromNode="TIME" fromField="fraction_changed" toNode="PI" toField="set_fraction" />
+	<ROUTE fromNode="PI" fromField="value_changed" toNode="T" toField="translation" />
+  </Scene>
+</X3D>
