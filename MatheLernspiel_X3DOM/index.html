@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>3D Mathe Quiz</title>
+	<link rel='stylesheet' type='text/css' href='css/x3dom.css'>
+	<link rel='stylesheet' type='text/css' href='css/jquery.mobile-1.4.0.min.css'>
+	<link rel='stylesheet' type='text/css' href='css/custom.css'>
+	<script type='text/javascript' src='js/x3dom.js'></script>
+	<script type='text/javascript' src='js/jquery-1.10.2.min.js'></script>
+	<script type='text/javascript' src='js/jquery.mobile-1.4.0.min.js'></script>
+	<script type='text/javascript' src='js/custom.js'></script>
+</head>
+
+<body>
+
+<div data-role="page">
+
+<div data-role="panel" id="mypanel" data-position="left" data-display="overlay">
+	<a href="#myheader" data-rel="close" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">No text</a>
+</div>
+
+<div data-role="header" id="myheader">
+	<a href="#mypanel" data-icon="bars">Menü</a>
+	<h1>3D Mathe Quiz</h1>
+</div>
+
+<div class="ui-content" role="main">
+	<x3d id='the3DContent'>
+		<scene>
+			<inline url='models/Ball.x3d'></inline>
+		</scene>
+	</x3d>
+</div>
+
+<div data-role="footer" data-position="fixed">
+	<h4>Footer content</h4>
+</div>
+
+</div>
+
+</body>
+
+</html>
