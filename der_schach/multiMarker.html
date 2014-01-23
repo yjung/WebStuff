@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    
+    <script src="dictionary.js"></script>
+
+
     <script>
         if (!window.jQuery) {
             document.write("<link rel='stylesheet' href='jquery-ui.css'>");
@@ -88,46 +90,61 @@
 
     <div id='container'>
         <X3D id="x3d" showStat='false' showLog='false' width="640px" height="480px">
-            <Scene>
+            <Scene id="myScene">
                 <Viewfrustum id="vf"></Viewfrustum>
 
-                <MatrixTransform id="root" render="false">
-                    <Transform rotation="1 0 0 3.14159265359">
-                        <Shape>
-                            <Appearance>
-                                <Material DEF="mat" diffuseColor=".7 .5 .2" specularColor=".2 .2 .2" transparency="0.5">
-                                </Material>
-                                <TextureTransform DEF="tt" scale="-1 1"></TextureTransform>
-                                <ImageTexture url="64.png" origChannelCount="1"></ImageTexture>
-                            </Appearance>
-                            <Plane DEF="plane" size="120 120"></Plane>
-                        </Shape>
-                        <Shape DEF="CS">
-                            <Appearance>
-                                <LineProperties linewidthScaleFactor="2"></LineProperties>
-                            </Appearance>
-                            <IndexedLineSet coordIndex="0 1 -1, 2 3 -1, 4 5 -1">
-                                <Coordinate point="150 0 0, 0 0 0, 0 150 0, 0 0 0, 0 0 150, 0 0 0"></Coordinate>
-                                <Color color="1 0 0, 1 0 0, 0 1 0, 0 1 0, 0 0 1, 0 0 1"></Color>
-                            </IndexedLineSet>
-                        </Shape>
-                    </Transform>
-                </MatrixTransform>
+                <!--<MatrixTransform id="root" render="false">-->
+                    <!--<Transform rotation="1 0 0 3.14159265359">-->
+                        <!--<Shape>-->
+                            <!--<Appearance>-->
+                                <!--<Material DEF="mat" diffuseColor=".7 .5 .2" specularColor=".2 .2 .2" transparency="0.5">-->
+                                <!--</Material>-->
+                                <!--<TextureTransform DEF="tt" scale="-1 1"></TextureTransform>-->
+                                <!--<ImageTexture url="64.png" origChannelCount="1"></ImageTexture>-->
+                            <!--</Appearance>-->
+                            <!--<Plane DEF="plane" size="120 120"></Plane>-->
+                        <!--</Shape>-->
+                        <!--<Shape DEF="CS">-->
+                            <!--<Appearance>-->
+                                <!--<LineProperties linewidthScaleFactor="2"></LineProperties>-->
+                            <!--</Appearance>-->
+                            <!--<IndexedLineSet coordIndex="0 1 -1, 2 3 -1, 4 5 -1">-->
+                                <!--<Coordinate point="150 0 0, 0 0 0, 0 150 0, 0 0 0, 0 0 150, 0 0 0"></Coordinate>-->
+                                <!--<Color color="1 0 0, 1 0 0, 0 1 0, 0 1 0, 0 0 1, 0 0 1"></Color>-->
+                            <!--</IndexedLineSet>-->
+                        <!--</Shape>-->
+                    <!--</Transform>-->
+                <!--</MatrixTransform>-->
 
-                <MatrixTransform id="universe" render="false">
-                    <Transform rotation="1 0 0 3.14159265359">
-                        <Shape>
-                            <Appearance>
-                                <Material USE="mat"></Material>
-                                <TextureTransform USE="tt"></TextureTransform>
-                                <ImageTexture url="24.png" origChannelCount="1"></ImageTexture>
-                            </Appearance>
-                            <Plane USE="plane"></Plane>
-                        </Shape>
-                        <Shape USE="CS"></Shape>
-                    </Transform>
-                </MatrixTransform>
-            </Scene>
+                <!--<MatrixTransform id="universe" render="false">-->
+                    <!--<Transform rotation="1 0 0 3.14159265359">-->
+                        <!--<Shape>-->
+                            <!--<Appearance>-->
+                                <!--<Material USE="mat"></Material>-->
+                                <!--<TextureTransform USE="tt"></TextureTransform>-->
+                                <!--<ImageTexture url="24.png" origChannelCount="1"></ImageTexture>-->
+                            <!--</Appearance>-->
+                            <!--<Plane USE="plane"></Plane>-->
+                        <!--</Shape>-->
+                        <!--<Shape USE="CS"></Shape>-->
+                    <!--</Transform>-->
+                <!--</MatrixTransform>-->
+
+                <!--<MatrixTransform id="mutter" render="false">-->
+                    <!--<Transform rotation="1 0 0 3.14159265359">-->
+                        <!--<Shape>-->
+                            <!--<Appearance>-->
+                                <!--<Material USE="mat"></Material>-->
+                                <!--<TextureTransform USE="tt"></TextureTransform>-->
+                                <!--<ImageTexture url="13.png" origChannelCount="1"></ImageTexture>-->
+                            <!--</Appearance>-->
+                            <!--<Plane USE="plane"></Plane>-->
+                        <!--</Shape>-->
+                        <!--<Shape USE="CS"></Shape>-->
+                    <!--</Transform>-->
+                <!--</MatrixTransform>-->
+
+          </Scene>
         </X3D>
     </div>
 
@@ -150,7 +167,10 @@
     <h1>Augmented Reality with X3DOM and JSARToolKit</h1>
 
     <script>
-        // CAMERA_BASED TRACKING STUFF
+
+
+    // CAMERA_BASED TRACKING STUFF
+    document.getElementById('myScene').innerHTML += loadModel();
         window.URL = window.URL || window.webkitURL;
 
         DEBUG = true;
@@ -240,9 +260,8 @@
         document.onload = function()
         {
             runtime = document.getElementById("x3d").runtime;
-
-            root = document.getElementById("root");
-            universe = document.getElementById("universe");
+//            root = document.getElementById("root");
+//            universe = document.getElementById("universe");
 
             runtime.exitFrame = function () {
                 if (!initDone) {
@@ -341,7 +360,9 @@
                         markers[currId] = {
                             transform: null,
                             visible: true,
-                            object: currId == 64 ? root : universe
+
+                            object: getMarkerName(currId)
+                            //object: currId == 64 ? root : universe
                         };
                     }
 
@@ -376,6 +397,25 @@
             }
         }
 
+        function getMarkerName(id)
+        {
+            switch (id)
+            {
+                case 13:
+                    return kingW;
+                    break;
+                case 24:
+                    return queenW;
+                    break;
+                case 64:
+                    return bishopW;
+                    break;
+                default:
+                    alert("switch default");
+                    return "nix";
+            }
+        }
+
         function adaptMarkerMatrix(arMat)
         {
             return new x3dom.fields.SFMatrix4f(
@@ -387,13 +427,13 @@
 
         function initializeTracker()
         {
+
             // Setting up JSARToolKit
             canvas = document.createElement('canvas');
             canvas.id = "trackerCanvas";
             canvas.width = width;
             canvas.height = height;
             document.body.appendChild(canvas);
-
             if (DEBUG) {
                 var debugCanvas = document.createElement('canvas');
                 debugCanvas.id = 'debugCanvas';
