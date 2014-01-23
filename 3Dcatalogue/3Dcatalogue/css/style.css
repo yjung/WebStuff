@@ -1,0 +1,143 @@
+﻿
+body{
+    background-color: white;
+}
+
+#banner{
+    width: 960px;
+    height: 200px;
+    background-color: gray;
+}
+
+#heading{
+    width: 960px;
+    height: 100px;
+    color: white;
+    text-align: center;
+    font-size: 48px;
+
+
+}
+
+
+/*navigation*/
+#navi {
+	width: 100%;
+	background: #000;
+	font-family: Verdana;
+	font-size: 1em;
+	line-height: 1.5;
+	float: left;
+	background-color: gray;
+	width: 930px;
+	padding-left: 30px;
+}
+
+#navi ul {
+float: left;
+width: 150px;
+list-style-type: none;
+color:white;
+}
+
+/*defines block headlines*/
+#navi h3 {
+font-size: 1em;
+text-align: center;
+color: #000;
+border-left: 1px solid #8dcdd4;
+border-right: 1px solid #8dcdd4;
+background: #FFF;
+}
+
+/*defines links normal*/
+#navi a {
+text-decoration: none;
+display: block;
+border-left: 1px solid #8dcdd4;
+border-right: 1px solid #8dcdd4;
+text-align: center;
+background: #fff;
+color: #000;
+}
+
+/*defines links hover*/
+#navi a:hover {
+color: #fff;
+background: #ba925f;
+}
+
+/*hides drop-down links*/
+#navi ul ul {
+position: absolute;
+z-index: 2;
+display: none;
+}
+
+/*shows drop-down links while hovering*/
+#navi ul li:hover ul {
+display: block;
+border-bottom: thin black solid;
+}
+
+#navi ul li a {
+height: 1%;
+}
+
+/*defines menu links without drop-down links*/
+#navi a.direkt:link {
+font-size: 1em;
+font-weight: bold;
+text-align: center;
+color: #000;
+border: 1px solid #003366;
+background: #ff8000;
+}
+
+/*defines menu links without drop-down links while hovering*/
+#navi a.direkt:hover {
+color: #ff9224;
+background: #003366;
+border: 1px solid #ccc;
+}
+}
+
+#content{
+    width: 960px;
+    height:1500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: blanchedalmond;
+}
+
+#search{
+    height: 100px;
+}
+
+#table{
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#bild{
+    width: 150px;
+    height:150px;
+    border: 1px solid;
+    margin: 0px 25px 75px 25px;
+}
+
+#footer{
+    width: 960px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 25px;
+    background-color: gray;
+    color: white;
+    text-align: center;
+}
+
+
+

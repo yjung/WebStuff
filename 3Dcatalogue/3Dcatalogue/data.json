@@ -1,0 +1,14 @@
+{
+    "moebel": 
+	[
+	
+    {"bild" : "bild1.jpg",
+	 "name" : "Couch Peter",
+     "preis" : "99,90"},
+
+    {"bild" : "bild2.jpg",
+	 "name" : "Stuhl Olli",
+     "preis" : "149,90"}
+	 
+	]
+}
