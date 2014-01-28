@@ -11,10 +11,6 @@
 		                type='"EXAMINE", "ANY"'
 		                avatarSize="0.25, 1.75, 0.75"
 		                />
-		<Background DEF="WO_World_002"
-		            groundColor="0.050 0.050 0.050"
-		            skyColor="0.050 0.050 0.050"
-		            />
 		<Transform DEF="Mesh_005_TRANSFORM"
 		           translation="0.000870 2.225110 0.025296"
 		           scale="1.000000 1.000000 1.000000"

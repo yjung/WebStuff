@@ -8,14 +8,106 @@ var figurArray =
         id : "kingW",
         datei: "3D-Objekte/kingW.x3d"
     },
+	{
+        id : "kingB",
+        datei: "3D-Objekte/kingB.x3d"
+    },
     {
         id : "queenW",
+        datei: "3D-Objekte/queenW.x3d"
+    },
+	{
+        id : "queenB",
         datei: "3D-Objekte/queenW.x3d"
     },
     {
         id : "bishopW",
         datei: "3D-Objekte/bishopW.x3d"
-    }
+    },
+	{
+        id : "bishopB",
+        datei: "3D-Objekte/bishopB.x3d"
+    },
+	{
+        id : "horseW",
+        datei: "3D-Objekte/horseW.x3d"
+    },
+	{
+        id : "horseB",
+        datei: "3D-Objekte/horseB.x3d"
+    },
+	{
+        id : "towerW",
+        datei: "3D-Objekte/towerW.x3d"
+    },
+	{
+        id : "towerB",
+        datei: "3D-Objekte/towerW.x3d"
+    },
+	{
+        id : "farmerW1",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerW2",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerW3",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerW4",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerW5",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerW6",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerW7",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerW8",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerB1",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerB2",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerB3",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerB4",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerB5",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerB6",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerB7",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
+	{
+        id : "farmerB8",
+        datei: "3D-Objekte/farmerW.x3d"
+    },
 ];
 
 function loadModel()
@@ -31,9 +123,6 @@ function loadModel()
             '</Transform>' +
         '</MatrixTransform>';
     }
-
-
-    //var oParser = new DOMParser();
-    //var oDOM = oParser.parseFromString(string, "text/xml");
+	
     return string;
 }

@@ -92,58 +92,6 @@
         <X3D id="x3d" showStat='false' showLog='false' width="640px" height="480px">
             <Scene id="myScene">
                 <Viewfrustum id="vf"></Viewfrustum>
-
-                <!--<MatrixTransform id="root" render="false">-->
-                    <!--<Transform rotation="1 0 0 3.14159265359">-->
-                        <!--<Shape>-->
-                            <!--<Appearance>-->
-                                <!--<Material DEF="mat" diffuseColor=".7 .5 .2" specularColor=".2 .2 .2" transparency="0.5">-->
-                                <!--</Material>-->
-                                <!--<TextureTransform DEF="tt" scale="-1 1"></TextureTransform>-->
-                                <!--<ImageTexture url="64.png" origChannelCount="1"></ImageTexture>-->
-                            <!--</Appearance>-->
-                            <!--<Plane DEF="plane" size="120 120"></Plane>-->
-                        <!--</Shape>-->
-                        <!--<Shape DEF="CS">-->
-                            <!--<Appearance>-->
-                                <!--<LineProperties linewidthScaleFactor="2"></LineProperties>-->
-                            <!--</Appearance>-->
-                            <!--<IndexedLineSet coordIndex="0 1 -1, 2 3 -1, 4 5 -1">-->
-                                <!--<Coordinate point="150 0 0, 0 0 0, 0 150 0, 0 0 0, 0 0 150, 0 0 0"></Coordinate>-->
-                                <!--<Color color="1 0 0, 1 0 0, 0 1 0, 0 1 0, 0 0 1, 0 0 1"></Color>-->
-                            <!--</IndexedLineSet>-->
-                        <!--</Shape>-->
-                    <!--</Transform>-->
-                <!--</MatrixTransform>-->
-
-                <!--<MatrixTransform id="universe" render="false">-->
-                    <!--<Transform rotation="1 0 0 3.14159265359">-->
-                        <!--<Shape>-->
-                            <!--<Appearance>-->
-                                <!--<Material USE="mat"></Material>-->
-                                <!--<TextureTransform USE="tt"></TextureTransform>-->
-                                <!--<ImageTexture url="24.png" origChannelCount="1"></ImageTexture>-->
-                            <!--</Appearance>-->
-                            <!--<Plane USE="plane"></Plane>-->
-                        <!--</Shape>-->
-                        <!--<Shape USE="CS"></Shape>-->
-                    <!--</Transform>-->
-                <!--</MatrixTransform>-->
-
-                <!--<MatrixTransform id="mutter" render="false">-->
-                    <!--<Transform rotation="1 0 0 3.14159265359">-->
-                        <!--<Shape>-->
-                            <!--<Appearance>-->
-                                <!--<Material USE="mat"></Material>-->
-                                <!--<TextureTransform USE="tt"></TextureTransform>-->
-                                <!--<ImageTexture url="13.png" origChannelCount="1"></ImageTexture>-->
-                            <!--</Appearance>-->
-                            <!--<Plane USE="plane"></Plane>-->
-                        <!--</Shape>-->
-                        <!--<Shape USE="CS"></Shape>-->
-                    <!--</Transform>-->
-                <!--</MatrixTransform>-->
-
           </Scene>
         </X3D>
     </div>
@@ -401,14 +349,83 @@
         {
             switch (id)
             {
-                case 13:
-                    return kingW;
-                    break;
-                case 24:
-                    return queenW;
-                    break;
-                case 64:
-                    return bishopW;
+				case 1:
+					return kingW;
+					break;
+				case 2:
+					return kingB;
+					break;
+				case 3:
+					return queenW;
+					break;
+				case 4:
+					return queenB;
+					break;
+				case 5:
+					return bishopW;
+					break;
+				case 6:
+					return bishopB;
+					break;
+				case 7:
+					return horseW;
+					break;
+				case 8:
+					return horseB;
+					break;
+				case 9:
+					return towerW;
+					break;
+				case 10:
+					return towerB;
+					break;
+				case 11:
+					return farmerW1;
+					break;
+				case 12:
+					return farmerW2;
+					break;
+				case 13:
+					return farmerW3;
+					break;
+				case 14:
+					return farmerW4;
+					break;
+				case 15:
+					return farmerW5;
+					break;
+				case 16:
+					return farmerW6;
+					break;
+                case 17:
+					return farmerW7;
+					break;
+				case 18:
+					return farmerW8;
+					break;
+				case 19:
+                    return farmerB1;
+					break;
+				case 20:
+                    return farmerB2;
+					break;
+				case 21:
+                    return farmerB3;
+					break;
+				case 22:
+                    return farmerB4;
+					break;
+				case 23:
+                    return farmerB5;
+					break;
+				case 24:
+                    return farmerB6;
+					break;
+				case 25:
+                    return farmerB7;
+					break;
+				case 26:
+                    return farmerB8;
                     break;
                 default:
                     alert("switch default");
