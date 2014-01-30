@@ -92,6 +92,7 @@
         <X3D id="x3d" showStat='false' showLog='false' width="640px" height="480px">
             <Scene id="myScene">
                 <Viewfrustum id="vf"></Viewfrustum>
+				<NavigationInfo type="none"></NavigationInfo>
           </Scene>
         </X3D>
     </div>
@@ -113,7 +114,10 @@
     </div>
 
     <h1>Augmented Reality with X3DOM and JSARToolKit</h1>
-
+	
+	<div id="details">
+	</div>
+	
     <script>
 
 
@@ -344,91 +348,114 @@
                 document.getElementById("status").innerHTML = "Not tracking..."
             }
         }
+		
+		function getFigureInfo(id)
+		{
+			document.getElementById('details').innerHTML = id;
+		}
 
         function getMarkerName(id)
         {
             switch (id)
             {
-				case 1:
+				case 0:
 					return kingW;
 					break;
-				case 2:
+				case 1:
 					return kingB;
 					break;
-				case 3:
+				case 2:
 					return queenW;
 					break;
-				case 4:
+				case 3:
 					return queenB;
 					break;
-				case 5:
+				case 4:
 					return bishopW;
 					break;
-				case 6:
+				case 5:
 					return bishopB;
 					break;
-				case 7:
+				case 6:
 					return horseW;
 					break;
-				case 8:
+				case 7:
 					return horseB;
 					break;
-				case 9:
+				case 8:
 					return towerW;
 					break;
-				case 10:
+				case 9:
 					return towerB;
 					break;
-				case 11:
+				case 10:
 					return farmerW1;
 					break;
-				case 12:
+				case 11:
 					return farmerW2;
 					break;
-				case 13:
+				case 12:
 					return farmerW3;
 					break;
-				case 14:
+				case 13:
 					return farmerW4;
 					break;
-				case 15:
+				case 14:
 					return farmerW5;
 					break;
-				case 16:
+				case 15:
 					return farmerW6;
 					break;
-                case 17:
+                case 16:
 					return farmerW7;
 					break;
-				case 18:
+				case 17:
 					return farmerW8;
 					break;
-				case 19:
+				case 18:
                     return farmerB1;
 					break;
-				case 20:
+				case 19:
                     return farmerB2;
 					break;
-				case 21:
+				case 20:
                     return farmerB3;
 					break;
-				case 22:
+				case 21:
                     return farmerB4;
 					break;
-				case 23:
+				case 22:
                     return farmerB5;
 					break;
-				case 24:
+				case 23:
                     return farmerB6;
 					break;
-				case 25:
+				case 24:
                     return farmerB7;
 					break;
-				case 26:
+				case 25:
                     return farmerB8;
                     break;
+				case 26:
+					return bishopW2;
+					break;
+				case 27:
+					return bishopB2;	
+					break;
+				case 28:
+					return horseW2;	
+					break;
+				case 29:
+					return horseB2;	
+					break;
+				case 30:
+					return towerW2;	
+					break;
+				case 31:
+					return towerB2;	
+					break;
                 default:
-                    alert("switch default");
+                    //alert("switch default");
                     return "nix";
             }
         }

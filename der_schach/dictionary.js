@@ -42,7 +42,7 @@ var figurArray =
     },
 	{
         id : "towerB",
-        datei: "3D-Objekte/towerW.x3d"
+        datei: "3D-Objekte/towerB.x3d"
     },
 	{
         id : "farmerW1",
@@ -78,36 +78,60 @@ var figurArray =
     },
 	{
         id : "farmerB1",
-        datei: "3D-Objekte/farmerW.x3d"
+        datei: "3D-Objekte/farmerB.x3d"
     },
 	{
         id : "farmerB2",
-        datei: "3D-Objekte/farmerW.x3d"
+        datei: "3D-Objekte/farmerB.x3d"
     },
 	{
         id : "farmerB3",
-        datei: "3D-Objekte/farmerW.x3d"
+        datei: "3D-Objekte/farmerB.x3d"
     },
 	{
         id : "farmerB4",
-        datei: "3D-Objekte/farmerW.x3d"
+        datei: "3D-Objekte/farmerB.x3d"
     },
 	{
         id : "farmerB5",
-        datei: "3D-Objekte/farmerW.x3d"
+        datei: "3D-Objekte/farmerB.x3d"
     },
 	{
         id : "farmerB6",
-        datei: "3D-Objekte/farmerW.x3d"
+        datei: "3D-Objekte/farmerB.x3d"
     },
 	{
         id : "farmerB7",
-        datei: "3D-Objekte/farmerW.x3d"
+        datei: "3D-Objekte/farmerB.x3d"
     },
 	{
         id : "farmerB8",
-        datei: "3D-Objekte/farmerW.x3d"
+        datei: "3D-Objekte/farmerB.x3d"
     },
+	{
+        id : "towerB2",
+        datei: "3D-Objekte/towerB.x3d"
+    },
+	{
+        id : "towerW2",
+        datei: "3D-Objekte/towerW.x3d"
+    },
+	{
+        id : "bishopW2",
+        datei: "3D-Objekte/bishopW.x3d"
+    },
+	{
+        id : "bishopB2",
+        datei: "3D-Objekte/bishopB.x3d"
+    },
+	{
+        id : "horseW2",
+        datei: "3D-Objekte/horseW.x3d"
+    },
+	{
+        id : "horseB2",
+        datei: "3D-Objekte/horseB.x3d"
+    }
 ];
 
 function loadModel()
@@ -117,7 +141,7 @@ function loadModel()
     for (var i=0; i < figurArray.length; i++)
     {
         string +=
-        '<MatrixTransform id="' + figurArray[i].id + '" render="false">' +
+        '<MatrixTransform id="' + figurArray[i].id + '" render="false" onclick="getFigureInfo(figurArray[i].id)">' +
             '<Transform scale="30,30,30" rotation="1 0 0 -1.57">' +
                 '<inline id="' + figurArray[i].id + '_in" url="' + figurArray[i].datei + '"></inline>' +
             '</Transform>' +
