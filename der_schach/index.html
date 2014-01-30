@@ -283,10 +283,10 @@
 
             // flip video image
             var ctx = videoCanvas.getContext('2d');
-            if (init) {
-                ctx.scale(-1, 1);
-                ctx.translate(-width, 0);
-            }
+            //if (init) {
+            //    ctx.scale(-1, 1);
+            //    ctx.translate(-width, 0);
+            //}
             ctx.drawImage(canvas, 0, 0);
 
             // Tell JSARToolKit that the canvas has changed.
