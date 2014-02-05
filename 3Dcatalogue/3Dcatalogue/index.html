@@ -4,6 +4,12 @@
     <title>My 3D furniture catalogue</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="main.js"></script>
+    
+    <script type="text/javascript" src="/Users/Hanna/Documents/GitHub/IntSys2013/3Dcatalogue/3Dcatalogue/DEMO01_FurnitureShop/Data/ig.gfx.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.x3dom.org/download/x3dom.css" />
+    <script type="text/javascript" src="http://www.x3dom.org/download/dev/x3dom.js"></script>
+	<script type="text/javascript" src="/Users/Hanna/Documents/GitHub/IntSys2013/3Dcatalogue/3Dcatalogue/DEMO01_FurnitureShop/Data/ig.gfx.x3dom.js"></script>
+
 
 </head>
 
@@ -55,14 +61,39 @@
 			    </div>
 			    
 			    <table id="tab">
-                    <tr>
-
-                    </tr>
 			    </table>
 
 		    </div> <!-- this closes the rightcol div -->
+		    
+		    <div id="ausblender"></div>
+		    
+		    <div id="viewer">
+		    
+			    <x3d id="x3d" width="800" height="600">
+			        <scene>
+			            <NavigationInfo id="navigation" type= 'turntable'></NavigationInfo>
+			
+			            <transform>
+			                <inline id="viewerInline" url="/Users/Hanna/Documents/GitHub/IntSys2013/3Dcatalogue/3Dcatalogue/DEMO01_FurnitureShop/Data/Noltemb.Alegro.43240.x3d" nameSpaceName="test" mapDEFToID="true"></inline>
+			            </transform>
+			            
+			            <matrixTransform id="bbox_transform" render="false">
+			                <Shape isPickable="false" DEF="line">
+			                    <IndexedLineSet coordIndex="0 1 2 3 0 -1, 4 5 6 7 4 -1, 0 4 -1, 1 5 -1, 2 6 -1, 3 7 -1">
+			                        <Coordinate id="bbox_points" point="0 0 0, 0 0 0, 0 0 0, 0 0 0, 0 0 0, 0 0 0, 0 0 0, 0 0 0">
+			                        </Coordinate>
+			                        <Color color="0 1 0, 0 1 0, 0 1 0, 0 1 0, 0 1 0, 0 1 0, 0 1 0, 0 1 0"></Color>
+			                    </IndexedLineSet>
+			                </Shape>
+			            </matrixTransform>
+			            
+			            <Viewpoint position="1.0 1.0 5.0" zNear="0.1" zFar="10000" description="defaultX3DViewpointNode"></Viewpoint>
+			        </scene>
+	    		</x3d>
+		    </div> <!-- this closes the viewer div -->
+		    
 		</div> <!-- this closes the content div -->
-	</div><!-- this closes the wrapper div -->
+	</div> <!-- this closes the wrapper div -->
 
 
 	<div id="footer">

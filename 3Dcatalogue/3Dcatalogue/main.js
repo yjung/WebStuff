@@ -28,7 +28,10 @@ function initCatalog(jsonObj){
 }
 
 function addData(jsonObj){
+
     var table = document.getElementById("tab");
+    var ausbl = document.getElementById("ausblender");
+    
     for(var i=0; i< jsonObj.length; i++)
     {
         var tr = document.createElement("tr");
@@ -45,9 +48,22 @@ function addData(jsonObj){
                     addData(this.myEntries);
                 }
             })(i);
+            
         tr.appendChild(td1);
+		table.appendChild(tr);
 
-        table.appendChild(tr);
+        
+		if (!td1.myEntries)
+            td1.onclick = (function(pos) {
+                return function() {
+                	var inl = document.getElementById("viewerInline");
+                	var newPath = "/Users/Hanna/Documents/GitHub/IntSys2013/3Dcatalogue/3Dcatalogue/DEMO01_FurnitureShop/Data/" + jsonObj[pos].Scope + "." + jsonObj[pos].Product + ".x3d";
+                	inl.setAttribute("url", newPath); 
+                	ausbl.setAttribute("visibility", 'visible');	                	
+                }
+            })(i);
+            
+
     }
 }
 
