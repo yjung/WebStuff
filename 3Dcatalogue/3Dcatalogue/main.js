@@ -72,7 +72,7 @@ function addParent(node) {
     var tr = document.createElement("tr");
     var td1 = document.createElement("td");
     console.log(node);
-    var stri = "<img src=\"DEMO01_FurnitureShop/Catalog/" + node.Image +"\"><br>" + node.Description;
+    var stri = "<img src=\"DEMO01_FurnitureShop/Catalog/Zurueck.jpg\">";
     td1.innerHTML = stri;
     td1.onclick = (function() {
             table.innerHTML = "";
