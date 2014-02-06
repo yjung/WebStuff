@@ -5,7 +5,7 @@
 
 body{
 	background-color:#F4EBE1;
-	font-family: "Lucida Sans Unicode";
+	font-family: Lucida Sans Unicode, sans-serif;
 	color:white;
 
 }
@@ -29,7 +29,7 @@ body{
     width: 960px;
     height: 100px;
     padding-top: 30px;
-    font-family:"Lucida Handwriting";
+    font-family: Lucida Handwriting, sans-serif;
     text-align: center;
     font-size: 48px;
 }
@@ -37,9 +37,9 @@ body{
 
 /*navigation*/
 #navi {
-	width: 100%;
+	/*width: 100%;*/
 	width: 960px;
-	font-family: "Lucida Sans Unicode";
+	font-family: Lucida Sans Unicode sans-serif;
 	font-size: 1em;
 	line-height: 1.5;
 	float: left;
@@ -142,7 +142,8 @@ h2{
 	top:0;
 	opacity: 0.7;
 	z-index: 5;
-	visibility: hidden;
+    /*visibility: hidden;*/
+    display: none;
 }
 
 #viewer{
@@ -152,10 +153,13 @@ h2{
 	margin-top: -240px;
 	margin-left:-320px;
 	background-color:black;
-	width:640px;
-	height:480px;
 	z-index: 10;
-	visibility: hidden;
+    display: none;
+}
+
+#x3d {
+    width:640px;
+    height:480px;
 }
 
 #footer{

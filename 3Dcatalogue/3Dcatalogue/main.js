@@ -1,84 +1,97 @@
-var catalog = null;
-
-window.onload=function(evt){
-    load();
+var catalog = {
+    parent: null
 };
 
-function load()
-{
+window.onload = function (evt) {
+    load();
+
+    var inl = document.getElementById("viewerInline");
+    inl.onload = function(e) {
+        var x3d = document.getElementById("x3d");
+        x3d.runtime.showAll();
+    };
+
+    var ausbl = document.getElementById("ausblender");
+    ausbl.onclick = function(e) {
+        ausbl.setAttribute("style", 'display:none;');
+        var vdiv = document.getElementById("viewer");
+        vdiv.setAttribute("style", 'display:none;');
+    };
+};
+
+function load() {
     var xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-        catalog = eval('(' + this.responseText + ')');
+    xhr.onload = function () {
+        catalog.Entries = eval('(' + this.responseText + ')');
         initCatalog(catalog);
-       addData(catalog);
+        addData(catalog);
     };
     xhr.open("GET", "Catalog.json", true);   // async
     xhr.send();
 }
 
-function initCatalog(jsonObj){
-    for(var i=0; i< jsonObj.length; i++)
-    {
-        jsonObj[i].parent = jsonObj;
-        if(jsonObj[i].Entries && jsonObj[i].Entries.length)
-        {
-            initCatalog(jsonObj[i].Entries);
-        }
+function initCatalog(jsonObj) {
+    //console.log(jsonObj);
+    var children = jsonObj.Entries;
+
+    for (var i = 0; children && i < children.length; i++) {
+        children[i].parent = jsonObj;
+        initCatalog(children[i]);
     }
 }
 
-function addData(jsonObj){
+function addData(jsonObj) {
 
     var table = document.getElementById("tab");
-    var ausbl = document.getElementById("ausblender");
-    
-    for(var i=0; i< jsonObj.length; i++)
-    {
+    var children = jsonObj.Entries;
+
+    for (var i = 0; children && i < children.length; i++) {
         var tr = document.createElement("tr");
         var td1 = document.createElement("td");
-        var stri = "<img src=\"DEMO01_FurnitureShop/Catalog/" + jsonObj[i].Image +"\"><br>" + jsonObj[i].Description;
+        var stri = "<img src=\"DEMO01_FurnitureShop/Catalog/" + children[i].Image + "\"><br>" + children[i].Description;
         td1.innerHTML = stri;
-        td1.myEntries = jsonObj[i].Entries;
 
-        if (td1.myEntries && td1.myEntries.length)
-            td1.onclick = (function(pos) {
-                return function() {
-                    table.innerHTML = "";
-                    addParent(jsonObj[pos]);
-                    addData(this.myEntries);
+        td1.onclick = (function (pos) {
+            return function () {
+                table.innerHTML = "";
+                var obj = children[pos];
+                addParent(obj.parent);
+                addData(obj);
+
+                if (!obj.Entries) {
+                    var inl = document.getElementById("viewerInline");
+                    var newPath = "DEMO01_FurnitureShop/Data/" +
+                        obj.Scope + "." + obj.Product + ".x3d";
+                    inl.setAttribute("url", newPath);
+                    var ausbl = document.getElementById("ausblender");
+                    //ausbl.setAttribute("visibility", 'visible');
+                    ausbl.setAttribute("style", 'display:block;');
+                    var vdiv = document.getElementById("viewer");
+                    vdiv.setAttribute("style", 'display:block;');
                 }
-            })(i);
-            
+            }
+        })(i);
+
         tr.appendChild(td1);
-		table.appendChild(tr);
-
-        
-		if (!td1.myEntries)
-            td1.onclick = (function(pos) {
-                return function() {
-                	var inl = document.getElementById("viewerInline");
-                	var newPath = "/Users/Hanna/Documents/GitHub/IntSys2013/3Dcatalogue/3Dcatalogue/DEMO01_FurnitureShop/Data/" + jsonObj[pos].Scope + "." + jsonObj[pos].Product + ".x3d";
-                	inl.setAttribute("url", newPath); 
-                	ausbl.setAttribute("visibility", 'visible');	                	
-                }
-            })(i);
-            
-
+        table.appendChild(tr);
     }
 }
 
 function addParent(node) {
+    if (!node)
+        return;
+
     var table = document.getElementById("tab");
     var tr = document.createElement("tr");
     var td1 = document.createElement("td");
-    console.log(node);
+
     var stri = "<img src=\"DEMO01_FurnitureShop/Catalog/Zurueck.jpg\">";
     td1.innerHTML = stri;
-    td1.onclick = (function() {
-            table.innerHTML = "";
-
-            addData(node.parent);
-        });
+    td1.onclick = (function () {
+        table.innerHTML = "";
+        addParent(node.parent);
+        addData(node);
+    });
     tr.appendChild(td1);
     table.appendChild(tr);
 }
