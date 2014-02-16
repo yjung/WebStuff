@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN" "http://www.web3d.org/specifications/x3d-3.0.dtd">
+<X3D version="3.0" profile="Immersive" xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance" xsd:noNamespaceSchemaLocation="http://www.web3d.org/specifications/x3d-3.0.xsd">
+	<Scene>
+		<Group DEF="theScene">
+			<Transform DEF="Cube2_TRANSFORM"
+					   translation="0.000000 1.000000 -2.000000"
+					   scale="0.500000 1.000000 1.000000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="Cube2_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_002">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_002"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="Cube1_TRANSFORM"
+					   translation="0.000000 1.000000 2.000000"
+					   scale="0.500000 1.000000 1.000000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="Cube1_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_001">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_001"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="CubeMiddle_TRANSFORM"
+					   translation="0.000000 0.000000 0.000000"
+					   scale="0.500000 1.000000 4.000000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="CubeMiddle_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="true"
+											coordIndex="0 1 2 3 -1 4 7 6 5 -1 0 4 5 1 -1 1 5 6 2 -1 2 6 7 3 -1 4 0 3 7 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube"
+											point="1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 0.999999 1.000000 0.999999 -1.000001 1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+		</Group>
+	</Scene>
+</X3D>

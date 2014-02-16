@@ -6,12 +6,17 @@ var activeQuestion;
 
 $(document).ready(function() {
 	
+	$('#startalizer').height($('#startalizer').height() - 45 + 'px');
+	
 	$('#loadQuestions').click(function() {
 		
 		$.getJSON( "questions/questions2.js", function( data ) {
 		
 			questions = data;
 			loadQuestions();
+			
+			$('#startalizer').hide();
+			$('#myheader a').removeClass('ui-disabled');
 		
 		}).fail(function( jqxhr, textStatus, error ) {
 			alert( "Request Failed: " + textStatus + ", " + error );
@@ -89,30 +94,28 @@ function loadNextQuestion() {
 	var nqn = aqn;
 	
 	//active block number
-	var abn = parseInt($('#questions li.active').attr('data-block'));
+	var abn = parseInt($('#questions li.active').attr('data-block')) + 1;
 	
 	if(!$('#questions li.active').length) {
 		nqn = 0;
 		abn = 1;
 	}
 	
+	if(typeof questions[abn] == 'undefined')
+		return false
+	
 	//aktive Frage setzen
 	activeBlock = questions[abn];
-	activeQuestion = questions[abn].fragen[nqn];
-	
-	if(typeof activeQuestion == 'undefined')
-		return false;
-
-	var summe = parseInt(abn) + parseInt(nqn);
+	activeQuestion = questions[abn].fragen[0];
 	
 	//Fragebereich aktualisieren
-	$('#questionContent .question').html('<span>Frage ' + summe + ':</span> '+ activeQuestion.frage);
+	$('#questionContent .question').html('<span>Frage ' + abn + ':</span> '+ activeQuestion.frage);
 	$('#questionContent .info span').html('Antwort in ' + activeQuestion.einheit);
 	$('#questionContent .formel span').html(activeQuestion.formel);
 	
 	//Sidebar aktualisieren
 	$('#questions li.active').removeClass('active');
-	$('#questions li[data-number="' + summe + '"]').addClass('active');
+	$('#questions li[data-number="' + abn + '"]').addClass('active');
 	
 	//Model aktualisieren
 	$('#the3DContent inline').attr('url', 'models/' + activeBlock.model + '.x3d');

@@ -98,10 +98,22 @@ body {
 
 #questionContent .ui-input-text { width:200px; margin-top:20px; }
 
+#questionContent .info, #questionContent .formel { font-size:14px; color:#2c3e50; }
+
 #validateAnswer { margin:70px 0; }
 
 
 /**/
+
+#startalizer {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:45px;
+	left:0;
+	z-index:9999;
+	background:url('../img/start.png') no-repeat top right #ecf0f1;
+}
 
 #finalizer {
 	width:100%;
