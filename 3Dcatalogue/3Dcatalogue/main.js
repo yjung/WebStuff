@@ -10,13 +10,16 @@ window.onload = function (evt) {
         var x3d = document.getElementById("x3d");
         x3d.runtime.showAll();
     };
-
-    var ausbl = document.getElementById("ausblender");
-    ausbl.onclick = function(e) {
+    
+    var navclose = document.getElementById("navModeClose");
+    navclose.onclick = function(e) {
+    	var ausbl = document.getElementById("ausblender");
         ausbl.setAttribute("style", 'display:none;');
         var vdiv = document.getElementById("viewer");
         vdiv.setAttribute("style", 'display:none;');
+      /*document.getElementsByClassName('viewClass').setAttribute("style", 'display:none;');*/
     };
+
 };
 
 function load() {
@@ -53,21 +56,29 @@ function addData(jsonObj) {
 
         td1.onclick = (function (pos) {
             return function () {
-                table.innerHTML = "";
+            
                 var obj = children[pos];
-                addParent(obj.parent);
-                addData(obj);
+                
+                if(obj.Entries) {
+                	table.innerHTML = "";
+                	addParent(obj.parent);
+                	addData(obj);
+                }
 
                 if (!obj.Entries) {
+                
+                	document.getElementById("navName").innerHTML = obj.Description;
+                
                     var inl = document.getElementById("viewerInline");
                     var newPath = "DEMO01_FurnitureShop/Data/" +
                         obj.Scope + "." + obj.Product + ".x3d";
                     inl.setAttribute("url", newPath);
                     var ausbl = document.getElementById("ausblender");
-                    //ausbl.setAttribute("visibility", 'visible');
                     ausbl.setAttribute("style", 'display:block;');
                     var vdiv = document.getElementById("viewer");
                     vdiv.setAttribute("style", 'display:block;');
+                  /*document.getElementsByClassName('viewClass').setAttribute("style", 'display:block;');
+*/
                 }
             }
         })(i);

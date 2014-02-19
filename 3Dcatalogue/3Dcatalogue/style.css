@@ -142,11 +142,13 @@ h2{
 	top:0;
 	opacity: 0.7;
 	z-index: 5;
-    /*visibility: hidden;*/
-    display: none;
+	display: none;
 }
 
+
 #viewer{
+	width:640px;
+    height:480px;
 	position: fixed;		 
 	left: 50%;
 	top: 50%;
@@ -154,12 +156,42 @@ h2{
 	margin-left:-320px;
 	background-color:black;
 	z-index: 10;
-    display: none;
+	display: none;
 }
+
+#viewerToolbar{
+	width: 640px;
+	height: 24px;
+	background-color:gray;
+}
+
+#navName{
+	float: left;
+	margin:4px 0px 0px 10px;
+}
+
+.toolbarClose_active{
+	width: 24px;
+    height: 24px;
+    float: right;
+	background: url("close.png") no-repeat 0px 0px;
+    margin: 0px 0px 0px 3px;
+}
+
+.toolbarClose_active:hover {
+    background: url("close.png") no-repeat -24px 0px;
+}
+
+.toolbarClose_active:active {
+    background: url("close.png") no-repeat -48px 0px;
+}
+
 
 #x3d {
     width:640px;
     height:480px;
+    background-color:#DBB895;
+    border-style: none;
 }
 
 #footer{
