@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<X3D xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance" profile="Full" version="3.0" noNamespaceSchemaLocation="http://www.web3d.org/specifications/x3d-3.0.xsd">
+  <Scene DEF="scene">
+    <Transform>
+      <Group DEF="test" selectable="Self">
+        <Transform translation="0.00000 0.03000 0.65400">
+          <Group DEF="test.o1" selectable="Self">
+            <Transform>
+              <Group DEF="test.o1.e0" selectable="Self" interactor="IGX.Std.XRangeTranslator" interactorParameters="{Maximum: 1.56, Minimum: 0}">
+                <Transform>
+                  <Group DEF="test.o1.e0.e0" selectable="Parent">
+                    <Transform translation="0.00100 0.00000 0.00000" scale="0.41900 2.19000 0.01600">
+                      <Inline DEF="test.o1.e0.e0.e0" selectable="Parent" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 1.00000, DiffuseG: 1.00000, DiffuseB: 1.00000, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.20000, Transparency: 0.00000});" />
+                    </Transform>
+                    <Transform translation="0.41900 0.00000 0.00000" scale="0.19700 2.19000 0.01600">
+                      <Inline DEF="test.o1.e0.e0.e1" selectable="Parent" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                    </Transform>
+                    <Transform translation="0.61600 0.00000 0.00000" scale="0.99400 2.19000 0.01600">
+                      <Inline DEF="test.o1.e0.e0.e2" selectable="Parent" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 1.00000, DiffuseG: 1.00000, DiffuseB: 1.00000, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.20000, Transparency: 0.00000});" />
+                    </Transform>
+                  </Group>
+                </Transform>
+                <Transform translation="0.00001 0.00001 0.01600">
+                  <Group DEF="test.o1.e0.e1" selectable="Parent">
+                    <Transform translation="0.00100 0.00000 0.00000" scale="1.00000 2.19600 1.00000">
+                      <Inline DEF="test.o1.e0.e1.e0" selectable="Parent" mapDEFToID="true" url="Noltemb.Basics_griffleiste_173_l.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.40000, DiffuseG: 0.40000, DiffuseB: 0.40000, SpecularR: 0.40000, SpecularG: 0.40000, SpecularB: 0.40000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.20000, Transparency: 0.00000});" />
+                    </Transform>
+                  </Group>
+                </Transform>
+              </Group>
+            </Transform>
+          </Group>
+        </Transform>
+        <Transform translation="1.59000 0.03000 0.67400">
+          <Group DEF="test.o2" selectable="Self">
+            <Transform>
+              <Group DEF="test.o2.e0" selectable="Self" interactor="IGX.Std.XRangeTranslator" interactorParameters="{Maximum: 0, Minimum: -1.56}">
+                <Transform>
+                  <Group DEF="test.o2.e0.e0" selectable="Parent">
+                    <Transform translation="0.00100 0.00000 0.00000" scale="0.99300 2.19000 0.01600">
+                      <Inline DEF="test.o2.e0.e0.e0" selectable="Parent" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 1.00000, DiffuseG: 1.00000, DiffuseB: 1.00000, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.20000, Transparency: 0.00000});" />
+                    </Transform>
+                    <Transform translation="0.99300 0.00000 0.00000" scale="0.19700 2.19000 0.01600">
+                      <Inline DEF="test.o2.e0.e0.e1" selectable="Parent" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                    </Transform>
+                    <Transform translation="1.19000 0.00000 0.00000" scale="0.41900 2.19000 0.01600">
+                      <Inline DEF="test.o2.e0.e0.e2" selectable="Parent" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 1.00000, DiffuseG: 1.00000, DiffuseB: 1.00000, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.20000, Transparency: 0.00000});" />
+                    </Transform>
+                  </Group>
+                </Transform>
+                <Transform translation="0.00001 0.00001 0.01600">
+                  <Group DEF="test.o2.e0.e1" selectable="Parent">
+                    <Transform translation="0.00100 0.00000 0.00000" scale="1.00000 2.19600 1.00000">
+                      <Inline DEF="test.o2.e0.e1.e0" selectable="Parent" mapDEFToID="true" url="Noltemb.Basics_griffleiste_173_l.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.40000, DiffuseG: 0.40000, DiffuseB: 0.40000, SpecularR: 0.40000, SpecularG: 0.40000, SpecularB: 0.40000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.20000, Transparency: 0.00000});" />
+                    </Transform>
+                  </Group>
+                </Transform>
+                <Transform translation="1.60999 0.00001 0.01600">
+                  <Group DEF="test.o2.e0.e2" selectable="Parent">
+                    <Transform translation="-0.00100 0.00000 0.00000" scale="1.00000 2.19600 1.00000">
+                      <Inline DEF="test.o2.e0.e2.e0" selectable="Parent" mapDEFToID="true" url="Noltemb.Basics_griffleiste_173_r.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.40000, DiffuseG: 0.40000, DiffuseB: 0.40000, SpecularR: 0.40000, SpecularG: 0.40000, SpecularB: 0.40000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.20000, Transparency: 0.00000});" />
+                    </Transform>
+                  </Group>
+                </Transform>
+              </Group>
+            </Transform>
+          </Group>
+        </Transform>
+        <Transform>
+          <Group DEF="test.o3" selectable="Self" layer="CORPUS">
+            <Transform scale="0.01600 2.22600 0.65000">
+              <Group DEF="test.o3.e0" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o3.e0.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e0.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e0.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e0.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e0.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e0.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 0.03000 0.00000" scale="0.97867 0.01600 0.65000">
+              <Group DEF="test.o3.e1" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o3.e1.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e1.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e1.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e1.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e1.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e1.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 2.21000 0.00000" scale="0.97867 0.01600 0.65000">
+              <Group DEF="test.o3.e2" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o3.e2.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e2.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e2.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e2.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e2.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e2.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 0.01600 0.00000" scale="0.97867 2.19400 0.01600">
+              <Group DEF="test.o3.e3" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o3.e3.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e3.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e3.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e3.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e3.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o3.e3.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 0.00000 0.63400" scale="0.97867 0.03000 0.01600">
+              <Inline DEF="test.o3.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+            </Transform>
+            <Transform translation="0.00000 2.22100 0.65000" scale="0.99467 0.00500 0.02400">
+              <Inline DEF="test.o3.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+            </Transform>
+          </Group>
+        </Transform>
+        <Transform translation="0.99467 0.00000 0.00000">
+          <Group DEF="test.o4" selectable="Self" layer="CORPUS">
+            <Transform scale="0.01600 2.22600 0.65000">
+              <Group DEF="test.o4.e0" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o4.e0.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e0.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e0.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e0.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e0.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e0.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 0.03000 0.00000" scale="1.17867 0.01600 0.65000">
+              <Group DEF="test.o4.e1" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o4.e1.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e1.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e1.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e1.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e1.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e1.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 2.21000 0.00000" scale="1.17867 0.01600 0.65000">
+              <Group DEF="test.o4.e2" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o4.e2.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e2.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e2.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e2.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e2.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e2.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 0.01600 0.00000" scale="1.17867 2.19400 0.01600">
+              <Group DEF="test.o4.e3" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o4.e3.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e3.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e3.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e3.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e3.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o4.e3.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 0.00000 0.63400" scale="1.17867 0.03000 0.01600">
+              <Inline DEF="test.o4.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+            </Transform>
+            <Transform translation="0.00000 2.22100 0.65000" scale="1.19467 0.00500 0.02400">
+              <Inline DEF="test.o4.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+            </Transform>
+          </Group>
+        </Transform>
+        <Transform translation="2.18933 0.00000 0.00000">
+          <Group DEF="test.o5" selectable="Self" layer="CORPUS">
+            <Transform scale="0.01600 2.22600 0.65000">
+              <Group DEF="test.o5.e0" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o5.e0.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e0.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e0.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e0.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e0.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e0.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.99467 0.00000 0.00000" scale="0.01600 2.22600 0.65000">
+              <Group DEF="test.o5.e1" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o5.e1.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e1.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e1.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e1.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e1.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e1.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 0.03000 0.00000" scale="0.97867 0.01600 0.65000">
+              <Group DEF="test.o5.e2" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o5.e2.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e2.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e2.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e2.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e2.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e2.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 2.21000 0.00000" scale="0.97867 0.01600 0.65000">
+              <Group DEF="test.o5.e3" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o5.e3.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e3.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e3.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e3.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e3.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e3.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 0.01600 0.00000" scale="0.97867 2.19400 0.01600">
+              <Group DEF="test.o5.e4" selectable="Parent" layer="CORPUS">
+                <Transform>
+                  <Inline DEF="test.o5.e4.e0" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaref.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.81177, DiffuseG: 0.69804, DiffuseB: 0.50588, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_bk.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e4.e1" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareb.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e4.e2" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarel.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e4.e3" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squarer.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e4.e4" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squaret.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+                <Transform>
+                  <Inline DEF="test.o5.e4.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_squareg.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+                </Transform>
+              </Group>
+            </Transform>
+            <Transform translation="0.01600 0.00000 0.63400" scale="0.97867 0.03000 0.01600">
+              <Inline DEF="test.o5.e5" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+            </Transform>
+            <Transform translation="0.00000 2.22100 0.65000" scale="1.01067 0.00500 0.02400">
+              <Inline DEF="test.o5.e6" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+            </Transform>
+            <Transform translation="0.99467 0.00000 0.65000" scale="0.01600 2.22600 0.02400">
+              <Inline DEF="test.o5.e7" selectable="Parent" layer="CORPUS" mapDEFToID="true" url="IG.Std_cube.geo/standard.x3d" onmousedown="IGX.X3DOM.SelectComponent(this.id);" onload="IGX.X3DOM.SetMaterial(this.id, {DiffuseR: 0.43529, DiffuseG: 0.46275, DiffuseB: 0.43137, SpecularR: 0.00000, SpecularG: 0.00000, SpecularB: 0.00000, EmissiveR: 0.00000, EmissiveG: 0.00000, EmissiveB: 0.00000, Shininess: 0.10000, Ambient: 0.00000, Transparency: 0.00000, Texture: '../Noltemb.Basics_r9.tex/standard.jpg'});" />
+            </Transform>
+          </Group>
+        </Transform>
+      </Group>
+    </Transform>
+  </Scene>
+</X3D>
