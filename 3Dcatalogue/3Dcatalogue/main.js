@@ -13,11 +13,8 @@ window.onload = function (evt) {
     
     var navclose = document.getElementById("navModeClose");
     navclose.onclick = function(e) {
-    	var ausbl = document.getElementById("ausblender");
-        ausbl.setAttribute("style", 'display:none;');
-        var vdiv = document.getElementById("viewer");
-        vdiv.setAttribute("style", 'display:none;');
-      /*document.getElementsByClassName('viewClass').setAttribute("style", 'display:none;');*/
+    	document.getElementById("ausblender").setAttribute("style", 'display:none;');
+        document.getElementById("viewer").setAttribute("style", 'display:none;');
     };
 
 };
@@ -73,12 +70,9 @@ function addData(jsonObj) {
                     var newPath = "DEMO01_FurnitureShop/Data/" +
                         obj.Scope + "." + obj.Product + ".x3d";
                     inl.setAttribute("url", newPath);
-                    var ausbl = document.getElementById("ausblender");
-                    ausbl.setAttribute("style", 'display:block;');
-                    var vdiv = document.getElementById("viewer");
-                    vdiv.setAttribute("style", 'display:block;');
-                  /*document.getElementsByClassName('viewClass').setAttribute("style", 'display:block;');
-*/
+                    
+                    document.getElementById("ausblender").setAttribute("style", 'display:block;');
+                    document.getElementById("viewer").setAttribute("style", 'display:block;');
                 }
             }
         })(i);

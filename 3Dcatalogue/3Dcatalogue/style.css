@@ -133,6 +133,11 @@ h2{
     margin: 0px 15px 50px 15px;
 }
 
+td{
+	padding-bottom: 20px;
+	font-size: 12pt;
+}
+
 #ausblender{
 	position:fixed;
 	width:100%;
@@ -170,7 +175,7 @@ h2{
 	margin:4px 0px 0px 10px;
 }
 
-.toolbarClose_active{
+#navModeClose{
 	width: 24px;
     height: 24px;
     float: right;
@@ -178,11 +183,11 @@ h2{
     margin: 0px 0px 0px 3px;
 }
 
-.toolbarClose_active:hover {
+#navModeClose:hover {
     background: url("close.png") no-repeat -24px 0px;
 }
 
-.toolbarClose_active:active {
+#navModeClose:active {
     background: url("close.png") no-repeat -48px 0px;
 }
 
