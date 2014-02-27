@@ -28,7 +28,7 @@ var figurArray =
 	{
         id : "queenB",
 		headline: "The queen",
-        datei: "3D-Objekte/queenW.x3d",
+        datei: "3D-Objekte/queenB.x3d",
 		description: "The queen combines the power of the rook and bishop and can move any number of squares along rank, file, or diagonal, but it may not leap over other pieces.",
 		moves: "queen_moves.gif"
     },
@@ -238,7 +238,7 @@ function loadModel()
     {
         string +=
         '<MatrixTransform id="' + figurArray[i].id + '" render="false" onclick="getFigureInfo(\'' + figurArray[i].id + '\')">' +
-            '<Transform scale="30,30,30" rotation="1 0 0 -1.57">' +
+            '<Transform scale="60,60,60" rotation="1 0 0 -1.57">' +
                 '<inline id="' + figurArray[i].id + '_in" url="' + figurArray[i].datei + '"></inline>' +
             '</Transform>' +
         '</MatrixTransform>';
