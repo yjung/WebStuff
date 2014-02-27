@@ -5,14 +5,14 @@
     <title>Augmented Reality with X3DOM and JSARToolKit</title>
 
     <link rel="stylesheet" type="text/css" href="../x3dom.css"/>
-    <script type="text/javascript" src="../x3dom.js"></script>
-
-    <script type="text/javascript" src="JSARToolKit.js"></script>
-
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script src="dictionary.js"></script>
+	<link rel="stylesheet" href="style.css">
+	
+    <script type="text/javascript" src="../x3dom.js"></script>
+    <script type="text/javascript" src="JSARToolKit.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script type="text/javascript" src="dictionary.js"></script>
 
 
     <script>
@@ -22,69 +22,9 @@
             document.write("<script type='text/javascript' src='jquery-ui.js'><\/script>");
         }
     </script>
-
-    <style>
-        .x3dom-nox3d {
-            position: absolute;
-            top: 240px;
-            left: 140px;
-        }
-
-        .ar {
-            background-color: wheat;
-            width: 640px;
-            height: 480px;
-            border: 1px solid #000;
-        }
-
-        .state {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        #status {
-            font-size: x-large;
-        }
-
-        #btns {
-            font-size: large;
-        }
-
-        #slider {
-            margin: 10px;
-            width: 620px;
-        }
-
-        .left {
-            margin-left: 10px;
-            z-index: 1;
-        }
-
-        #trackerCanvas {
-            position: absolute;
-            top: 8px;
-            left: 680px;
-            border: 1px solid red;
-            width: 320px;
-            height: 240px;
-        }
-
-        #debugCanvas {
-            position: absolute;
-            top: 248px;
-            left: 680px;
-            border: 1px solid red;
-            width: 320px;
-            height: 240px;
-        }
-
-        #container {
-            position: absolute;
-            top: 8px;
-        }
-    </style>
+	
 <body>
-    <div class="ar">
+	<div class="ar">
         <canvas id="bgnd" width="640px" height="480px"></canvas>
     </div>
 
@@ -97,14 +37,14 @@
         </X3D>
     </div>
 
-    <div class="state">
+    <div class="state" hidden>
         <span id="status">Not tracking...</span>
 		<select id="audioSource"></select>
 		<select id="videoSource"></select>
-		<input id="start" type="button" value="Start"/>
+<!--		<input id="start" type="button" value="Start"/>-->
     </div>
 
-    <div class="state">
+    <div class="state" hidden>
         <div id="btns">
             <input class="left" type="button" id="btnTrack" value="Stop tracking" onclick="toggleTracking();">
             <span class="left"> Binarization threshold: <span id="threshold">128</span></span>
@@ -112,7 +52,7 @@
         <div id="slider"></div>
     </div>
 	
-	<div id="details" style="position: fixed; top: 10%; left: 10%; right: 10%; visibility: hidden; z-index: 1; background-color: white; text-align: center;">
+	<div id="details">
 		<p id="details_id"></p>
 		<p id="details_beschr"></p>
 		<p id="details_pic"></p>
@@ -124,454 +64,457 @@
 
     // CAMERA_BASED TRACKING STUFF
     document.getElementById('myScene').innerHTML += loadModel();
-        window.URL = window.URL || window.webkitURL;
+	window.URL = window.URL || window.webkitURL;
 
-        DEBUG = false;
+	DEBUG = false;
 
-        var runtime = null;
+	var runtime = null;
 
-        var root = null;
-        var universe = null;
+	var root = null;
+	var universe = null;
 
-        var initDone = false;
-        var doTracking = true;
+	var initDone = false;
+	var doTracking = true;
 
-        var width = 640;
-        var height = 480;
+	var width = 640;
+	var height = 480;
 
-        var canvas = null;
-        var videoCanvas = null;
+	var canvas = null;
+	var videoCanvas = null;
 
-        var detector = null;
-        var raster = null;
+	var detector = null;
+	var raster = null;
 
-        var markers = {};
+	var markers = {};
 
-        var resultMat = null;
-        var threshold = 100; //128;
+	var resultMat = null;
+	var threshold = 100; //128;
 
-        document.getElementById("threshold").innerHTML = threshold;
+	document.getElementById("threshold").innerHTML = threshold;
 
-        $("#slider").slider({ min:0, max: 255, value: threshold });
+	$("#slider").slider({ min:0, max: 255, value: threshold });
 
-        $("#slider").on( "slide", function( event, ui ) {
-            threshold = ui.value;
-            document.getElementById("threshold").innerHTML = threshold;
-        } );
+	$("#slider").on( "slide", function( event, ui ) {
+		threshold = ui.value;
+		document.getElementById("threshold").innerHTML = threshold;
+	} );
 
-        // Using getUserMedia to access the webcam
-        var video = document.createElement('video');
-		video.width = width;
-        video.height = height;
-        video.loop = true;
-        video.autoplay = true;
-        video.controls = true;
-        video.volume = 0;
-        video.style.display = 'none';
-		
-		var videoElement = video;
-		var audioSelect = document.querySelector("select#audioSource");
-		var videoSelect = document.querySelector("select#videoSource");
-		var startButton = document.querySelector("button#start");
+	// Using getUserMedia to access the webcam
+	var video = document.createElement('video');
+	video.width = width;
+	video.height = height;
+	video.loop = true;
+	video.autoplay = true;
+	video.controls = true;
+	video.volume = 0;
+	video.style.display = 'none';
+	
+	var videoElement = video;
+	var audioSelect = document.querySelector("select#audioSource");
+	var videoSelect = document.querySelector("select#videoSource");
+	var startButton = document.querySelector("button#start");
 
-		navigator.getUserMedia = navigator.getUserMedia ||
-		  navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+	navigator.getUserMedia = navigator.getUserMedia ||
+	navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
-		function gotSources(sourceInfos) {
-		  for (var i = 0; i != sourceInfos.length; ++i) {
-			var sourceInfo = sourceInfos[i];
-			var option = document.createElement("option");
-			option.value = sourceInfo.id;
-			if (sourceInfo.kind === 'audio') {
-			  option.text = sourceInfo.label || 'microphone ' + (audioSelect.length + 1);
-			  audioSelect.appendChild(option);
-			} else if (sourceInfo.kind === 'video') {
-			  option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
-			  videoSelect.appendChild(option);
-			} else {
-			  console.log('Some other kind of source: ', sourceInfo);
-			}
-		  }
-		}
-
-		if (typeof MediaStreamTrack === 'undefined'){
-		  alert('This browser does not support MediaStreamTrack.\n\nTry Chrome Canary.');
+	function gotSources(sourceInfos) {
+	  for (var i = 0; i != sourceInfos.length; ++i) {
+		var sourceInfo = sourceInfos[i];
+		var option = document.createElement("option");
+		option.value = sourceInfo.id;
+		if (sourceInfo.kind === 'audio') {
+		  option.text = sourceInfo.label || 'microphone ' + (audioSelect.length + 1);
+		  audioSelect.appendChild(option);
+		} else if (sourceInfo.kind === 'video') {
+		  option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
+		  videoSelect.appendChild(option);
 		} else {
-		  MediaStreamTrack.getSources(gotSources);
+		  console.log('Some other kind of source: ', sourceInfo);
 		}
+	  }
+	}
+
+	if (typeof MediaStreamTrack === 'undefined'){
+	  alert('This browser does not support MediaStreamTrack.\n\nTry Chrome Canary.');
+	} else {
+	  MediaStreamTrack.getSources(gotSources);
+	}
 
 
-		function successCallback(stream) {
-		  window.stream = stream; // make stream available to console
-		  videoElement.src = window.URL.createObjectURL(stream);
-		  videoElement.play();
+	function successCallback(stream) {
+	  window.stream = stream; // make stream available to console
+	  videoElement.src = window.URL.createObjectURL(stream);
+	  videoElement.play();
+	}
+
+	function errorCallback(error){
+	  console.log("navigator.getUserMedia error: ", error);
+	}
+
+	function start(){
+	  if (!!window.stream) {
+		videoElement.src = null;
+		window.stream.stop();
+	  }
+	  var audioSource = audioSelect.value;
+	  var videoSource = videoSelect.value;
+	  var constraints = {
+		audio: {
+		  optional: [{sourceId: audioSource}]
+		},
+		video: {
+		  optional: [{sourceId: videoSource}]
 		}
+	  };
+	  navigator.getUserMedia(constraints, successCallback, errorCallback);
+	}
 
-		function errorCallback(error){
-		  console.log("navigator.getUserMedia error: ", error);
-		}
+	audioSelect.onchange = start;
+	videoSelect.onchange = start;
 
-		function start(){
-		  if (!!window.stream) {
-			videoElement.src = null;
-			window.stream.stop();
-		  }
-		  var audioSource = audioSelect.value;
-		  var videoSource = videoSelect.value;
-		  var constraints = {
-			audio: {
-			  optional: [{sourceId: audioSource}]
-			},
-			video: {
-			  optional: [{sourceId: videoSource}]
-			}
-		  };
-		  navigator.getUserMedia(constraints, successCallback, errorCallback);
-		}
-
-		audioSelect.onchange = start;
-		videoSelect.onchange = start;
-
-		start();
+	start();
 
 
-        document.onload = function()
-        {
-            runtime = document.getElementById("x3d").runtime;
+	document.onload = function()
+	{
+		runtime = document.getElementById("x3d").runtime;
 //            root = document.getElementById("root");
 //            universe = document.getElementById("universe");
 
-            runtime.exitFrame = function () {
-                if (!initDone) {
-                    initializeTracker();
-                    initDone = true;
-                }
-
-                if (doTracking) {
-                    animate();
-                    this.triggerRedraw();
-                }
-            };
-        };
-
-        function toggleTracking()
-        {
-            var btn = document.getElementById("btnTrack");
-
-            doTracking = !doTracking;
-
-            if (!doTracking) {
-                document.getElementById("status").innerHTML = "Not tracking...";
-                btn.value = "Start tracking";
-
-                video.pause();
-                video.src = "";
-                videoStream.stop();
-                videoStream = null;
-            }
-            else {
-                startCam();
-
-                btn.value = "Stop tracking";
-                runtime.triggerRedraw();
-            }
-        }
-
-        function redraw(init)
-        {
-            canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-
-            // flip video image
-            var ctx = videoCanvas.getContext('2d');
-            //if (init) {
-            //    ctx.scale(-1, 1);
-            //    ctx.translate(-width, 0);
-            //}
-            ctx.drawImage(canvas, 0, 0);
-
-            // Tell JSARToolKit that the canvas has changed.
-            canvas.changed = true;
-        }
-
-        function animate()
-        {
-            // Draw the video frame to the canvas.
-            try {
-                redraw(false);
-            }
-            catch (e) {
-                // workaround for Firefox
-                if (e.name == "NS_ERROR_NOT_AVAILABLE") {
-                    setTimeout(function() { redraw(false); }, 10);
-                }
-                else { throw e; }
-            }
-
-            var m, marker;
-            // For checking visibility per frame
-            for (m in markers) {
-                markers[m].visible = false;
-            }
-
-            // Do marker detection by using the detector object on the raster object.
-            // The threshold parameter determines the threshold value
-            // for turning the video frame into a 1-bit black-and-white image.
-            var markerCount = detector.detectMarkerLite(raster, threshold);
-
-            // Go through the detected markers and get their IDs and transformation matrices.
-            for (var idx=0; idx<markerCount; idx++) {
-                // Get the ID marker data for the current marker.
-                // ID markers are special kind of markers that encode a number.
-                // The bytes for the number are in the ID marker data.
-                var id = detector.getIdMarkerData(idx);
-
-                // Read bytes from the id packet.
-                // This code handles only 32-bit numbers or shorter.
-                if (id.packetLength <= 4) {
-                    var currId = 0;
-                    for (var i=0; i<id.packetLength; i++) {
-                        currId = (currId << 8) | id.getPacketData(i);
-                    }
-
-                    // If this is a new id, let's start tracking it.
-                    if (!markers[currId]) {
-                        markers[currId] = {
-                            transform: null,
-                            visible: true,
-
-                            object: getMarkerName(currId)
-                            //object: currId == 64 ? root : universe
-                        };
-                    }
-
-                    marker = markers[currId];
-                    marker.visible = true;
-
-                    // Get the transformation matrix for the detected marker.
-                    detector.getTransformMatrix(idx, resultMat);
-
-                    // Copy the result matrix into our marker tracker object.
-                    marker.transform = adaptMarkerMatrix(resultMat);
-
-                    // Copy the marker matrix over to marker root object.
-                    marker.object.setAttribute("matrix", marker.transform.toGL().toString());
-                }
-            }
-
-            for (m in markers) {
-                marker = markers[m];
-                var render = (marker.object.getAttribute("render") === "true");
-
-                if (render != marker.visible) {
-                    marker.object.setAttribute("render", marker.visible.toString());
-                }
-            }
-
-            if (markerCount > 0 ) {
-                document.getElementById("status").innerHTML = "Tracking " + markerCount + " marker"
-            }
-            else {
-                document.getElementById("status").innerHTML = "Not tracking..."
-            }
-        }
-		
-		function getFigureInfo(id)
-		{
-			document.getElementById('details').style.visibility = "visible";
-		
-			var beschr;
-			
-			for(i = 0; i < figurArray.length; i++)
-			{
-				if(figurArray[i].id === id) {
-					beschr = figurArray[i].beschreibung;
-				}
+		runtime.exitFrame = function () {
+			if (!initDone) {
+				initializeTracker();
+				initDone = true;
 			}
-			document.getElementById('details_id').innerHTML = id;
-			document.getElementById('details_beschr').innerHTML = beschr;
+
+			if (doTracking) {
+				animate();
+				this.triggerRedraw();
+			}
+		};
+	};
+
+	function toggleTracking()
+	{
+		var btn = document.getElementById("btnTrack");
+
+		doTracking = !doTracking;
+
+		if (!doTracking) {
+			document.getElementById("status").innerHTML = "Not tracking...";
+			btn.value = "Start tracking";
+
+			video.pause();
+			video.src = "";
+			videoStream.stop();
+			videoStream = null;
+		}
+		else {
+			startCam();
+
+			btn.value = "Stop tracking";
+			runtime.triggerRedraw();
+		}
+	}
+
+	function redraw(init)
+	{
+		canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+
+		// flip video image
+		var ctx = videoCanvas.getContext('2d');
+		if (init) {
+			ctx.scale(-1, 1);
+			ctx.translate(-width, 0);
+		}
+		ctx.drawImage(canvas, 0, 0);
+
+		// Tell JSARToolKit that the canvas has changed.
+		canvas.changed = true;
+	}
+
+	function animate()
+	{
+		// Draw the video frame to the canvas.
+		try {
+			redraw(false);
+		}
+		catch (e) {
+			// workaround for Firefox
+			if (e.name == "NS_ERROR_NOT_AVAILABLE") {
+				setTimeout(function() { redraw(false); }, 10);
+			}
+			else { throw e; }
 		}
 
-        function getMarkerName(id)
-        {
-            switch (id)
-            {
-				case 0:
-					return kingW;
-					break;
-				case 1:
-					return kingB;
-					break;
-				case 2:
-					return queenW;
-					break;
-				case 3:
-					return queenB;
-					break;
-				case 4:
-					return bishopW;
-					break;
-				case 5:
-					return bishopB;
-					break;
-				case 6:
-					return horseW;
-					break;
-				case 7:
-					return horseB;
-					break;
-				case 8:
-					return towerW;
-					break;
-				case 9:
-					return towerB;
-					break;
-				case 10:
-					return farmerW1;
-					break;
-				case 11:
-					return farmerW2;
-					break;
-				case 12:
-					return farmerW3;
-					break;
-				case 13:
-					return farmerW4;
-					break;
-				case 14:
-					return farmerW5;
-					break;
-				case 15:
-					return farmerW6;
-					break;
-                case 16:
-					return farmerW7;
-					break;
-				case 17:
-					return farmerW8;
-					break;
-				case 18:
-                    return farmerB1;
-					break;
-				case 19:
-                    return farmerB2;
-					break;
-				case 20:
-                    return farmerB3;
-					break;
-				case 21:
-                    return farmerB4;
-					break;
-				case 22:
-                    return farmerB5;
-					break;
-				case 23:
-                    return farmerB6;
-					break;
-				case 24:
-                    return farmerB7;
-					break;
-				case 25:
-                    return farmerB8;
-                    break;
-				case 26:
-					return bishopW2;
-					break;
-				case 27:
-					return bishopB2;	
-					break;
-				case 28:
-					return horseW2;	
-					break;
-				case 29:
-					return horseB2;	
-					break;
-				case 30:
-					return towerW2;	
-					break;
-				case 31:
-					return towerB2;	
-					break;
-                default:
-                    //alert("switch default");
-                    return "nix";
-            }
-        }
+		var m, marker;
+		// For checking visibility per frame
+		for (m in markers) {
+			markers[m].visible = false;
+		}
 
-        function adaptMarkerMatrix(arMat)
-        {
-            return new x3dom.fields.SFMatrix4f(
-                             arMat.m00,  arMat.m01,  arMat.m02,  -arMat.m03,
-                             arMat.m10,  arMat.m11,  arMat.m12,  -arMat.m13,
-                             arMat.m20,  arMat.m21,  arMat.m22,  -arMat.m23,
-                                     0,          0,          0,          1);
-        }
+		// Do marker detection by using the detector object on the raster object.
+		// The threshold parameter determines the threshold value
+		// for turning the video frame into a 1-bit black-and-white image.
+		var markerCount = detector.detectMarkerLite(raster, threshold);
 
-        function initializeTracker()
-        {
+		// Go through the detected markers and get their IDs and transformation matrices.
+		for (var idx=0; idx<markerCount; idx++) {
+			// Get the ID marker data for the current marker.
+			// ID markers are special kind of markers that encode a number.
+			// The bytes for the number are in the ID marker data.
+			var id = detector.getIdMarkerData(idx);
 
-            // Setting up JSARToolKit
-            canvas = document.createElement('canvas');
-            canvas.id = "trackerCanvas";
-			canvas.style.visibility = "hidden";
-            canvas.width = width;
-            canvas.height = height;
-            document.body.appendChild(canvas);
-            if (DEBUG) {
-                var debugCanvas = document.createElement('canvas');
-                debugCanvas.id = 'debugCanvas';
-                debugCanvas.width = width;
-                debugCanvas.height = height;
-                document.body.appendChild(debugCanvas);
+			// Read bytes from the id packet.
+			// This code handles only 32-bit numbers or shorter.
+			if (id.packetLength <= 4) {
+				var currId = 0;
+				for (var i=0; i<id.packetLength; i++) {
+					currId = (currId << 8) | id.getPacketData(i);
+				}
 
-                var ctx = debugCanvas.getContext('2d');
-                ctx.font = "24px URW Gothic L, Arial, Sans-serif";
-            }
+				// If this is a new id, let's start tracking it.
+				if (!markers[currId]) {
+					markers[currId] = {
+						transform: null,
+						visible: true,
 
-            // Create an RGB raster object for the 2D canvas.
-            // JSARToolKit uses raster objects to read image data.
-            // Note that you need to set canvas.changed = true on every frame.
-            raster = new NyARRgbRaster_Canvas2D(canvas);
+						object: getMarkerName(currId)
+						//object: currId == 64 ? root : universe
+					};
+				}
 
-            // FLARParam is the thing used by FLARToolKit to set camera parameters.
-            // Here we create a FLARParam for images with 320x240 pixel dimensions.
-            var param = new FLARParam(width, height);
+				marker = markers[currId];
+				marker.visible = true;
 
-            // The FLARMultiIdMarkerDetector is the actual detection engine for marker detection.
-            // It detects multiple ID markers. ID markers are special markers that encode a number.
-            detector = new FLARMultiIdMarkerDetector(param, 120);
+				// Get the transformation matrix for the detected marker.
+				detector.getTransformMatrix(idx, resultMat);
 
-            // For tracking video set continue mode to true. In continue mode, the detector
-            // tracks markers across multiple frames.
-            detector.setContinueMode(true);
+				// Copy the result matrix into our marker tracker object.
+				marker.transform = adaptMarkerMatrix(resultMat);
+
+				// Copy the marker matrix over to marker root object.
+				marker.object.setAttribute("matrix", marker.transform.toGL().toString());
+			}
+		}
+
+		for (m in markers) {
+			marker = markers[m];
+			var render = (marker.object.getAttribute("render") === "true");
+
+			if (render != marker.visible) {
+				marker.object.setAttribute("render", marker.visible.toString());
+			}
+		}
+
+		if (markerCount > 0 ) {
+			document.getElementById("status").innerHTML = "Tracking " + markerCount + " marker"
+		}
+		else {
+			document.getElementById("status").innerHTML = "Not tracking..."
+		}
+	}
+	
+	function getFigureInfo(id)
+	{
+		document.getElementById('details').style.visibility = "visible";
+	
+		var beschr;
+		var bild;
+		
+		for(i = 0; i < figurArray.length; i++)
+		{
+			if(figurArray[i].id === id) {
+				beschr = figurArray[i].beschreibung;
+				bild = figurArray[i].moves;
+			}
+		}
+		document.getElementById('details_id').innerHTML = id;
+		document.getElementById('details_beschr').innerHTML = beschr;
+		document.getElementById('details_pic').innerHTML = '<img src="' + bild + '"/>';
+	}
+
+	function getMarkerName(id)
+	{
+		switch (id)
+		{
+			case 0:
+				return kingW;
+				break;
+			case 1:
+				return kingB;
+				break;
+			case 2:
+				return queenW;
+				break;
+			case 3:
+				return queenB;
+				break;
+			case 4:
+				return bishopW;
+				break;
+			case 5:
+				return bishopB;
+				break;
+			case 6:
+				return horseW;
+				break;
+			case 7:
+				return horseB;
+				break;
+			case 8:
+				return towerW;
+				break;
+			case 9:
+				return towerB;
+				break;
+			case 10:
+				return farmerW1;
+				break;
+			case 11:
+				return farmerW2;
+				break;
+			case 12:
+				return farmerW3;
+				break;
+			case 13:
+				return farmerW4;
+				break;
+			case 14:
+				return farmerW5;
+				break;
+			case 15:
+				return farmerW6;
+				break;
+			case 16:
+				return farmerW7;
+				break;
+			case 17:
+				return farmerW8;
+				break;
+			case 18:
+				return farmerB1;
+				break;
+			case 19:
+				return farmerB2;
+				break;
+			case 20:
+				return farmerB3;
+				break;
+			case 21:
+				return farmerB4;
+				break;
+			case 22:
+				return farmerB5;
+				break;
+			case 23:
+				return farmerB6;
+				break;
+			case 24:
+				return farmerB7;
+				break;
+			case 25:
+				return farmerB8;
+				break;
+			case 26:
+				return bishopW2;
+				break;
+			case 27:
+				return bishopB2;	
+				break;
+			case 28:
+				return horseW2;	
+				break;
+			case 29:
+				return horseB2;	
+				break;
+			case 30:
+				return towerW2;	
+				break;
+			case 31:
+				return towerB2;	
+				break;
+			default:
+				//alert("switch default");
+				return "nix";
+		}
+	}
+
+	function adaptMarkerMatrix(arMat)
+	{
+		return new x3dom.fields.SFMatrix4f(
+						 arMat.m00,  arMat.m01,  arMat.m02,  -arMat.m03,
+						 arMat.m10,  arMat.m11,  arMat.m12,  -arMat.m13,
+						 arMat.m20,  arMat.m21,  arMat.m22,  -arMat.m23,
+								 0,          0,          0,          1);
+	}
+
+	function initializeTracker()
+	{
+
+		// Setting up JSARToolKit
+		canvas = document.createElement('canvas');
+		canvas.id = "trackerCanvas";
+		canvas.style.visibility = "hidden";
+		canvas.width = width;
+		canvas.height = height;
+		document.body.appendChild(canvas);
+		if (DEBUG) {
+			var debugCanvas = document.createElement('canvas');
+			debugCanvas.id = 'debugCanvas';
+			debugCanvas.width = width;
+			debugCanvas.height = height;
+			document.body.appendChild(debugCanvas);
+
+			var ctx = debugCanvas.getContext('2d');
+			ctx.font = "24px URW Gothic L, Arial, Sans-serif";
+		}
+
+		// Create an RGB raster object for the 2D canvas.
+		// JSARToolKit uses raster objects to read image data.
+		// Note that you need to set canvas.changed = true on every frame.
+		raster = new NyARRgbRaster_Canvas2D(canvas);
+
+		// FLARParam is the thing used by FLARToolKit to set camera parameters.
+		// Here we create a FLARParam for images with 320x240 pixel dimensions.
+		var param = new FLARParam(width, height);
+
+		// The FLARMultiIdMarkerDetector is the actual detection engine for marker detection.
+		// It detects multiple ID markers. ID markers are special markers that encode a number.
+		detector = new FLARMultiIdMarkerDetector(param, 120);
+
+		// For tracking video set continue mode to true. In continue mode, the detector
+		// tracks markers across multiple frames.
+		detector.setContinueMode(true);
 
 
-            // Copy the camera perspective matrix from the FLARParam to the WebGL library camera matrix.
-            // The second and third parameters determine the zNear and zFar planes for the perspective matrix.
-            var camera = document.getElementById("vf");
+		// Copy the camera perspective matrix from the FLARParam to the WebGL library camera matrix.
+		// The second and third parameters determine the zNear and zFar planes for the perspective matrix.
+		var camera = document.getElementById("vf");
 
-            var zNear = camera.getNear();
-            var zFar = camera.getFar();
-            var perspectiveMatrix = runtime.projectionMatrix().toGL();
+		var zNear = camera.getNear();
+		var zFar = camera.getFar();
+		var perspectiveMatrix = runtime.projectionMatrix().toGL();
 
-            param.copyCameraMatrix(perspectiveMatrix, zNear, zFar);
+		param.copyCameraMatrix(perspectiveMatrix, zNear, zFar);
 
-            var proj = new x3dom.fields.SFMatrix4f();
-            proj.setFromArray(perspectiveMatrix);
-            proj._22 *= -1;
-            proj._32 *= -1;
+		var proj = new x3dom.fields.SFMatrix4f();
+		proj.setFromArray(perspectiveMatrix);
+		proj._22 *= -1;
+		proj._32 *= -1;
 
-            camera.setAttribute("projection", proj.toGL().toString());
+		camera.setAttribute("projection", proj.toGL().toString());
 
-            // Prepare detecting markers
-            videoCanvas = document.getElementById('bgnd');
+		// Prepare detecting markers
+		videoCanvas = document.getElementById('bgnd');
 
-            // Create a NyARTransMatResult object for getting the marker translation matrices.
-            resultMat = new NyARTransMatResult();
+		// Create a NyARTransMatResult object for getting the marker translation matrices.
+		resultMat = new NyARTransMatResult();
 
-            // Draw the video frame to the raster canvas, scaled to 320x240.
-            // And tell the raster object that the underlying canvas has changed.
-            redraw(true);
-        }
+		// Draw the video frame to the raster canvas, scaled to 320x240.
+		// And tell the raster object that the underlying canvas has changed.
+		redraw(true);
+	}
     </script>
 </body>
 </html>
