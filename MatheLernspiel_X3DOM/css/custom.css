@@ -15,11 +15,17 @@ body {
 
 #the3DContent {
 	width:100%;
-	height:500px;
+	height:100%;
 	border:none;
 }
 
-.ui-content { height:100%; position:relative; }
+.ui-content {
+	width:100%;
+	height:100%;
+	padding:0;
+	margin:0;
+	position:relative;
+}
 
 .clear { clear:both; }
 

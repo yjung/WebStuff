@@ -8,9 +8,12 @@ $(document).ready(function() {
 	
 	$('#startalizer').height($('#startalizer').height() - 45 + 'px');
 	
+	var height = parseInt($(window).height()) - 275;
+	$('#the3DContent').height(height+'px');
+	
 	$('#loadQuestions').click(function() {
 		
-		$.getJSON( "questions/questions2.js", function( data ) {
+		$.getJSON( "questions/questions.js", function( data ) {
 		
 			questions = data;
 			loadQuestions();
