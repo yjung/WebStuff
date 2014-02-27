@@ -24,6 +24,10 @@
     </script>
 	
 <body>
+	<div id="headline">
+		<img src="3.png" alt="ar-chess"/>
+	</div>
+
 	<div class="ar">
         <canvas id="bgnd" width="640px" height="480px"></canvas>
     </div>
@@ -44,7 +48,7 @@
 <!--		<input id="start" type="button" value="Start"/>-->
     </div>
 
-    <div class="state" hidden>
+    <div class="state">
         <div id="btns">
             <input class="left" type="button" id="btnTrack" value="Stop tracking" onclick="toggleTracking();">
             <span class="left"> Binarization threshold: <span id="threshold">128</span></span>
@@ -53,10 +57,13 @@
     </div>
 	
 	<div id="details">
-		<p id="details_id"></p>
-		<p id="details_beschr"></p>
+		<p id="details_id">
+			Information Window
+		</p>
+		<p id="details_beschr">
+			Click on a 3D Model for more Information about it!
+		</p>
 		<p id="details_pic"></p>
-		<input id="close_btn" type="button" value="Close" onclick="document.getElementById('details').style.visibility = 'hidden'"/>
 	</div>
 	
     <script>
@@ -317,15 +324,13 @@
 	
 	function getFigureInfo(id)
 	{
-		document.getElementById('details').style.visibility = "visible";
-	
 		var beschr;
 		var bild;
 		
 		for(i = 0; i < figurArray.length; i++)
 		{
 			if(figurArray[i].id === id) {
-				beschr = figurArray[i].beschreibung;
+				beschr = figurArray[i].description;
 				bild = figurArray[i].moves;
 			}
 		}

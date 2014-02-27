@@ -6,194 +6,226 @@ var figurArray =
 [
     {
         id : "kingW",
+		headline: "The king",
         datei: "3D-Objekte/kingW.x3d",
-		beschreibung: "The king moves one square in any direction. The king has also a special move which is called castling and involves also moving a rook.",
+		description: "The king moves one square in any direction. The king has also a special move which is called castling and involves also moving a rook.",
 		moves: "king_moves.gif"
     },
 	{
         id : "kingB",
+		headline: "The king",
         datei: "3D-Objekte/kingB.x3d",
-		beschreibung: "The king moves one square in any direction. The king has also a special move which is called castling and involves also moving a rook.",
+		description: "The king moves one square in any direction. The king has also a special move which is called castling and involves also moving a rook.",
 		moves: "king_moves.gif"
     },
     {
         id : "queenW",
+		headline: "The queen",
         datei: "3D-Objekte/queenW.x3d",
-		beschreibung: "The queen combines the power of the rook and bishop and can move any number of squares along rank, file, or diagonal, but it may not leap over other pieces.",
+		description: "The queen combines the power of the rook and bishop and can move any number of squares along rank, file, or diagonal, but it may not leap over other pieces.",
 		moves: "queen_moves.gif"
     },
 	{
         id : "queenB",
+		headline: "The queen",
         datei: "3D-Objekte/queenW.x3d",
-		beschreibung: "The queen combines the power of the rook and bishop and can move any number of squares along rank, file, or diagonal, but it may not leap over other pieces.",
+		description: "The queen combines the power of the rook and bishop and can move any number of squares along rank, file, or diagonal, but it may not leap over other pieces.",
 		moves: "queen_moves.gif"
     },
     {
         id : "bishopW",
+		headline: "The bishop",
         datei: "3D-Objekte/bishopW.x3d",
-		beschreibung: "The bishop can move any number of squares diagonally, but may not leap over other pieces.",
+		description: "The bishop can move any number of squares diagonally, but may not leap over other pieces.",
 		moves: "bishop_moves.gif"
     },
 	{
         id : "bishopB",
+		headline: "The bishop",
         datei: "3D-Objekte/bishopB.x3d",
-		beschreibung: "The bishop can move any number of squares diagonally, but may not leap over other pieces.",
+		description: "The bishop can move any number of squares diagonally, but may not leap over other pieces.",
 		moves: "bishop_moves.gif"
     },
 	{
-        id : "horseW",
-        datei: "3D-Objekte/horseW.x3d",
-		beschreibung: "The knight moves to any of the closest squares that are not on the same rank, file, or diagonal, thus the move forms an 'L'-shape: two squares vertically and one square horizontally, or two squares horizontally and one square vertically. The knight is the only piece that can leap over other pieces.",
+        id : "knightW",
+		headline: "The knight",
+        datei: "3D-Objekte/knightW.x3d",
+		description: "The knight moves to any of the closest squares that are not on the same rank, file, or diagonal, thus the move forms an 'L'-shape: two squares vertically and one square horizontally, or two squares horizontally and one square vertically. The knight is the only piece that can leap over other pieces.",
 		moves: "knight_moves.gif"
     },
 	{
-        id : "horseB",
-        datei: "3D-Objekte/horseB.x3d",
-		beschreibung: "The knight moves to any of the closest squares that are not on the same rank, file, or diagonal, thus the move forms an 'L'-shape: two squares vertically and one square horizontally, or two squares horizontally and one square vertically. The knight is the only piece that can leap over other pieces.",
+        id : "knightB",
+		headline: "The knight",
+        datei: "3D-Objekte/knightB.x3d",
+		description: "The knight moves to any of the closest squares that are not on the same rank, file, or diagonal, thus the move forms an 'L'-shape: two squares vertically and one square horizontally, or two squares horizontally and one square vertically. The knight is the only piece that can leap over other pieces.",
 		moves: "bishop_moves.gif"
     },
 	{
-        id : "towerW",
-        datei: "3D-Objekte/towerW.x3d",
-		beschreibung: "The rook can move any number of squares along any rank or file, but may not leap over other pieces. Along with the king, the rook is involved during the king's castling move.",
+        id : "rookW",
+		headline: "The rook",
+        datei: "3D-Objekte/rookW.x3d",
+		description: "The rook can move any number of squares along any rank or file, but may not leap over other pieces. Along with the king, the rook is involved during the king's castling move.",
 		moves: "rook_moves.gif"
     },
 	{
-        id : "towerB",
-        datei: "3D-Objekte/towerB.x3d",
-		beschreibung: "The rook can move any number of squares along any rank or file, but may not leap over other pieces. Along with the king, the rook is involved during the king's castling move.",
+        id : "rookB",
+		headline: "The rook",
+        datei: "3D-Objekte/rookB.x3d",
+		description: "The rook can move any number of squares along any rank or file, but may not leap over other pieces. Along with the king, the rook is involved during the king's castling move.",
 		moves: "rook_moves.gif"
     },
 	{
-        id : "farmerW1",
-        datei: "3D-Objekte/farmerW.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnW1",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnW.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerW2",
-        datei: "3D-Objekte/farmerW.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnW2",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnW.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerW3",
-        datei: "3D-Objekte/farmerW.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnW3",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnW.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerW4",
-        datei: "3D-Objekte/farmerW.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnW4",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnW.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerW5",
-        datei: "3D-Objekte/farmerW.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnW5",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnW.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerW6",
-        datei: "3D-Objekte/farmerW.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnW6",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnW.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerW7",
-        datei: "3D-Objekte/farmerW.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnW7",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnW.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerW8",
-        datei: "3D-Objekte/farmerW.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnW8",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnW.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerB1",
-        datei: "3D-Objekte/farmerB.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnB1",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnB.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerB2",
-        datei: "3D-Objekte/farmerB.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnB2",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnB.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerB3",
-        datei: "3D-Objekte/farmerB.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnB3",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnB.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerB4",
-        datei: "3D-Objekte/farmerB.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnB4",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnB.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerB5",
-        datei: "3D-Objekte/farmerB.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnB5",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnB.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerB6",
-        datei: "3D-Objekte/farmerB.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnB6",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnB.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerB7",
-        datei: "3D-Objekte/farmerB.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnB7",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnB.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "farmerB8",
-        datei: "3D-Objekte/farmerB.x3d",
-		beschreibung: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
+        id : "pawnB8",
+		headline: "The pawn",
+        datei: "3D-Objekte/pawnB.x3d",
+		description: "The pawn may move forward to the unoccupied square immediately in front of it on the same file, or on its first move it may advance two squares along the same file provided both squares are unoccupied; or the pawn may capture an opponent's piece on a square diagonally in front of it on an adjacent file, by moving to that square. The pawn has two special moves: the en passant capture and pawn promotion.",
 		moves: "pawn_moves.gif"
     },
 	{
-        id : "towerB2",
-        datei: "3D-Objekte/towerB.x3d",
-		beschreibung: "The rook can move any number of squares along any rank or file, but may not leap over other pieces. Along with the king, the rook is involved during the king's castling move.",
+        id : "rookB2",
+		headline: "The rook",
+        datei: "3D-Objekte/rookB.x3d",
+		description: "The rook can move any number of squares along any rank or file, but may not leap over other pieces. Along with the king, the rook is involved during the king's castling move.",
 		moves: "rook_moves.gif"
     },
 	{
-        id : "towerW2",
-        datei: "3D-Objekte/towerW.x3d",
-		beschreibung: "The rook can move any number of squares along any rank or file, but may not leap over other pieces. Along with the king, the rook is involved during the king's castling move.",
+        id : "rookW2",
+		headline: "The rook",
+        datei: "3D-Objekte/rookW.x3d",
+		description: "The rook can move any number of squares along any rank or file, but may not leap over other pieces. Along with the king, the rook is involved during the king's castling move.",
 		moves: "rook_moves.gif"
     },
 	{
         id : "bishopW2",
+		headline: "The bishop",
         datei: "3D-Objekte/bishopW.x3d",
-		beschreibung: "The bishop can move any number of squares diagonally, but may not leap over other pieces.",
+		description: "The bishop can move any number of squares diagonally, but may not leap over other pieces.",
 		moves: "bishop_moves.gif"
     },
 	{
         id : "bishopB2",
+		headline: "The bishop",
         datei: "3D-Objekte/bishopB.x3d",
-		beschreibung: "The bishop can move any number of squares diagonally, but may not leap over other pieces.",
+		description: "The bishop can move any number of squares diagonally, but may not leap over other pieces.",
 		moves: "bishop_moves.gif"
     },
 	{
-        id : "horseW2",
-        datei: "3D-Objekte/horseW.x3d",
-		beschreibung: "The knight moves to any of the closest squares that are not on the same rank, file, or diagonal, thus the move forms an 'L'-shape: two squares vertically and one square horizontally, or two squares horizontally and one square vertically. The knight is the only piece that can leap over other pieces.",
+        id : "knightW2",
+		headline: "The knight",
+        datei: "3D-Objekte/knightW.x3d",
+		description: "The knight moves to any of the closest squares that are not on the same rank, file, or diagonal, thus the move forms an 'L'-shape: two squares vertically and one square horizontally, or two squares horizontally and one square vertically. The knight is the only piece that can leap over other pieces.",
 		moves: "knight_moves.gif"
     },
 	{
-        id : "horseB2",
-        datei: "3D-Objekte/horseB.x3d",
-		beschreibung: "The knight moves to any of the closest squares that are not on the same rank, file, or diagonal, thus the move forms an 'L'-shape: two squares vertically and one square horizontally, or two squares horizontally and one square vertically. The knight is the only piece that can leap over other pieces.",
+        id : "knightB2",
+		headline: "The knight",
+        datei: "3D-Objekte/knightB.x3d",
+		description: "The knight moves to any of the closest squares that are not on the same rank, file, or diagonal, thus the move forms an 'L'-shape: two squares vertically and one square horizontally, or two squares horizontally and one square vertically. The knight is the only piece that can leap over other pieces.",
 		moves: "knight_moves.gif"
     }
 ];
