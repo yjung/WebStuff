@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<title>3D Mathe Quiz</title>
+	<meta charset='utf-8'>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 	<link rel='stylesheet' type='text/css' href='css/x3dom.css'>
 	<link rel='stylesheet' type='text/css' href='css/jquery.mobile-1.4.0.min.css'>
 	<link rel='stylesheet' type='text/css' href='css/custom.css'>
@@ -11,34 +12,58 @@
 	<script type='text/javascript' src='js/jquery.mobile-1.4.0.min.js'></script>
 	<script type='text/javascript' src='js/custom.js'></script>
 </head>
-
 <body>
+
+<div id='startalizer'></div>
 
 <div data-role="page">
 
 <div data-role="panel" id="mypanel" data-position="left" data-display="overlay">
 	<a href="#myheader" data-rel="close" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">No text</a>
+	<h4>Fragen</h4>
+	<div id='questions'>
+		<ul>
+			<li class='active' data-number='1'>Keine Fragen vorhanden!<span></span></li>
+		</ul>
+	</div>
+	
 </div>
 
 <div data-role="header" id="myheader">
-	<a href="#mypanel" data-icon="bars">Menü</a>
+	<a href="#mypanel" data-icon="bars" data-inline="true" class='ui-disabled'>Fragen <span>(0)</span></a>
+	<button type="button" data-icon="refresh" data-inline="true" id='loadQuestions'>Fragen laden</button>
 	<h1>3D Mathe Quiz</h1>
 </div>
 
 <div class="ui-content" role="main">
+	<div id='questionTips'></div>
 	<x3d id='the3DContent'>
 		<scene>
-			<inline url='models/Ball.x3d'></inline>
+			<inline url='' mapDEFtoID='true' nameSpaceName='test' onload='initInline();'></inline>
 		</scene>
 	</x3d>
 </div>
 
-<div data-role="footer" data-position="fixed">
-	<h4>Footer content</h4>
+<div id='questionBoard'>
+	<div id='questionContent'>
+		<div class='left tip'>
+			<h4>Tipp</h4>
+			<p>Durch selektieren einzelner Formen des 3D Models lassen sich die notwendigen Informationen einblenden.</p>
+		</div>
+		<div class='left'>
+			<h4 class='question'><span>Frage 0:</span> Keine Fragen vorhanden!</h4>
+			<p class='formel'>Formel: <span></span></p>
+			<p class='info'>Info: <span></span></p>
+			<input type='text' name='answer'>
+		</div>
+		<div class='right'>
+			<button type="button" data-icon="refresh" data-inline="true" id='validateAnswer' class='ui-disabled'>Antwort validieren</button>
+		</div>
+		<div class='clear'></div>
+	</div>
 </div>
 
 </div>
 
 </body>
-
 </html>

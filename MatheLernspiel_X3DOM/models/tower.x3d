@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN" "http://www.web3d.org/specifications/x3d-3.0.dtd">
+<X3D version="3.0" profile="Immersive" xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance" xsd:noNamespaceSchemaLocation="http://www.web3d.org/specifications/x3d-3.0.xsd">
+	<Scene>
+		<Group DEF="theScene">
+			<Transform DEF="antenneSmall_TRANSFORM"
+					   translation="-0.800000 3.250000 0.700000"
+					   scale="0.100000 0.100000 0.250000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="antenneSmall_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_022">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_022"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="antenneBig_TRANSFORM"
+					   translation="0.000000 3.500000 0.000000"
+					   scale="0.100000 0.100000 0.500000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="antenneBig_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_021">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_021"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="topSmallCube2_TRANSFORM"
+					   translation="1.200000 2.800000 0.000000"
+					   scale="1.020000 0.200000 0.200000"
+					   rotation="-0.577350 -0.577350 -0.577350 2.094395"
+					   >
+				<Transform DEF="topSmallCube2_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_020">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_020"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="bottomSmallCube2_TRANSFORM"
+					   translation="1.200000 -2.800000 0.000000"
+					   scale="1.020000 0.200000 0.200000"
+					   rotation="-0.577350 -0.577350 -0.577350 2.094395"
+					   >
+				<Transform DEF="bottomSmallCube2_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_019">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_019"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="bottomSmallCube4_TRANSFORM"
+					   translation="-1.200000 -2.800000 0.000000"
+					   scale="1.020000 0.200000 0.200000"
+					   rotation="-0.577350 -0.577350 -0.577350 2.094395"
+					   >
+				<Transform DEF="bottomSmallCube4_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_018">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_018"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="topSmallCube4_TRANSFORM"
+					   translation="-1.200000 2.800000 0.000000"
+					   scale="1.020000 0.200000 0.200000"
+					   rotation="-0.577350 -0.577350 -0.577350 2.094395"
+					   >
+				<Transform DEF="topSmallCube4_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_017">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_017"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="topSmallCube3_TRANSFORM"
+					   translation="0.000000 2.800000 -1.200000"
+					   scale="1.020000 0.200000 0.200000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="topSmallCube3_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_016">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_016"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="bottomSmallCube3_TRANSFORM"
+					   translation="0.000000 -2.800000 -1.200000"
+					   scale="1.020000 0.200000 0.200000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="bottomSmallCube3_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_015">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_015"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="siteCube4_TRANSFORM"
+					   translation="-1.200000 0.000000 1.200000"
+					   scale="0.200000 0.200000 3.000000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="siteCube4_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_014">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_014"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="siteCube3_TRANSFORM"
+					   translation="-1.200000 0.000000 -1.200000"
+					   scale="0.200000 0.200000 3.000000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="siteCube3_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_013">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_013"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="siteCube2_TRANSFORM"
+					   translation="1.200000 0.000000 -1.200000"
+					   scale="0.200000 0.200000 3.000000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="siteCube2_ifs_TRANSFORM"
+						   translation="-0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_010">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_010"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="siteCube1_TRANSFORM"
+					   translation="1.200000 0.000000 1.200000"
+					   scale="0.200000 0.200000 3.000000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="siteCube1_ifs_TRANSFORM"
+						   translation="-0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_007">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_007"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="bottomSmallCube1_TRANSFORM"
+					   translation="0.000000 -2.800000 1.200000"
+					   scale="1.020000 0.200000 0.200000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="bottomSmallCube1_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_003">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_003"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="topSmallCube1_TRANSFORM"
+					   translation="0.000000 2.800000 1.200000"
+					   scale="1.020000 0.200000 0.200000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="topSmallCube1_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_002">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_002"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+			<Transform DEF="MainCube_TRANSFORM"
+					   translation="0.000000 0.000000 0.000000"
+					   scale="1.000000 1.000000 3.000000"
+					   rotation="0.000000 0.707107 0.707107 3.141593"
+					   >
+				<Transform DEF="MainCube_ifs_TRANSFORM"
+						   translation="0.000000 0.000000 0.000000"
+						   scale="1.000000 1.000000 1.000000"
+						   rotation="1.000000 0.000000 0.000000 0.000000"
+						   >
+					<Group DEF="group_ME_Cube_001">
+						<Shape>
+							<Appearance>
+								<Material diffuseColor='gray'></Material>
+							</Appearance>
+							<IndexedFaceSet solid="false"
+											coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
+											>
+								<Coordinate DEF="coords_ME_Cube_001"
+											point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
+											/>
+							</IndexedFaceSet>
+						</Shape>
+					</Group>
+				</Transform>
+			</Transform>
+		</Group>
+	</Scene>
+</X3D>

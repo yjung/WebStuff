@@ -5,7 +5,7 @@
 
 body{
 	background-color:#F4EBE1;
-	font-family: "Lucida Sans Unicode";
+	font-family: Lucida Sans Unicode, sans-serif;
 	color:white;
 
 }
@@ -29,7 +29,7 @@ body{
     width: 960px;
     height: 100px;
     padding-top: 30px;
-    font-family:"Lucida Handwriting";
+    font-family: Lucida Handwriting, sans-serif;
     text-align: center;
     font-size: 48px;
 }
@@ -37,9 +37,9 @@ body{
 
 /*navigation*/
 #navi {
-	width: 100%;
+	/*width: 100%;*/
 	width: 960px;
-	font-family: "Lucida Sans Unicode";
+	font-family: Lucida Sans Unicode sans-serif;
 	font-size: 1em;
 	line-height: 1.5;
 	float: left;
@@ -94,14 +94,14 @@ display: block;
 
 #leftcol {
 	width: 200px;
-	height: 750px;
+	min-height: 750px;
 	float: left;
 	text-align: center;
 }
 	
 #rightcol {
 	width: 600px;
-	height:750px;
+	min-height:750px;
 	float: left;
 	border-left:thin #efdfbd solid;
 	padding:50px;
@@ -131,6 +131,67 @@ h2{
     height:125px;
     border: 1px solid;
     margin: 0px 15px 50px 15px;
+}
+
+#ausblender{
+	position:fixed;
+	width:100%;
+	height:100%;
+	background-color:black;
+	left:0;
+	top:0;
+	opacity: 0.7;
+	z-index: 5;
+	display: none;
+}
+
+
+#viewer{
+	width:640px;
+    height:480px;
+	position: fixed;		 
+	left: 50%;
+	top: 50%;
+	margin-top: -240px;
+	margin-left:-320px;
+	background-color:black;
+	z-index: 10;
+	display: none;
+}
+
+#viewerToolbar{
+	width: 640px;
+	height: 24px;
+	background-color:gray;
+}
+
+#navName{
+	float: left;
+	margin:4px 0px 0px 10px;
+}
+
+.toolbarClose_active{
+	width: 24px;
+    height: 24px;
+    float: right;
+	background: url("close.png") no-repeat 0px 0px;
+    margin: 0px 0px 0px 3px;
+}
+
+.toolbarClose_active:hover {
+    background: url("close.png") no-repeat -24px 0px;
+}
+
+.toolbarClose_active:active {
+    background: url("close.png") no-repeat -48px 0px;
+}
+
+
+#x3d {
+    width:640px;
+    height:480px;
+    background-color:#DBB895;
+    border-style: none;
 }
 
 #footer{
