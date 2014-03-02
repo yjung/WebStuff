@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="description" content="HTML and CSS code skeleton">
+    <title>HTML Seitenstruktur</title>
+
+    <style type="text/css">
+        body {
+            font-family: Arial,sans-serif;
+            margin: 0;
+            padding: 0;
+            border: none;
+            color: rgb(70,70,70);
+        }
+        .header {
+            position: absolute;
+            height: 80px;
+            min-width: 400px;
+            right: 0;
+            left: 0;
+            background-color: gray;
+            margin: 0 auto;
+            text-align: center;
+            color: cornsilk;
+        }
+        .footer {
+            padding: 2px;
+            color: cornsilk;
+            background-color: gray;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            position: absolute;
+        }
+        .nav {
+            position: absolute;
+            top: 80px;
+            bottom: 30px;
+            width: 200px;
+            background-color: #d3d3d3;
+            border: 1px solid gray;
+        }
+        .content {
+            position: absolute;
+            margin: 0;
+            padding: 5px;
+            right: 0;
+            top: 80px;
+            bottom: 30px;
+            left: 202px;
+            background-color: cornsilk;
+            border: none;
+        }
+        a.navElem {
+            display: block;
+            max-width: 100%;
+            padding: 10px;
+            background-color: #d3d3d3;
+            border-bottom: 1px solid gray;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        a.navElem:hover {
+            background-color: #e1e1e1;
+        }
+        #cpyrght {
+            text-align: right;
+            padding: 5px;
+        }
+        #TODo {
+            width: 80%;
+            min-width: 200px;
+        }
+        #TODo img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Titel der Web-Page</h1>
+    </div>
+
+    <div class="nav">
+        <a class="navElem" href="default.html">Home</a>
+        <a class="navElem" href="news.html">News</a>
+        <a class="navElem" href="contact.html">Contact</a>
+        <a class="navElem" href="about.html">About</a>
+    </div>
+
+    <div class="content">
+        <h2>Eine &Uuml;berschrift</h2>
+
+        <p>Das ist ein Absatz, aber hier erscheint bald noch mehr.</p>
+        <p>Rest ist TODO...</p>
+        <div id="TODo">
+            <img src="todo.jpg" alt="TOD-O-Liste">
+        </div>
+    </div>
+
+    <div class="footer">
+        <div id="cpyrght">Copyright 2014 by Foo Bar</div>
+    </div>
+</body>
+</html>
