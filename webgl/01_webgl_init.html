@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        #glCanvas {
+            border: solid 1px black;
+        }
+    </style>
+
+    <script>
+        // our main rendering class
+        var Renderer = function(canvas) {
+            // private section
+            var that = this;
+
+            var gl = (function(canvas) {
+                var context = null;
+                var validContextNames = ['webgl', 'experimental-webgl'];
+                var ctxAttribs = { alpha: true, depth: true, antialias: true, premultipliedAlpha: false };
+
+                for (var i=0; i<validContextNames.length; i++) {
+                    try {
+                        // provide context name and context creation params
+                        if (context = canvas.getContext(validContextNames[i], ctxAttribs)) {
+                            console.log("Found '" + validContextNames[i] + "' context");
+                            break;
+                        }
+                    }
+                    catch (e) { console.warn(e); }
+                }
+
+                return context;
+            })(canvas);
+
+            // public section
+            return {
+                getContext: function() {
+                    return gl;
+                },
+
+                drawScene: function() {
+                    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+                    gl.clearDepth(1.0);
+                    gl.viewport(0, 0, canvas.width, canvas.height);
+                    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+                }
+            }
+        };
+
+        // entry point
+        function main() {
+            var canvas = document.getElementById("glCanvas");
+            var renderer = new Renderer(canvas);
+
+            if (!renderer.getContext()) {
+                console.error("No GL context found, WebGL not available!");
+                renderer = null;
+            }
+            else {
+                renderer.drawScene();
+            }
+        }
+    </script>
+</head>
+
+<body onload="main();">
+
+    <canvas id="glCanvas" width="512" height="512"></canvas>
+
+</body>
+</html>

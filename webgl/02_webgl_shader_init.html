@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        #glCanvas {
+            border: solid 1px black;
+        }
+    </style>
+
+    <script>
+        // our main rendering class
+        var Renderer = function(canvas) {
+            //-------------------------------------------------------
+            // private section, variables
+            //-------------------------------------------------------
+
+            // access to Renderer from inside other functions
+            var that = this;
+
+            // vertex shader string
+            var vertexShader = "void main() {\n" +
+                               "   gl_PointSize = 10.0;\n" +
+                               "   gl_Position = vec4(0.0, 0.0, 0.0, 1.0);\n" +
+                               "}\n";
+
+            // fragment shader string
+            var fragmentShader = "void main() {\n" +
+                                 "   gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n" +
+                                 "}\n";
+
+            // shader program object
+            var shaderProgram = null;
+
+
+            //-------------------------------------------------------
+            // private section, functions
+            //-------------------------------------------------------
+
+            // get GL context
+            var gl = (function(canvas) {
+                var context = null;
+                var validContextNames = ['webgl', 'experimental-webgl'];
+                var ctxAttribs = { alpha: true, depth: true, antialias: true, premultipliedAlpha: false };
+
+                for (var i=0; i<validContextNames.length; i++) {
+                    try {
+                        // provide context name and context creation params
+                        if (context = canvas.getContext(validContextNames[i], ctxAttribs)) {
+                            console.log("Found '" + validContextNames[i] + "' context");
+                            break;
+                        }
+                    }
+                    catch (e) { console.warn(e); }
+                }
+
+                return context;
+            })(canvas);
+
+            // create shader part
+            function getShader(source, type) {
+                var shader = null;
+
+                switch (type) {
+                    case "vertex":
+                        shader = gl.createShader(gl.VERTEX_SHADER);
+                        break;
+                    case "fragment":
+                        shader = gl.createShader(gl.FRAGMENT_SHADER);
+                        break;
+                    default:
+                        return null;
+                }
+
+                gl.shaderSource(shader, source);
+                gl.compileShader(shader);
+
+                if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                    console.warn(type + "Shader: " + gl.getShaderInfoLog(shader));
+                    return null;
+                }
+
+                return shader;
+            }
+
+            // create shader program
+            function initShader(vertexShaderStr, fragmentShaderStr) {
+                var vs = getShader(vertexShaderStr, "vertex");
+                var fs = getShader(fragmentShaderStr, "fragment");
+
+                if (vs && fs) {
+                    var program = gl.createProgram();
+
+                    gl.attachShader(program, vs);
+                    gl.attachShader(program, fs);
+                    gl.linkProgram(program);
+
+                    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+                        console.warn("Could not link program: " + gl.getProgramInfoLog(program));
+                        return null;
+                    }
+
+                    return program;
+                }
+
+                return null;
+            }
+
+
+            //-------------------------------------------------------
+            // public section, methods
+            //-------------------------------------------------------
+            return {
+                initialize: function() {
+                    if (!gl) {
+                        return false;
+                    }
+
+                    shaderProgram = initShader(vertexShader, fragmentShader);
+                    return (shaderProgram != null);
+                },
+
+                cleanup: function() {
+                    var shaders = gl.getAttachedShaders(shaderProgram);
+
+                    for (var i=0; i<shaders.length; ++i) {
+                        gl.detachShader(shaderProgram, shaders[i]);
+                        gl.deleteShader(shaders[i]);
+                    }
+
+                    gl.deleteProgram(shaderProgram);
+                    shaderProgram = null;
+                },
+
+                drawScene: function() {
+                    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+                    gl.clearDepth(1.0);
+
+                    gl.viewport(0, 0, canvas.width, canvas.height);
+                    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+                    gl.useProgram(shaderProgram);
+                    gl.drawArrays(gl.POINTS, 0, 1);
+                }
+            }
+        };
+
+
+        // Application object, used to minimize global variables
+        var MyApp = {
+            renderer: null,
+
+            // cleanup
+            shutdown: function() {
+                if (this.renderer) {
+                    this.renderer.cleanup();
+                }
+            }
+        };
+
+        // entry point
+        function main() {
+            var canvas = document.getElementById("glCanvas");
+            MyApp.renderer = new Renderer(canvas);
+
+            if (MyApp.renderer.initialize()) {
+                MyApp.renderer.drawScene();
+            }
+            else {
+                console.error("Could not initialize WebGL!");
+                MyApp.renderer = null;
+            }
+        }
+    </script>
+</head>
+
+<body onload="main();" onunload="MyApp.shutdown();">
+
+    <canvas id="glCanvas" width="512" height="512"></canvas>
+
+</body>
+</html>
