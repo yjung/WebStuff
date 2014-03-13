@@ -121,7 +121,8 @@ function loadFile() {
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
         //var o = this.response;
-        var o = eval("("+xhr.responseText+")");
+        //var o = eval("("+xhr.responseText+")");
+        var o = JSON.parse(xhr.responseText);
         console.log(o);
     };
     xhr.open("GET", myURI, true);   //async

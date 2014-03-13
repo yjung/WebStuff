@@ -317,17 +317,23 @@
                 if (data.indexOf("todo.jpg") >= 0) data = "img";
                 event.target.appendChild(document.getElementById(data));
             }
+            else if (event.dataTransfer.files[0]) {
+                data = new FileReader();
+                data.onload = function(e) {
+                    event.target.innerHTML = e.target.result;
+                };
+                data.readAsText(event.dataTransfer.files[0], "UTF-8");
+            }
         }
 
         event.preventDefault();
-        //event.stopPropagation();
-        return false;
+        event.stopPropagation();
     };
 
     var allowDrop = function(event) {
         event.preventDefault();
-        //event.stopPropagation();
-        return false;
+        event.stopPropagation();
+        //event.dataTransfer.dropEffect = "copy";
     };
 </script>
 
