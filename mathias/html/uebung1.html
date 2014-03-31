@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title></title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+
+		<link rel="stylesheet" href="../css/normalize.css">
+		<link rel="stylesheet" href="../css/main.css">
+		<script src="../js/vendor/modernizr-2.7.1.min.js"></script>
+		<script src="../js/uebung01.js"></script>
+	</head>
+	<body>
+		<!--[if lt IE 8]>
+		<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+		<![endif]-->
+
+		<!-- /////////////////		HEADER		/////////////////-->
+		<div id=header>
+			<img src="../img/hochschul_logo.png" />
+			<div id=headertrenner></div>
+		</div>
+		<!-- /////////////////		MENUE		/////////////////-->
+		<div id=navigation>
+			<div id=navigationButtons>
+				<input class="navigationButton" type="button" name="Startseite" value="Startseite" onclick="window.location.replace('../index.html')"/>
+				<input class="navigationButton" type="button" name="Skripte" value="Skripte" onclick="window.location.replace('skripte.html')"/>
+				<input class="navigationButton" type="button" name="Uebung1" value="&Uuml;bung 01"/>
+				<input class="navigationButton" type="button" name="Impressum" value="Impressum" onclick="window.location.replace('impressum.html')"/>
+			</div>
+		</div>
+		<!-- /////////////////		CONTENT		/////////////////-->
+		<div id=contentwrapper>
+			<div id=blattLogo>
+				<div id=contentgradient>
+					<div id=content>
+						<h1>&Uuml;bung 01</h1>
+						<h2>Aufgabe 01 (Wiederholung HTML und CSS)</h2>
+
+						<ul>
+							<li>
+								1.1 Frischen Sie Ihre HTML- und CSS-Kenntnisse auf, indem Sie den Abschnitt „HTML Basic“ auf: <a href="http://www.w3schools.com/html/">//www.w3schools.com/html/</a> sowie die Abschnitte „CSS Basic“, „CSS Box Model“ und
+								„CSS Advanced“ auf <a href="http://www.w3schools.com/css/">http://www.w3schools.com/css/</a> durchgehen.
+							</li>
+							<br />
+							<li>
+								1.2 Gestalten Sie mit CSS eine moderne Webseite ohne Frames und Tabellen, wobei eine Startseite,
+								wie unten gezeigt, genügt. Allerdings dürfen die wichtigsten Elemente wie Navigationsmenü,
+								Inhaltsbereich, Kopfbereich und Fußzeile nicht fehlen. Zudem darf sich das Layout nicht ändern,
+								wenn man das Browserfenster größer oder kleiner macht und der Inhaltsbereich muss beliebig
+								groß werden dürfen.
+							</li>
+							<br />
+							<img class="center" src="../img/uebung01/01.png" />
+							<br />
+							<li>
+								<h3> L&ouml;sung:</h3>
+								<p>
+									Aufgabe 01 wurde in Form der hier vorliegenden Website gelöst.
+								</p>
+							</li>
+						</ul>
+
+						<h2>Aufgabe 02 (Wiederholung JavaScript)</h2>
+
+						<ul>
+							<li>
+								2.1 Frischen Sie Ihre JavaScript-Kenntnisse auf, indem Sie die Abschnitte „JS Basic“, „JS Advanced“
+								(ohne RegExp) und „JS HTML DOM“ auf <a href="www.w3schools.com/js/">://www.w3schools.com/js/</a> durchgehen. Eine
+								deutschsprachige Alternative ist das inzwischen etwas in die Jahre gekommene SELFHTML
+								(<a href="de.selfhtml.org">://de.selfhtml.org</a>).
+							</li>
+							<br />
+
+							<li>
+								2.2 Erstellen Sie ein JSON-File, das für alle Ihre Kursmitglieder Daten wie Vorname, Name und Email-Adresse enthält.
+								Fügen Sie dem Content-Bereich noch einen Button „Lade Daten“ hinzu. Klickt man selbigen, soll der Button verschwinden,
+								die Datei über XHR eingelesen werden und deren Inhalt in ein gültiges JavaScript-Objekt verwandelt werden.
+								Die eingelesenen Daten sollen dann in einer Tabelle, ähnlich wie unten dargestellt, angezeigt werden. Mit den beiden
+								Buttons in der letzten Spalte soll es möglich sein, Personen für eine Arbeitsgruppe dynamisch aus- bzw. einzutragen,
+								welche sodann in einer zusätzlichen Liste darunter angezeigt werden.
+							</li>
+							<br />
+							<img class="center" src="../img/uebung01/02.png" />
+							<br />
+							<li>
+								<h3> L&ouml;sung:</h3>
+								<div id="tabellenDiv">
+									<p>
+										Auf nachfolgenden Button klicken um Kontaktdaten über ein JSON-File einzulesen:
+									</p>
+									<input type="button" id="ladeButton" class="inlineButton" value="Kontakte laden" onclick="kontakteLaden()"/>
+								</div>
+								<div id="gruppenDiv"></div>
+								<ol id="gruppe"></ol>
+							</li>
+						</ul>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- /////////////////		FOOTER		/////////////////-->
+		<div id=footer></div>
+
+		<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
+		<script>
+			window.jQuery || document.write('<script src="../js/vendor/jquery-1.11.0.min.js"><\/script>')
+		</script>
+		<script src="../js/plugins.js"></script>
+		<script src="../js/main.js"></script>
+
+		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+		<script>
+			( function(b, o, i, l, e, r) {
+					b.GoogleAnalyticsObject = l;
+					b[l] || (b[l] = function() {
+						(b[l].q = b[l].q || []).push(arguments)
+					});
+					b[l].l = +new Date;
+					e = o.createElement(i);
+					r = o.getElementsByTagName(i)[0];
+					e.src = '//www.google-analytics.com/analytics.js';
+					r.parentNode.insertBefore(e, r)
+				}(window, document, 'script', 'ga'));
+			ga('create', 'UA-XXXXX-X');
+			ga('send', 'pageview');
+		</script>
+	</body>
+</html>

@@ -1,0 +1,51 @@
+[
+    {
+        "Vorname": "Mathias",
+        "Nachname": "Jaeger",
+        "EMail": [
+            "jaeger.mathias@googlemail.com"
+        ]
+    },
+        {
+        "Vorname": "Vorname1",
+        "Nachname": "Nachname1",
+        "EMail": [
+            "jaeger.mathias@googlemail.com"
+        ]
+    },
+        {
+        "Vorname": "Vorname2",
+        "Nachname": "Nachname2",
+        "EMail": [
+            "jaeger.mathias@googlemail.com"
+        ]
+    },
+        {
+        "Vorname": "Vorname3",
+        "Nachname": "Nachname3",
+        "EMail": [
+            "jaeger.mathias@googlemail.com"
+        ]
+    },
+        {
+        "Vorname": "Vorname4",
+        "Nachname": "Nachname4",
+        "EMail": [
+            "jaeger.mathias@googlemail.com"
+        ]
+    },
+        {
+        "Vorname": "Vorname5",
+        "Nachname": "Nachname5",
+        "EMail": [
+            "jaeger.mathias@googlemail.com"
+        ]
+    },
+    {
+        "Vorname": "Vorname6",
+        "Nachname": "Nachname6",
+        "EMail": [
+            "jaeger.mathias@googlemail.com"
+        ]
+    }
+]  
