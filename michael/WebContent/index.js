@@ -4,7 +4,7 @@
 function kontakteLaden() {
 	document.getElementById("ladeButton").className = "hidden";
 	var uebung01;
-	var myURI = "../daten.json";
+	var myURI = "daten.json";
 	var div = document.getElementById("tabellenDiv");
 	var tabellenCode;
 	var xhr = new XMLHttpRequest();
@@ -14,8 +14,7 @@ function kontakteLaden() {
 		// Request vollstaendig?
 		if (this.readyState == this.DONE) {
 			var kontakte = JSON.parse(xhr.responseText || null);
-			tabellenCode = "<table border='5'><tr><th>Vorname</th><th>Nachname";
-			tabellenCode += "</th><th>E-Mail</th><th>Gruppe</th></tr>";
+			tabellenCode = "<table border='5'><tr><th>Vorname</th><th>Nachname</th><th>E-Mail</th><th>Gruppe</th></tr>";
 			for ( i = 0; i < kontakte.length; i++) {
 				tabellenCode += "<tr><td>" + kontakte[i].Vorname + "</td><td>" + kontakte[i].Nachname + "</td><td>" + kontakte[i].EMail + "</td>";
 				tabellenCode += '<td><input type="button" class ="inlineButton" id="button1' + kontakte[i].Vorname + '"name="' + kontakte[i].Vorname + '"value="Hinzufuegen" onclick="hinzufuegen(name)"/>';

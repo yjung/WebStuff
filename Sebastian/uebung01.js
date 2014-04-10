@@ -3,7 +3,7 @@ function kontakteLaden() {
 	var uebung01;
 	var myURI = "daten.json";
 	var div = document.getElementById("tabellenDiv");
-	var tabellenCode;
+	var tabCode;
 	var xhr = new XMLHttpRequest();
 	// Variable ‘myURI’ verweist auf Datei; ‚true‘ für async
 	xhr.open("GET", myURI, true);
@@ -12,24 +12,25 @@ function kontakteLaden() {
 		// Request vollstaendig?
 		if (this.readyState == this.DONE) {
 			var kontakte = JSON.parse(xhr.responseText || null);
-			tabellenCode = "<table border='5'>";
-			tabellenCode += "<tr>";
-			tabellenCode += "<th>Vorname</th>";
-			tabellenCode += "<th>Nachname</th>";
-			tabellenCode += "<th>E-Mail</th>";
-			tabellenCode += "<th>Gruppe</th>";
-			tabellenCode += "</tr>";
-			for ( i = 0; i < kontakte.length; i++) {
-				tabellenCode += "<tr>";
-				tabellenCode += "<td>" + kontakte[i].Vorname + "</td>";
-				tabellenCode += "<td>" + kontakte[i].Nachname + "</td>";
-				tabellenCode += "<td>" + kontakte[i].EMail + "</td>";
-				tabellenCode += "<td>" + '<input type="button" class ="inlineButton" id="button1' + kontakte[i].Vorname + '"name="' + kontakte[i].Vorname + '"value="Hinzufuegen" onclick="hinzufuegen(name)"/>';
-				tabellenCode += "&nbsp;" + '<input type="button" class ="inlineButton" id="button2' + kontakte[i].Vorname + '"name="' + kontakte[i].Vorname + '"value="Entfernen" onclick="entfernen(name)"/>' + "</td>";
-				tabellenCode += "</tr>";
+			tabCode = "<table border='5'>";
+			tabCode += "<tr>";
+			tabCode += "<th>Vorname</th>";
+			tabCode += "<th>Nachname</th>";
+			tabCode += "<th>E-Mail</th>";
+			tabCode += "<th>Gruppe</th>";
+			tabCode += "</tr>";
+			for ( i = 0; i < kontakte.length; i++) 
+			{
+				tabCode += "<tr>";
+				tabCode += "<td>" + kontakte[i].Vorname + "</td>";
+				tabCode += "<td>" + kontakte[i].Nachname + "</td>";
+				tabCode += "<td>" + kontakte[i].EMail + "</td>";
+				tabCode += "<td>" + '<input type="button" class ="Button" id="button1' + kontakte[i].Vorname + '"name="' + kontakte[i].Vorname + '"value="Add" onclick="hinzufuegen(name)"/>';
+				tabCode += "&nbsp;" + '<input type="button" class ="Button" id="button2' + kontakte[i].Vorname + '"name="' + kontakte[i].Vorname + '"value="Delete" onclick="entfernen(name)"/>' + "</td>";
+				tabCode += "</tr>";
 			}
-			tabellenCode += "</table>";
-			div.innerHTML = tabellenCode;
+			tabCode += "</table>";
+			div.innerHTML = tabCode;
 		}
 	};
 

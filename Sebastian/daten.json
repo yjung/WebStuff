@@ -2,49 +2,56 @@
     {
         "Vorname": "Sebastian",
         "Nachname": "Bittner",
-        "EMail": [
+        "EMail": 
+        [
             "nerd.beere@googlemail.com"
         ]
     },
         {
         "Vorname": "Mathias",
         "Nachname": "Jaeger",
-        "EMail": [
+        "EMail": 
+        [
             "jaeger.mathias@googlemail.com"
         ]
     },
         {
         "Vorname": "Vorname2",
         "Nachname": "Nachname2",
-        "EMail": [
+        "EMail": 
+        [
             "nerd.beere@googlemail.com"
         ]
     },
         {
         "Vorname": "Vorname3",
         "Nachname": "Nachname3",
-        "EMail": [
+        "EMail": 
+        [
             "nerd.beere@googlemail.com"
         ]
     },
         {
         "Vorname": "Vorname4",
         "Nachname": "Nachname4",
-        "EMail": [
+        "EMail": 
+        [
             "nerd.beere@googlemail.com"
         ]
     },
         {
         "Vorname": "Vorname5",
         "Nachname": "Nachname5",
-        "EMail": [
+        "EMail": 
+        [
             "nerd.beere@googlemail.com"
         ]
     },
     {
         "Vorname": "Vorname6",
         "Nachname": "Nachname6",
-        "EMail": [
+        "EMail": 
+        [
             "nerd.beere@googlemail.com"
         ]
     }

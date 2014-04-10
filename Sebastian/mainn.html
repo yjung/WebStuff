@@ -7,9 +7,9 @@
 		<title>mainn</title>
 		<meta name="author" content="Nerdnuss" />
 		<link rel="stylesheet" href="main.css">
-		<script src="vendor/modernizr-2.7.1.min.js"></script>
 		<script src="uebung01.js"></script>
-		<!-- Date: 2014-04-02 -->
+		<script src="jquery-1.11.0.min.js"></script>
+		<!-- Date: 2014-04-10 -->
 	</head>
 	<body>
 		<div id= "header">
@@ -18,9 +18,9 @@
 		</div>
 		<div id = "navigation">
 			<div id=navigationButtons>
-				<input class="navigationButton" type="button" name="Startseite" value="Startseite" />
-				<input class="navigationButton" type="button" name="Skripte" value="Skripte" />
-				<input class="navigationButton" type="button" name="Uebung1" value="&Uuml;bung 01"/>
+				<input class="MButton" type="button" name="Startseite" value="Startseite" />
+	
+				<input class="MButton" type="button" name="Uebung1" value="&Uuml;bung 01"/>
 				
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 									<p>
 										Auf nachfolgenden Button klicken um Kontaktdaten über ein JSON-File einzulesen:
 									</p>
-									<input type="button" id="ladeButton" class="inlineButton" value="Kontakte laden" onclick="kontakteLaden()"/>
+									<input type="button" id="ladeButton" class="Button" value="Kontakte laden" onclick="kontakteLaden()"/>
 								</div>
 									
 							</div>
@@ -57,8 +57,7 @@
 			<div id="footer">
 				Impressum Kontakt blaa Dummi Footer Text
 			</div>
-			<script src="../plugins.js"></script>
-			<script src="../main.js"></script>
+			
 			
 	</body>
 </html>

@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Uebung Visual Effect from Michael Widjaja</title>
-<link rel="stylesheet" href="css_template.css">
+		<meta charset="ISO-8859-1">
+		<title>Uebung Visual Effect from Michael Widjaja</title>
+		<link rel="stylesheet" href="css_template.css">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+		<script src="index.js"></script>
 </head>
 <body>
 	<div id=header_part>This is dummy header only</div>
 	<div id=navigation_part>This is dummy navigation only</div>
-	<div id=content_part>This is dummy content only</div>
+	<div id=content_part>
+	This is dummy content only
+	<div id="tabellenDiv">
+		<p>
+			Auf nachfolgenden Button klicken um Kontaktdaten über ein JSON-File einzulesen:
+		</p>
+		<input type="button" id="ladeButton" class="inlineButton" value="Kontakte laden" onclick="kontakteLaden()"/>
+	</div>
+	</div>
 	<div id=footer_part>This is dummy footer only</div>
+	
 </body>
 </html>
