@@ -141,11 +141,7 @@ td {
 	border:2px dotted green;
 }
 
-#headertrenner {
-	height:40px;
-	min-width:100%;
-	background-image: url(../img/trenner.jpg);	
-}
+
 
 #navigation {
 	position: absolute;
@@ -157,15 +153,12 @@ td {
 	height: -moz-calc(100% - 230px); /* firefox */
 	margin:0;
 	padding:0;
-	background:#999999;
-	background-image: url(../naviButton_bg.png);
+	background:#0021C7;
 	background-repeat:repeat-y;
 	overflow: none;
 }
 
-#navigationButtons {
 
-}
 
 #contentwrapper {
 	position: absolute;
@@ -188,19 +181,9 @@ td {
 
 #content{
 	margin: 2em;
-	margin-left: 4em;
-	margin-right: 4em;
+	margin-left: 3em;
+	margin-right: 2em;
 	background-color:transparent;
-}
-
-#blattLogo{
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	background-image: url(../img/hsBlatt_logo.png);
-	background-repeat:no-repeat;
-	
-	background-position:125% 200%;
 }
 
 
@@ -208,15 +191,7 @@ td {
 	position: absolute;
 	height: 100%;
 	width: 100%;
-	background: -moz-radial-gradient(center, ellipse cover,  rgba(125,126,125,0.17) 0%, rgba(125,126,125,0.18) 1%, rgba(14,14,14,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(125,126,125,0.17)), color-stop(1%,rgba(125,126,125,0.18)), color-stop(100%,rgba(14,14,14,1))); /* Chrome,Safari4+ */
-	background: -webkit-radial-gradient(center, ellipse cover,  rgba(125,126,125,0.17) 0%,rgba(125,126,125,0.18) 1%,rgba(14,14,14,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-radial-gradient(center, ellipse cover,  rgba(125,126,125,0.17) 0%,rgba(125,126,125,0.18) 1%,rgba(14,14,14,1) 100%); /* Opera 12+ */
-	background: -ms-radial-gradient(center, ellipse cover,  rgba(125,126,125,0.17) 0%,rgba(125,126,125,0.18) 1%,rgba(14,14,14,1) 100%); /* IE10+ */
-	background: radial-gradient(ellipse at center,  rgba(125,126,125,0.17) 0%,rgba(125,126,125,0.18) 1%,rgba(14,14,14,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b7d7e7d', endColorstr='#0e0e0e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-	
-			overflow-y:scroll;
+	background:#FF9900;
 }
 
 #footer {
@@ -228,78 +203,104 @@ td {
 	width: -o-calc(100% - 170px); /* opera */
 	width: -webkit-calc(100% - 170px); /* google, safari */
 	width: -moz-calc(100% - 170px); /* firefox */
-	background:#000000;
+	background:#C70067;
 	background-image: url(../img/trenner.jpg);
 }
 
-.navigationButton {
-	width:211px;
-	font-family:Impact;
-	font-size:1.5em;
-	background:none;
-	border: none;
-	margin-top:10px;
-	margin-bottom:10px;
-	color:#0FFF00;
+.MButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #f9eca0;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #f9eca0;
+	box-shadow:inset 0px 1px 0px 0px #f9eca0;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff9900), color-stop(1, #ff5100) );
+	background:-moz-linear-gradient( center top, #ff9900 5%, #ff5100 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff9900', endColorstr='#ff5100');
+	background-color:#ff9900;
+	-webkit-border-top-left-radius:20px;
+	-moz-border-radius-topleft:20px;
+	border-top-left-radius:20px;
+	-webkit-border-top-right-radius:20px;
+	-moz-border-radius-topright:20px;
+	border-top-right-radius:20px;
+	-webkit-border-bottom-right-radius:20px;
+	-moz-border-radius-bottomright:20px;
+	border-bottom-right-radius:20px;
+	-webkit-border-bottom-left-radius:20px;
+	-moz-border-radius-bottomleft:20px;
+	border-bottom-left-radius:20px;
+	text-indent:0;
+	border:1px solid #e65f44;
+	display:inline-block;
+	color:#0021c7;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:italic;
+	height:40px;
+	line-height:40px;
+	width:100px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #ded17c;
 }
-
-.navigationButton:hover {
-	width:211px;
-	font-family:Impact;
-	font-size:1.5em;
-	background:none;
-	border: none;
-	margin-top:10px;
-	margin-bottom:10px;
-	color:#FFF;
+.MButton:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff5100), color-stop(1, #ff9900) );
+	background:-moz-linear-gradient( center top, #ff5100 5%, #ff9900 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5100', endColorstr='#ff9900');
+	background-color:#ff5100;
+}.MButton:active {
+	position:relative;
+	top:1px;
 }
+/* This button was generated using CSSButtonGenerator.com */
 
-.navigationButton:active {
-	width:211px;
-	font-family:Impact;
-	font-size:1.5em;
-	background:none;
-	border: none;
-	margin-top:10px;
-	margin-bottom:10px;
-	color:#c8141d;
-}
 
-.inlineButton {
-	-moz-box-shadow:inset 0px 1px 0px 0px #336600;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #336600;
-	box-shadow:inset 0px 1px 0px 0px #336600;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #336600), color-stop(1, #66ff00) );
-	background:-moz-linear-gradient( center top, #336600 5%, #66ff00 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#336600', endColorstr='#66ff00');
-	background-color:#336600;
-	-webkit-border-top-left-radius:0px;
-	-moz-border-radius-topleft:0px;
-	border-top-left-radius:0px;
+
+.Button {
+	-moz-box-shadow:inset 0px 1px 0px 0px #fbafe3;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #fbafe3;
+	box-shadow:inset 0px 1px 0px 0px #fbafe3;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ff5bb0), color-stop(1, #ef027d) );
+	background:-moz-linear-gradient( center top, #ff5bb0 5%, #ef027d 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bb0', endColorstr='#ef027d');
+	background-color:#ff5bb0;
+	-webkit-border-top-left-radius:37px;
+	-moz-border-radius-topleft:37px;
+	border-top-left-radius:37px;
 	-webkit-border-top-right-radius:0px;
 	-moz-border-radius-topright:0px;
 	border-top-right-radius:0px;
-	-webkit-border-bottom-right-radius:0px;
-	-moz-border-radius-bottomright:0px;
-	border-bottom-right-radius:0px;
+	-webkit-border-bottom-right-radius:37px;
+	-moz-border-radius-bottomright:37px;
+	border-bottom-right-radius:37px;
 	-webkit-border-bottom-left-radius:0px;
 	-moz-border-radius-bottomleft:0px;
 	border-bottom-left-radius:0px;
-	text-indent:0px;
-	border:2px solid #446600;
+	text-indent:0;
+	border:1px solid #ee1eb5;
 	display:inline-block;
 	color:#ffffff;
-	font-family:Impact;
-	font-size:16px;
-	font-weight:normal;
-	font-style:normal;
-	height:auto;
-	line-height:auto;
-	width:auto;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:italic;
+	height:50px;
+	line-height:50px;
+	width:130px;
 	text-decoration:none;
 	text-align:center;
-	text-shadow:1px 1px 0px #446600;
+	text-shadow:1px 1px 0px #c70067;
 }
+.Button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ef027d), color-stop(1, #ff5bb0) );
+	background:-moz-linear-gradient( center top, #ef027d 5%, #ff5bb0 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ef027d', endColorstr='#ff5bb0');
+	background-color:#ef027d;
+}.Button:active {
+	position:relative;
+	top:1px;
+}
+
+/* This button was generated using CSSButtonGenerator.com */
 
 
 .inlineButton:hover {
