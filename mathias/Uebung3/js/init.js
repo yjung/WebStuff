@@ -273,6 +273,7 @@ var Renderer = function(canvas) {
 			gl.disableVertexAttribArray(shaderProgram.position);
 			gl.disableVertexAttribArray(shaderProgram.color);
 			gl.disableVertexAttribArray(shaderProgram.texCoord);
+			gl.disableVertexAttribArray(shaderProgram.delta);
 
 			gl.activeTexture(gl.TEXTURE0);
 			gl.bindTexture(gl.TEXTURE_2D, null);
@@ -290,6 +291,12 @@ var Renderer = function(canvas) {
 				myFirstObject.transform[5] = Math.cos(myFirstObject.angle);
 
 				// myFirstObject.transform[7] -= 5;
+				
+					// mat4	( cos( Angle ),   -sin( Angle ), 0.0, 0.0,
+			    				  // sin( Angle ),    cos( Angle ), 0.0, 0.0,
+			             		  // 0.0,						0.0, 1.0, 0.0,
+				     			  // 0.0,						0.0, 0.0, 1.0 );
+				
 			}
 		},
 
