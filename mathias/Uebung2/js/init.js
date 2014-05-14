@@ -16,56 +16,115 @@ var Renderer = function(canvas) {
 	// shader program object
 	var shaderProgram = null;
 
-            // container for our first object
-            var myFirstObject = {
-                // the object's vertices
-                vertices: [
-                    -0.05, 0, 0,
-                     0.05, -0, 0,
-                    -0.05,  0.5, 0,
-                     0.05,  0.5, 0,
-                     0, 0.75, 0
-                ],
-                // the object's vertex colors
-                colors: [
-                    1, 1, 0,
-                    1, 0, 0,
-                    0, 1, 0,
-                    0, 0, 1,
-                    1, 1, 1
-                ],
-                // the object's texture coordinates
-                texCoords: [
-                    0, 0,
-                    1, 0,
-                    0, 1,
-                    1, 1,
-                    0.5, 0
-                ],
-                // index array for drawing a quad (consisting of two tris)
-                indices: [
-                    0, 1, 2,
-                    3, 2, 1,
-                    2, 3, 4
-                    //0, 1, 2, 3, 4
-                ],
+            // // container for our first object
+            // var myFirstObject = {
+                // // the object's vertices
+                // vertices: [
+                    // -0.05, 0, 0,
+                     // 0.05, -0, 0,
+                    // -0.05,  0.5, 0,
+                     // 0.05,  0.5, 0,
+                     // 0, 0.75, 0
+                // ],
+                // // the object's vertex colors
+                // colors: [
+                    // 1, 1, 0,
+                    // 1, 0, 0,
+                    // 0, 1, 0,
+                    // 0, 0, 1,
+                    // 1, 1, 1
+                // ],
+                // // the object's texture coordinates
+                // texCoords: [
+                    // 0, 0,
+                    // 1, 0,
+                    // 0, 1,
+                    // 1, 1,
+                    // 0.5, 0
+                // ],
+                // // index array for drawing a quad (consisting of two tris)
+                // indices: [
+                    // 0, 1, 2,
+                    // 3, 2, 1,
+                    // 2, 3, 4
+                    // //0, 1, 2, 3, 4
+                // ],
+// 
+                // // for animation
+                // // matrix elements must be provided in column major order!
+                // transform: [
+                    // 1, 0, 0, 0,
+                    // 0, 1, 0, 0,
+                    // 0, 0, 1, 0,
+                    // 0, 0, 0, 1
+                // ],
+                // angle: 0,
+                // numSeconds: 2,
+                // animating: false,
+// 
+                // // texture
+                // // imgSrc: "img/todo.jpg",
+                // texture: null
+            // };
 
-                // for animation
-                // matrix elements must be provided in column major order!
-                transform: [
-                    1, 0, 0, 0,
-                    0, 1, 0, 0,
-                    0, 0, 1, 0,
-                    0, 0, 0, 1
-                ],
-                angle: 0,
-                numSeconds: 2,
-                animating: false,
+    // container for our first object
+    var myFirstObject = {
+    // the object's vertices
+    vertices: [
+    -0.5, 0, 0,
+    0.5, -0, 0,
+    -0.5,  0.5, 0,
+    0.5,  0.5, 0,
+    0, 0.75, 0,
+    -0.75, 0.5, 0,
+    0.75, 0.5, 0
 
-                // texture
-                // imgSrc: "img/todo.jpg",
-                texture: null
-            };
+    ],
+    // the object's vertex colors
+    colors: [
+    0.5, 0.5, 0.5,
+    0.5, 0.5, 0.5,
+    0.5, 0.5, 0.5,
+    0.5, 0.5, 0.5,
+    1, 0, 0,
+    1, 0, 0,
+    1, 0, 0
+    ],
+    // the object's texture coordinates
+    texCoords: [
+    0, 0,
+    1, 0,
+    0, 1,
+    1, 1,
+    0.5, 0,
+    0, 0,
+    0, 0
+    ],
+    // index array for drawing a quad (consisting of two tris)
+    indices: [
+    0, 1, 2,
+    3, 2, 1,
+//     2, 3, 4,
+    4, 5, 6
+    //0, 1, 2, 3, 4
+    ],
+
+    // for animation
+    // matrix elements must be provided in column major order!
+    transform: [
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1
+    ],
+    angle: 0,
+    numSeconds: 2,
+    animating: false,
+
+    // texture
+    // imgSrc: "img/todo.jpg",
+    texture: null
+    };
 
 	var lastFrameTime = 0;
 
