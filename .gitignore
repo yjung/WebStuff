@@ -162,3 +162,6 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
+
+# Projektteilnehmer
+./mathias/Uebung3/.metadata/
