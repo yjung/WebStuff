@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.aptana.js.debug.core.webbrowserLaunchConfigurationType">
+<booleanAttribute key="advancedRunEnabled" value="false"/>
+<booleanAttribute key="appendProjectName" value="false"/>
+<stringAttribute key="browserCmdLine" value=""/>
+<stringAttribute key="browserExecutable" value="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"/>
+<stringAttribute key="externalBaseUrl" value=""/>
+<stringAttribute key="httpGetData" value=""/>
+<intAttribute key="serverType" value="1"/>
+<intAttribute key="startActionType" value="1"/>
+<stringAttribute key="startPagePath" value=""/>
+<stringAttribute key="startPageUrl" value=""/>
+</launchConfiguration>

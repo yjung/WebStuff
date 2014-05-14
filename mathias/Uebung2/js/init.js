@@ -82,7 +82,7 @@ var Renderer = function(canvas) {
     ],
     // the object's vertex colors
     colors: [
-    0.5, 0.5, 0.5,
+    0.5, 0.5, 0.5,	//
     0.5, 0.5, 0.5,
     0.5, 0.5, 0.5,
     0.5, 0.5, 0.5,
@@ -92,21 +92,19 @@ var Renderer = function(canvas) {
     ],
     // the object's texture coordinates
     texCoords: [
-    0, 0,
-    1, 0,
-    0, 1,
-    1, 1,
-    0.5, 0,
-    0, 0,
-    0, 0
+    0.25, 0,
+    0.75, 0,
+    0.25, 0.5,
+    0.75, 0.5,
+    0.5, 1,
+    0, 0.75,
+    1, 0.75,
     ],
     // index array for drawing a quad (consisting of two tris)
     indices: [
     0, 1, 2,
     3, 2, 1,
-//     2, 3, 4,
     4, 5, 6
-    //0, 1, 2, 3, 4
     ],
 
     // for animation
@@ -122,7 +120,7 @@ var Renderer = function(canvas) {
     animating: false,
 
     // texture
-    // imgSrc: "img/todo.jpg",
+    imgSrc: "img/todo.jpg",
     texture: null
     };
 
@@ -172,7 +170,7 @@ var Renderer = function(canvas) {
 				return false;
 			}
 
-			//myFirstObject.texture = initTexture(myFirstObject.imgSrc);
+			myFirstObject.texture = initTexture(myFirstObject.imgSrc);
 
 			initBuffers(myFirstObject);
 
