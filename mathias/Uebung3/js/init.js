@@ -4,6 +4,9 @@ checkWebGL();
 // Application object, used to minimize global variables
 var Anwendung = createApp();
 
+var viewMat = mat4.create();
+var modelView = mat4.create();
+
 // our main rendering class
 // http://www.khronos.org/registry/webgl/specs/latest/1.0/
 var Renderer = function(canvas) {
@@ -11,10 +14,46 @@ var Renderer = function(canvas) {
 	// private section, variables
 	//-------------------------------------------------------
 
+	// Event-Listener
+	//canvas.setAttribute("tabindex", "0"); 
+ 
+	document.addEventListener('keypress', function(evt) { 
+ 		switch (evt.charCode) { 
+ 			case 43: /* + */ 
+ 						var vec4 = (0,0,0,0);
+ 						// Hier muss ein add oder so hin (--)
+ 						viewMat = mat4.multiply(viewMat, viewMat, vec4);
+ 						console.log("Baem!");
+ 						break; 
+ 			case 45: /* - */ 
+ 						break; 
+ 		} 
+	}, true); 
+ 
+document.addEventListener('keydown', function(evt) { 
+switch (evt.keyCode) { 
+ case 37: /* left */ 
+  						var vec4 = (0,0,1,0);
+ 						mat4.multiply(viewMat, viewMat, vec4);
+ 						console.log("Baem!");
+ break; 
+ case 38: /* up */ 
+ break; 
+ case 39: /* right */ 
+ break; 
+ case 40: /* down */ 
+ break; 
+ } 
+}, true); 
+
+
+
 	// access to Renderer from inside other functions
 	var that = this;
 	// shader program object
 	var shaderProgram = null;
+
+	
 
     // container for our first object
     var myFirstObject = {
@@ -170,7 +209,8 @@ var Renderer = function(canvas) {
 			gl.useProgram(shaderProgram);
 
 			// set uniforms
-			gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(myFirstObject.transMat));
+			mat4.multiply(modelView, myFirstObject.transMat, viewMat)
+			gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(modelView));
 
 			if (myFirstObject.texture && myFirstObject.texture.ready) {
 				gl.uniform1f(shaderProgram.texLoaded, 1);
@@ -233,7 +273,12 @@ var Renderer = function(canvas) {
 			gl.bindTexture(gl.TEXTURE_2D, null);
 		},
 
+		benutzerEingaben : function(dT) {
+			
+		},
+
 		animate : function(dT) {
+			
 			// update animation values
 			if (myFirstObject.animating) {
 
@@ -245,14 +290,6 @@ var Renderer = function(canvas) {
 				var identitaetsMatrix3 = mat4.create();		// Identitaetsmatrix erzeugen
 				// Identitätsmatrix um Winkel drehen und in transmat speichern
 				mat4.rotateZ(myFirstObject.transMat, identitaetsMatrix3, myFirstObject.angle);
-				
-				console.log(myFirstObject.transMat);
-				
-				
-				//transMat =	( cos( Angle ),   -sin( Angle ), 0.0, 0.0,
-			    				  // sin( Angle ),    cos( Angle ), 0.0, 0.0,
-			             		  // 0.0,						0.0, 1.0, 0.0,
-				     			  // 0.0,						0.0, 0.0, 1.0 );
 				
 			}
 		},
@@ -275,6 +312,9 @@ var Renderer = function(canvas) {
 			var fpsStr = (1000 / dT).toFixed(2);
 			dT /= 1000;
 
+
+			// Benutzereingaben abfangen
+			this.benutzerEingaben();
 			// then, update 
 			this.animate(dT);
 			// and render scene
