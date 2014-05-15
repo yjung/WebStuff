@@ -105,9 +105,20 @@
 
             waldi.bellen();
             waldi.getSpruch();
+            
+            // extend object during runtime 
+            waldi.getClub = function() {
+                var that = this;
+                var club = function() {
+                    return that._club.toLowerCase();
+                }();
+                return club;
+            };
+            waldi.bell = "Kläff kläff!";
+            console.log(waldi.getClub() + "\n" + waldi.bell);
+
 
             // wrap subclassing process in extend function
-            /*
             function extend(subClass, superClass) {
                 var F = function() {};
                 F.prototype = superClass.prototype;
@@ -132,17 +143,6 @@
 
             nero.bellen();
             console.log((nero.isBissig() ? "Bissiger " : "Lieber ") + "Hund");
-            */
-
-            waldi.getClub = function() {
-                var that = this;
-                var club = function() {
-                    return that._club.toLowerCase();
-                }();
-                return club;
-            };
-            waldi.bell = "Kläff kläff!";
-            console.log(waldi.getClub() + "\n" + waldi.bell);
         }
 
         function testCheckInterface() {
@@ -219,10 +219,10 @@
             MyAPP.myModule.myPublicMethod();
 
             // yet another test - inheritance
-            //testInheritance();
+            testInheritance();
 
             // Introspection
-            //testCheckInterface();
+            testCheckInterface();
         }
     </script>
 </head>

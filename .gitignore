@@ -164,4 +164,5 @@ $RECYCLE.BIN/
 .DS_Store
 
 # Projektteilnehmer
-./mathias/Uebung3/.metadata/
+.metadata
+.idea

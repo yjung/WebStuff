@@ -171,8 +171,8 @@
                         return null;
                     }
 
-                    initShaderVariables(program);
-                    //findShaderVariables(program);
+                    //initShaderVariables(program);
+                    findShaderVariables(program);
 
                     return program;
                 }
@@ -338,7 +338,7 @@
                     dT /= 1000;
 
                     fpsStr = (currTime / 1000).toFixed(3) + "<br>dT: " + dT + "<br>fps: " + fpsStr;
-                    document.getElementById("time").innerHTML = fpsStr;
+                    document.getElementById("time").innerHTML = fpsStr + "<br>" + new Date().toTimeString();
 
                     lastFrameTime = currTime;
 
