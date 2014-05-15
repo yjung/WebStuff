@@ -16,57 +16,6 @@ var Renderer = function(canvas) {
 	// shader program object
 	var shaderProgram = null;
 
-            // // container for our first object
-            // var myFirstObject = {
-                // // the object's vertices
-                // vertices: [
-                    // -0.05, 0, 0,
-                     // 0.05, -0, 0,
-                    // -0.05,  0.5, 0,
-                     // 0.05,  0.5, 0,
-                     // 0, 0.75, 0
-                // ],
-                // // the object's vertex colors
-                // colors: [
-                    // 1, 1, 0,
-                    // 1, 0, 0,
-                    // 0, 1, 0,
-                    // 0, 0, 1,
-                    // 1, 1, 1
-                // ],
-                // // the object's texture coordinates
-                // texCoords: [
-                    // 0, 0,
-                    // 1, 0,
-                    // 0, 1,
-                    // 1, 1,
-                    // 0.5, 0
-                // ],
-                // // index array for drawing a quad (consisting of two tris)
-                // indices: [
-                    // 0, 1, 2,
-                    // 3, 2, 1,
-                    // 2, 3, 4
-                    // //0, 1, 2, 3, 4
-                // ],
-// 
-                // // for animation
-                // // matrix elements must be provided in column major order!
-                // transform: [
-                    // 1, 0, 0, 0,
-                    // 0, 1, 0, 0,
-                    // 0, 0, 1, 0,
-                    // 0, 0, 0, 1
-                // ],
-                // angle: 0,
-                // numSeconds: 2,
-                // animating: false,
-// 
-                // // texture
-                // // imgSrc: "img/todo.jpg",
-                // texture: null
-            // };
-
     // container for our first object
     var myFirstObject = {
     // the object's vertices
@@ -116,6 +65,7 @@ var Renderer = function(canvas) {
     0, 0, 0, 1
     ],
     angle: 0,
+    transMat : mat4.create(),
     numSeconds: 2,
     animating: false,
 
@@ -150,6 +100,10 @@ var Renderer = function(canvas) {
 		obj.texCoordBuffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.texCoords), gl.STATIC_DRAW);
+		
+		obj.transMatBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, obj.transMatBuffer);
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.transMat), gl.STATIC_DRAW);
 	}
 
 	//-------------------------------------------------------
@@ -198,6 +152,7 @@ var Renderer = function(canvas) {
 			gl.deleteBuffer(myFirstObject.positionBuffer);
 			gl.deleteBuffer(myFirstObject.colorBuffer);
 			gl.deleteBuffer(myFirstObject.texCoordBuffer);
+			gl.deleteBuffer(myFirstObject.transMatBuffer);
 		},
 
 		drawScene : function() {
@@ -215,7 +170,7 @@ var Renderer = function(canvas) {
 			gl.useProgram(shaderProgram);
 
 			// set uniforms
-			gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(myFirstObject.transform));
+			gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(myFirstObject.transMat));
 
 			if (myFirstObject.texture && myFirstObject.texture.ready) {
 				gl.uniform1f(shaderProgram.texLoaded, 1);
@@ -273,7 +228,6 @@ var Renderer = function(canvas) {
 			gl.disableVertexAttribArray(shaderProgram.position);
 			gl.disableVertexAttribArray(shaderProgram.color);
 			gl.disableVertexAttribArray(shaderProgram.texCoord);
-			gl.disableVertexAttribArray(shaderProgram.delta);
 
 			gl.activeTexture(gl.TEXTURE0);
 			gl.bindTexture(gl.TEXTURE_2D, null);
@@ -285,14 +239,17 @@ var Renderer = function(canvas) {
 
 				myFirstObject.angle += (2 * Math.PI * dT) / myFirstObject.numSeconds;
 
-				myFirstObject.transform[0] = Math.cos(myFirstObject.angle);
-				myFirstObject.transform[1] = -Math.sin(myFirstObject.angle);
-				myFirstObject.transform[4] = Math.sin(myFirstObject.angle);
-				myFirstObject.transform[5] = Math.cos(myFirstObject.angle);
 
 				// myFirstObject.transform[7] -= 5;
 				
-					// mat4	( cos( Angle ),   -sin( Angle ), 0.0, 0.0,
+				var identitaetsMatrix3 = mat4.create();		// Identitaetsmatrix erzeugen
+				// Identitätsmatrix um Winkel drehen und in transmat speichern
+				mat4.rotateZ(myFirstObject.transMat, identitaetsMatrix3, myFirstObject.angle);
+				
+				console.log(myFirstObject.transMat);
+				
+				
+				//transMat =	( cos( Angle ),   -sin( Angle ), 0.0, 0.0,
 			    				  // sin( Angle ),    cos( Angle ), 0.0, 0.0,
 			             		  // 0.0,						0.0, 1.0, 0.0,
 				     			  // 0.0,						0.0, 0.0, 1.0 );
