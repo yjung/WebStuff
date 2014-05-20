@@ -5,6 +5,9 @@ checkWebGL();
 var Anwendung = createApp();
 
 var viewMat = mat4.create();
+var projectionMat = mat4.create();
+var modelViewProjection = mat4.create();
+
 var modelView = mat4.create();
 
 // our main rendering class
@@ -19,30 +22,36 @@ var Renderer = function(canvas) {
  
 	document.addEventListener('keypress', function(evt) { 
  		switch (evt.charCode) { 
- 			case 43: /* + */ 
- 						var vec4 = (0,0,0,0);
- 						// Hier muss ein add oder so hin (--)
- 						viewMat = mat4.multiply(viewMat, viewMat, vec4);
- 						console.log("Baem!");
+ 			case 43: /* + */
+
+ 						var zoomVec = vec4.fromValues(0,0,0.25,0);
+ 				        mat4.translate(viewMat, viewMat, zoomVec);
  						break; 
- 			case 45: /* - */ 
- 						break; 
+ 			case 45: /* - */
+                var zoomVec = vec4.fromValues(0,0,-0.25,0);
+                mat4.translate(viewMat, viewMat, zoomVec);
+                break;
  		} 
 	}, true); 
  
 document.addEventListener('keydown', function(evt) { 
 switch (evt.keyCode) { 
- case 37: /* left */ 
-  						var vec4 = (0,0,1,0);
- 						mat4.multiply(viewMat, viewMat, vec4);
- 						console.log("Baem!");
- break; 
- case 38: /* up */ 
- break; 
- case 39: /* right */ 
- break; 
- case 40: /* down */ 
- break; 
+ case 37: /* left */
+     var zoomVec = vec4.fromValues(-0.25,0,0,0);
+     mat4.translate(viewMat, viewMat, zoomVec);
+    break;
+ case 38: /* up */
+     var zoomVec = vec4.fromValues(0,0.25,0,0);
+     mat4.translate(viewMat, viewMat, zoomVec);
+    break;
+ case 39: /* right */
+     var zoomVec = vec4.fromValues(0.25,0,0,0);
+     mat4.translate(viewMat, viewMat, zoomVec);
+     break;
+ case 40: /* down */
+     var zoomVec = vec4.fromValues(0,-0.25,0,0);
+     mat4.translate(viewMat, viewMat, zoomVec);
+    break;
  } 
 }, true); 
 
@@ -59,13 +68,13 @@ switch (evt.keyCode) {
     var myFirstObject = {
     // the object's vertices
     vertices: [
-    -0.5, 0, 0,
-    0.5, -0, 0,
-    -0.5,  0.5, 0,
-    0.5,  0.5, 0,
-    0, 0.75, 0,
-    -0.75, 0.5, 0,
-    0.75, 0.5, 0
+    -0.5, 0, -2.5,
+    0.5, -0, -2.5,
+    -0.5,  0.5, -2.5,
+    0.5,  0.5, -2.5,
+    0, 0.75, -2.5,
+    -0.75, 0.5, -2.5,
+    0.75, 0.5, -2.5
 
     ],
     // the object's vertex colors
@@ -209,8 +218,8 @@ switch (evt.keyCode) {
 			gl.useProgram(shaderProgram);
 
 			// set uniforms
-			mat4.multiply(modelView, myFirstObject.transMat, viewMat)
-			gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(modelView));
+			mat4.multiply(modelViewProjection, myFirstObject.transMat, modelViewProjection)
+			gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(modelViewProjection));
 
 			if (myFirstObject.texture && myFirstObject.texture.ready) {
 				gl.uniform1f(shaderProgram.texLoaded, 1);
@@ -278,7 +287,6 @@ switch (evt.keyCode) {
 		},
 
 		animate : function(dT) {
-			
 			// update animation values
 			if (myFirstObject.animating) {
 
@@ -301,6 +309,7 @@ switch (evt.keyCode) {
 		},
 
 		toggleAnim : function() {
+            console.log(myFirstObject.animating);
 			myFirstObject.animating = !myFirstObject.animating;
 			return myFirstObject.animating;
 		},
@@ -315,8 +324,9 @@ switch (evt.keyCode) {
 
 			// Benutzereingaben abfangen
 			this.benutzerEingaben();
-			// then, update 
+			// then, update
 			this.animate(dT);
+            this.updateCamera();
 			// and render scene
 			this.drawScene();
 
@@ -326,7 +336,25 @@ switch (evt.keyCode) {
 				stats.innerHTML = fpsStr;
 			}
 			lastFrameTime = currTime;
-		}
+		},
+
+        updateCamera : function (){
+
+            /**
+             * Generates a perspective projection matrix with the given bounds
+             *
+             * @param {mat4} out mat4 frustum matrix will be written into
+             * @param {number} fovy Vertical field of view in radians
+             * @param {number} aspect Aspect ratio. typically viewport width/height
+             * @param {number} near Near bound of the frustum
+             * @param {number} far Far bound of the frustum
+             * @returns {mat4} out
+             */
+
+            mat4.perspective(projectionMat, 45, canvas.width/canvas.height, 0.1, 1000)
+
+            mat4.multiply(modelViewProjection,projectionMat,viewMat);
+        }
 	};
 };
 
