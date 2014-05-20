@@ -1,4 +1,10 @@
-var Renderer = function (canvas) 
+
+
+var viewMat = mat4.create();
+var projectionMat = mat4.create();
+//var modelViewProjection = mat4.create();
+
+var Renderer = function (canvas)
 {
     //-------------------------------------------------------
     // private section, variables
@@ -6,7 +12,7 @@ var Renderer = function (canvas)
 
     // access to Renderer from inside other functions
     var that = this;
-
+// Shader Initialisierung
     var preamble = "#ifdef GL_FRAGMENT_PRECISION_HIGH\n" +
             "  precision highp float;\n" +
             "#else\n" +
@@ -97,7 +103,7 @@ var Renderer = function (canvas)
         angle: 0,
         numSeconds: 2,
         animating: false,
-
+        transMat: mat4.create(),
         // texture
         
         imgSrc: "Tex1.jpg",
@@ -276,6 +282,14 @@ var Renderer = function (canvas)
         obj.texCoordBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.texCoords), gl.STATIC_DRAW);
+
+
+        //initialisiere transform Buffer
+        obj.transMatbuffer = gl.createBuffer();
+        //bind Transform Buffer
+        gl.bindBuffer(gl.ARRAY_BUFFER, obj.transMatbuffer);
+        //Send Data to Buffer
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.transMat), gl.STATIC_DRAW);
     }
 
 
@@ -339,7 +353,8 @@ var Renderer = function (canvas)
             gl.useProgram(shaderProgram);
 
             // set uniforms
-            gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(myFirstObject.transform));
+           mat4.multiply(viewMat, viewMat, myFirstObject.transMat);
+            gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(viewMat));
 
             if (myFirstObject.texture && myFirstObject.texture.ready) {
                 gl.uniform1f(shaderProgram.texLoaded, 1);
@@ -409,12 +424,16 @@ var Renderer = function (canvas)
            
             if (myFirstObject.animating) // If animation is aktive Rotation begins
             {
+              //Zeiger Rotation
                 myFirstObject.angle += (2 * Math.PI * dT) / myFirstObject.numSeconds;
+                var tempMat = mat4.create();
 
-                myFirstObject.transform[0] = Math.cos(myFirstObject.angle);
-                myFirstObject.transform[1] = -Math.sin(myFirstObject.angle);
-                myFirstObject.transform[4] = Math.sin(myFirstObject.angle);
-                myFirstObject.transform[5] = Math.cos(myFirstObject.angle);
+                mat4.rotateZ(myFirstObject.transMat, myFirstObject.transMat, myFirstObject.angle);
+               mat4.multiply(myFirstObject.transMat, myFirstObject.transMat, projectionMat); // wird manipuliert per tastatur
+//                myFirstObject.transform[0] = Math.cos(myFirstObject.angle);
+//                myFirstObject.transform[1] = -Math.sin(myFirstObject.angle);
+//                myFirstObject.transform[4] = Math.sin(myFirstObject.angle);
+//                myFirstObject.transform[5] = Math.cos(myFirstObject.angle);
                 needRender = true;  // transform changed, need re-render
             }
         },
