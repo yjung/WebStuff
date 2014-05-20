@@ -465,10 +465,17 @@
                 animate: function(dT) {
                     // update animation values
                     if (myFirstObject.animating) {
-                        myFirstObject.angle += -(2 * Math.PI * dT) / myFirstObject.numSeconds;
+                        //myFirstObject.angle += -(2 * Math.PI * dT) / myFirstObject.numSeconds;
 
-                        myFirstObject.transform[12] = 0.5 * Math.sin(myFirstObject.angle);
-                        myFirstObject.transform[13] = 0.5 * Math.cos(myFirstObject.angle);
+                      //  myFirstObject.transform[12] = 0.5 * Math.sin(myFirstObject.angle);
+                      //  myFirstObject.transform[13] = 0.5 * Math.cos(myFirstObject.angle);
+                        myFirstObject.angle += (2 * Math.PI * dT) / myFirstObject.numSeconds;
+
+                        myFirstObject.transform[0] = Math.cos(myFirstObject.angle);
+                        myFirstObject.transform[1] = -Math.sin(myFirstObject.angle);
+                        myFirstObject.transform[4] = Math.sin(myFirstObject.angle);
+                        myFirstObject.transform[5] = Math.cos(myFirstObject.angle);
+
 
                         needRender = true;  // transform changed, need re-render
                     }
