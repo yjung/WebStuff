@@ -2,13 +2,42 @@
 
 var viewMat = mat4.create();
 var projectionMat = mat4.create();
-//var modelViewProjection = mat4.create();
+var modelViewProjection = mat4.create();
 
 var Renderer = function (canvas)
 {
     //-------------------------------------------------------
     // private section, variables
     //-------------------------------------------------------
+    document.addEventListener('keypress', function(evt) {
+        switch (evt.charCode) {
+            case 43: /* + */
+                console.log("Baem!");
+                var zoomVec = vec4.fromValues(0,0,0.25,0);
+                mat4.translate(viewMat, viewMat, zoomVec);
+                break;
+            case 45: /* - */
+                break;
+        }
+    }, true);
+
+
+    document.addEventListener('keydown', function(evt) {
+        switch (evt.keyCode) {
+            case 37: /* left */
+                console.log(modelViewProjection);
+                var tmp =vec4.fromValues(-0.1,0,0,0);
+                mat4.translate(viewMat,viewMat,tmp);
+
+                break;
+            case 38: /* up */
+                break;
+            case 39: /* right */
+                break;
+            case 40: /* down */
+                break;
+        }
+    }, true);
 
     // access to Renderer from inside other functions
     var that = this;
@@ -55,13 +84,13 @@ var Renderer = function (canvas)
     var myFirstObject = {
         // the object's vertices
         vertices: [
-            -0.5, -1, 0,
-            0.5, -1, 0,
-            0.5, 0, 0,
-            0.75, 0, 0,
+            -0.5, -1, -1,
+            0.5, -1, -1,
+            0.5, 0, -1,
+            0.75, 0, -1,
             0, 1, -1,
-            -0.75, 0, 0,
-            -0.5,0,0
+            -0.75, 0, -1,
+            -0.5,0,-1
 
         ],
         // the object's vertex colors
@@ -285,10 +314,8 @@ var Renderer = function (canvas)
 
 
         //initialisiere transform Buffer
-        obj.transMatbuffer = gl.createBuffer();
-        //bind Transform Buffer
-        gl.bindBuffer(gl.ARRAY_BUFFER, obj.transMatbuffer);
-        //Send Data to Buffer
+        obj.transMatBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, obj.transMatBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.transMat), gl.STATIC_DRAW);
     }
 
@@ -353,8 +380,8 @@ var Renderer = function (canvas)
             gl.useProgram(shaderProgram);
 
             // set uniforms
-           mat4.multiply(viewMat, viewMat, myFirstObject.transMat);
-            gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(viewMat));
+            mat4.multiply(modelViewProjection, myFirstObject.transMat, modelViewProjection);
+            gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(modelViewProjection));
 
             if (myFirstObject.texture && myFirstObject.texture.ready) {
                 gl.uniform1f(shaderProgram.texLoaded, 1);
@@ -428,8 +455,10 @@ var Renderer = function (canvas)
                 myFirstObject.angle += (2 * Math.PI * dT) / myFirstObject.numSeconds;
                 var tempMat = mat4.create();
 
-                mat4.rotateZ(myFirstObject.transMat, myFirstObject.transMat, myFirstObject.angle);
-               mat4.multiply(myFirstObject.transMat, myFirstObject.transMat, projectionMat); // wird manipuliert per tastatur
+                var identity = mat4.create();
+
+                mat4.rotateZ(myFirstObject.transMat, identity, myFirstObject.angle);
+               //mat4.multiply(myFirstObject.transMat, myFirstObject.transMat, projectionMat); // wird manipuliert per tastatur
 //                myFirstObject.transform[0] = Math.cos(myFirstObject.angle);
 //                myFirstObject.transform[1] = -Math.sin(myFirstObject.angle);
 //                myFirstObject.transform[4] = Math.sin(myFirstObject.angle);
@@ -457,6 +486,7 @@ var Renderer = function (canvas)
             dT /= 1000;
 
             // then, update and render scene
+           this.updateCamera();
             this.animate(dT);
 
             if (needRender)
@@ -470,6 +500,25 @@ var Renderer = function (canvas)
 
             needRender = false;
             lastFrameTime = currTime;
+        },
+        updateCamera : function (){
+
+            /**
+             * Generates a perspective projection matrix with the given bounds
+             *
+             * @param {mat4} out mat4 frustum matrix will be written into
+             * @param {number} fovy Vertical field of view in radians
+             * @param {number} aspect Aspect ratio. typically viewport width/height
+             * @param {number} near Near bound of the frustum
+             * @param {number} far Far bound of the frustum
+             * @returns {mat4} out
+             */
+
+            mat4.perspective(projectionMat, 45, canvas.width/canvas.height, 0.1, 1000)
+
+            mat4.multiply(modelViewProjection,projectionMat,viewMat);
         }
+
     }
+
 };
