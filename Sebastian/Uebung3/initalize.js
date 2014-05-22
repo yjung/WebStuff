@@ -12,11 +12,12 @@ var Renderer = function (canvas)
     document.addEventListener('keypress', function(evt) {
         switch (evt.charCode) {
             case 43: /* + */
-                console.log("Baem!");
                 var zoomVec = vec4.fromValues(0,0,0.25,0);
                 mat4.translate(viewMat, viewMat, zoomVec);
                 break;
             case 45: /* - */
+                var zoomVec = vec4.fromValues(0,0,-0.25,0);
+                mat4.translate(viewMat, viewMat, zoomVec);
                 break;
         }
     }, true);
@@ -31,10 +32,16 @@ var Renderer = function (canvas)
 
                 break;
             case 38: /* up */
+                var tmp =vec4.fromValues(0,0.1,0,0);
+                mat4.translate(viewMat,viewMat,tmp)
                 break;
             case 39: /* right */
+                var tmp =vec4.fromValues(0.1,0,0,0);
+                mat4.translate(viewMat,viewMat,tmp)
                 break;
             case 40: /* down */
+                var tmp =vec4.fromValues(0,-0.1,0,0);
+                mat4.translate(viewMat,viewMat,tmp)
                 break;
         }
     }, true);
@@ -311,12 +318,6 @@ var Renderer = function (canvas)
         obj.texCoordBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.texCoords), gl.STATIC_DRAW);
-
-
-        //initialisiere transform Buffer
-        obj.transMatBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, obj.transMatBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.transMat), gl.STATIC_DRAW);
     }
 
 
@@ -489,7 +490,7 @@ var Renderer = function (canvas)
            this.updateCamera();
             this.animate(dT);
 
-            if (needRender)
+            //if (needRender)
                 this.drawScene();
 
             // finally, show some statistics
