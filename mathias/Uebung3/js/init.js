@@ -1,7 +1,7 @@
 // Initialisierung
 checkWebGL();
 
-// Application house, used to minimize global variables
+// Application wuerfel, used to minimize global variables
 var Anwendung = createApp();
 
 var viewMat = mat4.create();
@@ -23,7 +23,6 @@ var Renderer = function (canvas) {
     document.addEventListener('keypress', function (evt) {
         switch (evt.charCode) {
             case 43: /* + */
-                console.log(house);
                 var zoomVec = vec4.fromValues(0, 0, 0.25, 0);
                 mat4.translate(viewMat, viewMat, zoomVec);
                 break;
@@ -55,10 +54,29 @@ var Renderer = function (canvas) {
         }
     }, true);
 
+    canvas.addEventListener('contextmenu', function (evt) {
+        evt.preventDefault();
+    }, false);
+
+    canvas.addEventListener('mouseup', function (evt) {
+        switch (evt.button) {
+                case 0: /* left */
+                    console.log("Left");
+//                var transVec = vec4.fromValues(-0.25, 0, 0, 0);
+//                mat4.translate(viewMat, viewMat, transVec);
+                    break;
+                case 2: /* up */
+                    console.log("Right");
+//                var transVec = vec4.fromValues(0, 0.25, 0, 0);
+//                mat4.translate(viewMat, viewMat, transVec);
+                    break;
+            }
+        },true);
+
 
     // access to Renderer from inside other functions
     var that = this;
-    // shader program house
+    // shader program wuerfel
     var shaderProgram = null;
 
     var lastFrameTime = 0;
@@ -68,7 +86,7 @@ var Renderer = function (canvas) {
     //-------------------------------------------------------
 
 
-    // init buffer houses (dynamically attach buffer reference to obj)
+    // init buffer wuerfels (dynamically attach buffer reference to obj)
     function initBuffers(obj) {
         console.log("initBuffers");
         obj.indexBuffer = gl.createBuffer();
@@ -106,9 +124,10 @@ var Renderer = function (canvas) {
                 return false;
             }
 
-            house.texture = initTexture(house.imgSrc);
+//            wuerfel.texture = initTexture(wuerfel.imgSrc);
+//            initBuffers(wuerfel);
 
-            initBuffers(house);
+            initBuffers(wuerfel);
 
             lastFrameTime = Date.now();
 
@@ -126,15 +145,14 @@ var Renderer = function (canvas) {
             gl.deleteProgram(shaderProgram);
             shaderProgram = null;
 
-            if (house.texture)
-                gl.deleteTexture(house.texture);
+            if (wuerfel.texture)
+                gl.deleteTexture(wuerfel.texture);
 
             // delete VBOs, too
-            gl.deleteBuffer(house.indexBuffer);
-            gl.deleteBuffer(house.positionBuffer);
-            gl.deleteBuffer(house.colorBuffer);
-            gl.deleteBuffer(house.texCoordBuffer);
-            gl.deleteBuffer(house.transMatBuffer);
+            gl.deleteBuffer(wuerfel.indexBuffer);
+            gl.deleteBuffer(wuerfel.positionBuffer);
+            gl.deleteBuffer(wuerfel.colorBuffer);
+            gl.deleteBuffer(wuerfel.texCoordBuffer);
         },
 
         drawScene: function () {
@@ -152,15 +170,15 @@ var Renderer = function (canvas) {
             gl.useProgram(shaderProgram);
 
             // set uniforms
-            mat4.multiply(modelViewProjection, house.transMat, modelViewProjection)
+            mat4.multiply(modelViewProjection, wuerfel.transMat, modelViewProjection);
             gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(modelViewProjection));
 
-            if (house.texture && house.texture.ready) {
+            if (wuerfel.texture && wuerfel.texture.ready) {
                 gl.uniform1f(shaderProgram.texLoaded, 1);
                 gl.uniform1i(shaderProgram.tex, 0);
 
                 gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, house.texture);
+                gl.bindTexture(gl.TEXTURE_2D, wuerfel.texture);
 
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
@@ -172,10 +190,10 @@ var Renderer = function (canvas) {
                 gl.uniform1f(shaderProgram.texLoaded, 0);
             }
 
-            // render house indexed
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, house.indexBuffer);
+            // render wuerfel indexed
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wuerfel.indexBuffer);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, house.positionBuffer);
+            gl.bindBuffer(gl.ARRAY_BUFFER, wuerfel.positionBuffer);
             gl.vertexAttribPointer(shaderProgram.position, // index of attribute
                 3, // three position components (x,y,z)
                 gl.FLOAT, // provided data type is float
@@ -185,7 +203,7 @@ var Renderer = function (canvas) {
             // offset (in bytes)
             gl.enableVertexAttribArray(shaderProgram.position);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, house.colorBuffer);
+            gl.bindBuffer(gl.ARRAY_BUFFER, wuerfel.colorBuffer);
             gl.vertexAttribPointer(shaderProgram.color, // index of attribute
                 3, // three color components (r,g,b)
                 gl.FLOAT, // provided data type
@@ -195,22 +213,11 @@ var Renderer = function (canvas) {
             // offset (in bytes)
             gl.enableVertexAttribArray(shaderProgram.color);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, house.texCoordBuffer);
-            gl.vertexAttribPointer(shaderProgram.texCoord, // index of attribute
-                2, // two texCoord components (s,t)
-                gl.FLOAT, // provided data type is float
-                false, // do not normalize values
-                0, // stride (in bytes)
-                0);
-            // offset (in bytes)
-            gl.enableVertexAttribArray(shaderProgram.texCoord);
-
             // draw call
-            gl.drawElements(gl.TRIANGLES, house.indices.length, gl.UNSIGNED_SHORT, 0);
+            gl.drawElements(gl.TRIANGLES, wuerfel.indices.length, gl.UNSIGNED_SHORT, 0);
 
             gl.disableVertexAttribArray(shaderProgram.position);
             gl.disableVertexAttribArray(shaderProgram.color);
-            gl.disableVertexAttribArray(shaderProgram.texCoord);
 
             gl.activeTexture(gl.TEXTURE0);
             gl.bindTexture(gl.TEXTURE_2D, null);
@@ -219,30 +226,30 @@ var Renderer = function (canvas) {
 
         animate: function (dT) {
             // update animation values
-            if (house.animating) {
+            if (wuerfel.animating) {
 
-                house.angle += (2 * Math.PI * dT) / house.numSeconds;
+                wuerfel.angle += (2 * Math.PI * dT) / wuerfel.numSeconds;
 
 
-                // house.transform[7] -= 5;
+                // wuerfel.transform[7] -= 5;
 
-                var identitaetsMatrix3 = mat4.create();		// Identitaetsmatrix erzeugen
+                var identitaetsMat = mat4.create();		// Identitaetsmatrix erzeugen
                 // Identitätsmatrix um Winkel drehen und in transmat speichern
-                mat4.rotateZ(house.transMat, identitaetsMatrix3, house.angle);
+                mat4.rotateZ(wuerfel.transMat, identitaetsMat, wuerfel.angle);
 
             }
         },
 
         setDuration: function (s) {
             // one loop per numSeconds
-            console.log(house);
-            house.numSeconds = s;
+            console.log(wuerfel);
+            wuerfel.numSeconds = s;
         },
 
         toggleAnim: function () {
-            console.log(house.animating);
-            house.animating = !house.animating;
-            return house.animating;
+            console.log(wuerfel.animating);
+            wuerfel.animating = !wuerfel.animating;
+            return wuerfel.animating;
         },
 
         tick: function (stats) {
@@ -280,8 +287,9 @@ var Renderer = function (canvas) {
              */
 
             mat4.perspective(projectionMat, 45, canvas.width / canvas.height, 0.1, 1000)
-
             mat4.multiply(modelViewProjection, projectionMat, viewMat);
+
+
         }
     };
 };
