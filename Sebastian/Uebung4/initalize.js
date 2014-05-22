@@ -91,13 +91,14 @@ var Renderer = function (canvas)
     var myFirstObject = {
         // the object's vertices
         vertices: [
-            -0.5, -1, -1,
-            0.5, -1, -1,
-            0.5, 0, -1,
-            0.75, 0, -1,
-            0, 1, -1,
-            -0.75, 0, -1,
-            -0.5,0,-1
+            0,      0,  0,
+            0.5,    0,  0,
+            0.5,    0.5,  0,
+            0.5,    0,  0,
+            0,      0,  0.5,
+            0.5,    0,  0.5,
+            0.5,    0.5,  0.5,
+            0.5,    0,  0.5
 
         ],
         // the object's vertex colors
@@ -108,6 +109,7 @@ var Renderer = function (canvas)
             1, 0, 0,
             1, 0, 0,
             1, 0, 0,
+            1, 1, 1,
             1, 1, 1
         ],
         // the object's texture coordinates
@@ -118,13 +120,23 @@ var Renderer = function (canvas)
             0.5, 0.5,
             0.25, 1,
             0, 0.5,
+            0, 0.5,
             0, 0.5
         ],
         // index array for drawing a quad (consisting of two tris)
         indices: [
-            0, 1, 2,
-            0, 2, 6,
-            3, 4, 5
+            1,2,3,
+            1,3,4,
+            2,5,6,
+            2,6,3,
+            5,6,8,
+            6,8,7,
+            8,1,4,
+            4,7,8,
+            1,2,5,
+            1,5,8,
+            4,3,6,
+            7,4,6
             //0, 1, 2, 3, 4
         ],
 
