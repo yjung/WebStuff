@@ -8,10 +8,8 @@ var viewMat = mat4.create();
 var projectionMat = mat4.create();
 var modelViewProjection = mat4.create();
 
-var modelView = mat4.create();
 
 // our main rendering class
-// http://www.khronos.org/registry/webgl/specs/latest/1.0/
 var Renderer = function (canvas) {
     //-------------------------------------------------------
     // private section, variables
@@ -88,22 +86,22 @@ var Renderer = function (canvas) {
 
     // init buffer wuerfels (dynamically attach buffer reference to obj)
     function initBuffers(obj) {
-        console.log("initBuffers");
-        obj.indexBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.indexBuffer);
-        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(obj.indices), gl.STATIC_DRAW);
-
         obj.positionBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, obj.positionBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.vertices), gl.STATIC_DRAW);
+
+//        obj.texCoordBuffer = gl.createBuffer();
+//        gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);
+//        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.texCoords), gl.STATIC_DRAW);
 
         obj.colorBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, obj.colorBuffer);
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.colors), gl.STATIC_DRAW);
 
-        obj.texCoordBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.texCoords), gl.STATIC_DRAW);
+        obj.indexBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.indexBuffer);
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(obj.indices), gl.STATIC_DRAW);
+        console.log("FERTIG: Buffer-Initialisierung");
     }
 
     //-------------------------------------------------------
@@ -124,13 +122,11 @@ var Renderer = function (canvas) {
                 return false;
             }
 
-//            wuerfel.texture = initTexture(wuerfel.imgSrc);
-//            initBuffers(wuerfel);
-
+            wuerfel.texture = initTexture(wuerfel.imgSrc);
             initBuffers(wuerfel);
 
             lastFrameTime = Date.now();
-
+            console.log("FERTIG: Initialisierung abgeschlossen");
             return true;
         },
 
@@ -156,7 +152,7 @@ var Renderer = function (canvas) {
         },
 
         drawScene: function () {
-            gl.clearColor(0, 0, 0, 0);
+            gl.clearColor(1, 1, 1, 0);
             gl.clearDepth(1.0);
 
             gl.viewport(0, 0, canvas.width, canvas.height);
@@ -171,10 +167,11 @@ var Renderer = function (canvas) {
 
             // set uniforms
             mat4.multiply(modelViewProjection, wuerfel.transMat, modelViewProjection);
+
             gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(modelViewProjection));
 
             if (wuerfel.texture && wuerfel.texture.ready) {
-                gl.uniform1f(shaderProgram.texLoaded, 1);
+                gl.uniform1f(shaderProgram.texLoaded, 1);                               // Textur geladen
                 gl.uniform1i(shaderProgram.tex, 0);
 
                 gl.activeTexture(gl.TEXTURE0);
@@ -185,33 +182,32 @@ var Renderer = function (canvas) {
 
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-
-            } else {
-                gl.uniform1f(shaderProgram.texLoaded, 0);
+            }
+            else {
+                gl.uniform1f(shaderProgram.texLoaded, 0);                               // Textur nicht geladen
             }
 
             // render wuerfel indexed
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wuerfel.indexBuffer);
 
             gl.bindBuffer(gl.ARRAY_BUFFER, wuerfel.positionBuffer);
-            gl.vertexAttribPointer(shaderProgram.position, // index of attribute
-                3, // three position components (x,y,z)
-                gl.FLOAT, // provided data type is float
-                false, // do not normalize values
-                0, // stride (in bytes)
-                0);
-            // offset (in bytes)
+            gl.vertexAttribPointer(shaderProgram.position,  // index of attribute
+                3,                                          // three position components (x,y,z)
+                gl.FLOAT,                                   // provided data type is float
+                false,                                      // do not normalize values
+                0,                                          // stride (in bytes)
+                0);                                         // offset (in bytes)
             gl.enableVertexAttribArray(shaderProgram.position);
 
             gl.bindBuffer(gl.ARRAY_BUFFER, wuerfel.colorBuffer);
-            gl.vertexAttribPointer(shaderProgram.color, // index of attribute
-                3, // three color components (r,g,b)
-                gl.FLOAT, // provided data type
-                false, // normalize values
-                0, // stride (in bytes)
-                0);
-            // offset (in bytes)
+            gl.vertexAttribPointer(shaderProgram.color,     // index of attribute
+                3,                                          // three color components (r,g,b)
+                gl.FLOAT,                                   // provided data type
+                false,                                      // normalize values
+                0,                                          // stride (in bytes)
+                0);                                         // offset (in bytes)
             gl.enableVertexAttribArray(shaderProgram.color);
+
 
             // draw call
             gl.drawElements(gl.TRIANGLES, wuerfel.indices.length, gl.UNSIGNED_SHORT, 0);
@@ -227,15 +223,9 @@ var Renderer = function (canvas) {
         animate: function (dT) {
             // update animation values
             if (wuerfel.animating) {
-
-                wuerfel.angle += (2 * Math.PI * dT) / wuerfel.numSeconds;
-
-
-                // wuerfel.transform[7] -= 5;
-
-                var identitaetsMat = mat4.create();		// Identitaetsmatrix erzeugen
-                // Identitätsmatrix um Winkel drehen und in transmat speichern
-                mat4.rotateZ(wuerfel.transMat, identitaetsMat, wuerfel.angle);
+                wuerfel.angle += (2 * Math.PI * dT) / wuerfel.numSeconds;       // Drehung
+                var identitaetsMat = mat4.create();		                        // Identitaetsmatrix erzeugen
+                mat4.rotateZ(wuerfel.transMat, identitaetsMat, wuerfel.angle);  // Identitätsmatrix um Winkel drehen und in transmat speichern
 
             }
         },
@@ -311,7 +301,7 @@ function checkWebGL() {
 // get GL context
 function getContext(canvas) {
     var context = null;
-    var validContextNames = ['webgl', 'experimental-webgl'];
+    var validContextNames = ['webgl'];
     var ctxAttribs = {
         alpha: true,
         depth: true,
