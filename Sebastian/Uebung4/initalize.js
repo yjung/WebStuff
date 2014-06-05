@@ -1,6 +1,8 @@
+var viewMat = mat4.create();                // Matrix fuer die Kameraposition
+var kamerastart = vec4.fromValues(0, 0, -4);
+mat4.translate(viewMat, viewMat, kamerastart);
 
 
-var viewMat = mat4.create();
 var projectionMat = mat4.create();
 var modelViewProjection = mat4.create();
 
@@ -9,39 +11,46 @@ var Renderer = function (canvas)
     //-------------------------------------------------------
     // private section, variables
     //-------------------------------------------------------
-    document.addEventListener('keypress', function(evt) {
-        switch (evt.charCode) {
+    document.addEventListener('keypress', function (evt)
+    {
+        switch (evt.charCode)
+        {
             case 43: /* + */
-                var zoomVec = vec4.fromValues(0,0,0.25,0);
+                var zoomVec = vec4.fromValues(0, 0, 0.25, 0);
                 mat4.translate(viewMat, viewMat, zoomVec);
                 break;
             case 45: /* - */
-                var zoomVec = vec4.fromValues(0,0,-0.25,0);
+                var zoomVec = vec4.fromValues(0, 0, -0.25, 0);
                 mat4.translate(viewMat, viewMat, zoomVec);
                 break;
         }
     }, true);
 
 
-    document.addEventListener('keydown', function(evt) {
-        switch (evt.keyCode) {
+    document.addEventListener('keydown', function (evt)
+    {
+        switch (evt.keyCode)
+        {
             case 37: /* left */
                 console.log(modelViewProjection);
-                var tmp =vec4.fromValues(-0.1,0,0,0);
-                mat4.translate(viewMat,viewMat,tmp);
+                var tmp = vec4.fromValues(-0.1, 0, 0, 0);
+                mat4.translate(viewMat, viewMat, tmp);
 
                 break;
             case 38: /* up */
-                var tmp =vec4.fromValues(0,0.1,0,0);
-                mat4.translate(viewMat,viewMat,tmp)
+                console.log(modelViewProjection);
+                var tmp = vec4.fromValues(0, 0.1, 0, 0);
+                mat4.translate(viewMat, viewMat, tmp)
                 break;
             case 39: /* right */
-                var tmp =vec4.fromValues(0.1,0,0,0);
-                mat4.translate(viewMat,viewMat,tmp)
+                console.log(modelViewProjection);
+                var tmp = vec4.fromValues(0.1, 0, 0, 0);
+                mat4.translate(viewMat, viewMat, tmp)
                 break;
             case 40: /* down */
-                var tmp =vec4.fromValues(0,-0.1,0,0);
-                mat4.translate(viewMat,viewMat,tmp)
+                console.log(modelViewProjection);
+                var tmp = vec4.fromValues(0, -0.1, 0, 0);
+                mat4.translate(viewMat, viewMat, tmp)
                 break;
         }
     }, true);
@@ -50,39 +59,39 @@ var Renderer = function (canvas)
     var that = this;
 // Shader Initialisierung
     var preamble = "#ifdef GL_FRAGMENT_PRECISION_HIGH\n" +
-            "  precision highp float;\n" +
-            "#else\n" +
-            "  precision mediump float;\n" +
-            "#endif\n\n";
+        "  precision highp float;\n" +
+        "#else\n" +
+        "  precision mediump float;\n" +
+        "#endif\n\n";
 
     // vertex shader string
     var vertexShader = "attribute vec3 position;\n" +
-            "attribute vec2 texCoord;\n" +
-            "attribute vec3 color;\n" +
-            "uniform mat4 transMat;\n" +
-            "varying vec3 vColor;\n" +
-            "varying vec2 vTexCoord;\n" +
-            "void main() {\n" +
-            "    vColor = color;\n" +
-            "    vTexCoord = texCoord;\n" +
-            "    vec4 pos = transMat * vec4(position, 1.0);\n" +
-            "    gl_Position = pos;\n" +
-            "}\n";
+        "attribute vec2 texCoord;\n" +
+        "attribute vec3 color;\n" +
+        "uniform mat4 transMat;\n" +
+        "varying vec3 vColor;\n" +
+        "varying vec2 vTexCoord;\n" +
+        "void main() {\n" +
+        "    vColor = color;\n" +
+        "    vTexCoord = texCoord;\n" +
+        "    vec4 pos = transMat * vec4(position, 1.0);\n" +
+        "    gl_Position = pos;\n" +
+        "}\n";
 
     // fragment shader string
     var fragmentShader = preamble +
-            "uniform sampler2D tex;\n" +
-            "uniform float texLoaded;\n" +
-            "varying vec3 vColor;\n" +
-            "varying vec2 vTexCoord;\n" +
-            "void main() {\n" +
-            "    vec4 color = vec4(vColor, 1.0);\n" +
-            "    if (texLoaded == 1.0)\n" +
-            "        color = texture2D(tex, vTexCoord);\n" +
+        "uniform sampler2D tex;\n" +
+        "uniform float texLoaded;\n" +
+        "varying vec3 vColor;\n" +
+        "varying vec2 vTexCoord;\n" +
+        "void main() {\n" +
+        "    vec4 color = vec4(vColor, 1.0);\n" +
+        "    if (texLoaded == 1.0)\n" +
+        "        color = texture2D(tex, vTexCoord);\n" +
         //"        color.rgb = texture2D(tex, (vTexCoord+0.5) / 2.0).rgb;\n" +
         //"        color.rgb = texture2D(tex, 2.0*vTexCoord).rgb;\n" +
-            "    gl_FragColor = color;\n" +
-            "}\n";
+        "    gl_FragColor = color;\n" +
+        "}\n";
 
     // shader program object
     var shaderProgram = null;
@@ -91,53 +100,123 @@ var Renderer = function (canvas)
     var myFirstObject = {
         // the object's vertices
         vertices: [
-            0,      0,  0,
-            0.5,    0,  0,
-            0.5,    0.5,  0,
-            0.5,    0,  0,
-            0,      0,  0.5,
-            0.5,    0,  0.5,
-            0.5,    0.5,  0.5,
-            0.5,    0,  0.5
+//            0,      0,  0,
+//            0.5,    0,  0,
+//            0.5,    0.5,  0,
+//            0.5,    0,  0,
+//            0,      0,  0.5,
+//            0.5,    0,  0.5,
+//            0.5,    0.5,  0.5,
+//            0.5,    0,  0.5
+            // vordere Fläche
+            -1.0, -1.0, 1.0,
+            1.0, -1.0, 1.0,
+            1.0, 1.0, 1.0,
+            -1.0, 1.0, 1.0,
+
+            // hintere Fläche
+            -1.0, -1.0, -1.0,
+            -1.0, 1.0, -1.0,
+            1.0, 1.0, -1.0,
+            1.0, -1.0, -1.0,
+
+            // obere Fläche
+            -1.0, 1.0, -1.0,
+            -1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0,
+            1.0, 1.0, -1.0,
+
+            // untere Fläche
+            -1.0, -1.0, -1.0,
+            1.0, -1.0, -1.0,
+            1.0, -1.0, 1.0,
+            -1.0, -1.0, 1.0,
+
+            // rechte Fläche
+            1.0, -1.0, -1.0,
+            1.0, 1.0, -1.0,
+            1.0, 1.0, 1.0,
+            1.0, -1.0, 1.0,
+
+            // linke Fläche
+            -1.0, -1.0, -1.0,
+            -1.0, -1.0, 1.0,
+            -1.0, 1.0, 1.0,
+            -1.0, 1.0, -1.0
 
         ],
         // the object's vertex colors
         colors: [
-            1, 1, 1,
-            1, 1, 1,
-            1, 1, 1,
-            1, 0, 0,
-            1, 0, 0,
-            1, 0, 0,
-            1, 1, 1,
-            1, 1, 1
+            1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0,
+            1.0, 0.0, 0.0,
+
+            1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0,
+            1.0, 0.0, 0.0,
+
+            1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0,
+            1.0, 0.0, 0.0,
+
+            1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0,
+            1.0, 0.0, 0.0,
+
+            1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0,
+            1.0, 0.0, 0.0,
+
+            1.0, 0.0, 0.0,
+            1.0, 0.0, 0.0,
+            1.0, 1.0, 1.0,
+            1.0, 1.0, 1.0
         ],
         // the object's texture coordinates
         texCoords: [
-            0, 0,
-            0.5, 0,
+            0.0, 0.0,
+            0.5, 0.0,
             0.5, 0.5,
             0.5, 0.5,
-            0.25, 1,
-            0, 0.5,
-            0, 0.5,
-            0, 0.5
+
+            0.0, 0.0,
+            0.5, 0.0,
+            0.5, 0.5,
+            0.5, 0.5,
+
+            0.0, 0.0,
+            0.5, 0.0,
+            0.5, 0.5,
+            0.5, 0.5,
+
+            0.0, 0.0,
+            0.5, 0.0,
+            0.5, 0.5,
+            0.5, 0.5,
+
+            0.0, 0.0,
+            0.5, 0.0,
+            0.5, 0.5,
+            0.5, 0.5,
+
+            0.25, 1.0,
+            0.0, 0.5,
+            0.0, 0.5,
+            0.0, 0.5
         ],
         // index array for drawing a quad (consisting of two tris)
         indices: [
-            1,2,3,
-            1,3,4,
-            2,5,6,
-            2,6,3,
-            5,6,8,
-            6,8,7,
-            8,1,4,
-            4,7,8,
-            1,2,5,
-            1,5,8,
-            4,3,6,
-            7,4,6
-            //0, 1, 2, 3, 4
+            0, 1, 2, 0, 2, 3,    // vorne
+            4, 5, 6, 4, 6, 7,    // hinten
+            8, 9, 10, 8, 10, 11,   // oben
+            12, 13, 14, 12, 14, 15,   // unten
+            16, 17, 18, 16, 18, 19,   // rechts
+            20, 21, 22, 20, 22, 23    // links
         ],
 
         // for animation
@@ -153,7 +232,7 @@ var Renderer = function (canvas)
         animating: false,
         transMat: mat4.create(),
         // texture
-        
+
         imgSrc: "Tex1.jpg",
         texture: null
     };
@@ -167,20 +246,25 @@ var Renderer = function (canvas)
     //-------------------------------------------------------
 
     // get GL context
-    var gl = (function (canvas) {
+    var gl = (function (canvas)
+    {
         var context = null;
         var validContextNames = ['webgl', 'experimental-webgl'];
         var ctxAttribs = { alpha: true, depth: true, antialias: true, premultipliedAlpha: false };
 
-        for (var i = 0; i < validContextNames.length; i++) {
-            try {
+        for (var i = 0; i < validContextNames.length; i++)
+        {
+            try
+            {
                 // provide context name and context creation params
-                if (context = canvas.getContext(validContextNames[i], ctxAttribs)) {
+                if (context = canvas.getContext(validContextNames[i], ctxAttribs))
+                {
                     console.log("Found '" + validContextNames[i] + "' context");
                     break;
                 }
             }
-            catch (e) {
+            catch (e)
+            {
                 console.warn(e);
             }  // shouldn't happen on modern browsers
         }
@@ -189,10 +273,12 @@ var Renderer = function (canvas)
     })(canvas);
 
     // create shader part
-    function getShader(source, type) {
+    function getShader(source, type)
+    {
         var shader = null;
 
-        switch (type) {
+        switch (type)
+        {
             case "vertex":
                 shader = gl.createShader(gl.VERTEX_SHADER);
                 break;
@@ -206,7 +292,8 @@ var Renderer = function (canvas)
         gl.shaderSource(shader, source);
         gl.compileShader(shader);
 
-        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS))
+        {
             console.warn(type + "Shader: " + gl.getShaderInfoLog(shader));
             return null;
         }
@@ -215,11 +302,13 @@ var Renderer = function (canvas)
     }
 
     // create shader program
-    function initShader(vertexShaderStr, fragmentShaderStr) {
+    function initShader(vertexShaderStr, fragmentShaderStr)
+    {
         var vs = getShader(vertexShaderStr, "vertex");
         var fs = getShader(fragmentShaderStr, "fragment");
 
-        if (vs && fs) {
+        if (vs && fs)
+        {
             var program = gl.createProgram();
 
             gl.attachShader(program, vs);
@@ -229,7 +318,8 @@ var Renderer = function (canvas)
 
             gl.linkProgram(program);
 
-            if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+            if (!gl.getProgramParameter(program, gl.LINK_STATUS))
+            {
                 console.warn("Could not link program: " + gl.getProgramInfoLog(program));
                 return null;
             }
@@ -242,7 +332,8 @@ var Renderer = function (canvas)
         return null;
     }
 
-    function findShaderVariables(program) {
+    function findShaderVariables(program)
+    {
         var obj = null;
         var loc = null;
         var i, n, glErr;
@@ -250,11 +341,13 @@ var Renderer = function (canvas)
         // get number of uniforms
         n = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
 
-        for (i = 0; i < n; i++) {
+        for (i = 0; i < n; i++)
+        {
             obj = gl.getActiveUniform(program, i);
 
             glErr = gl.getError();
-            if (glErr || !obj) {
+            if (glErr || !obj)
+            {
                 console.error("GL error on searching uniforms: " + glErr);
                 continue;
             }
@@ -267,11 +360,13 @@ var Renderer = function (canvas)
         // get number of attributes
         n = gl.getProgramParameter(program, gl.ACTIVE_ATTRIBUTES);
 
-        for (i = 0; i < n; i++) {
+        for (i = 0; i < n; i++)
+        {
             obj = gl.getActiveAttrib(program, i);
 
             glErr = gl.getError();
-            if (glErr || !obj) {
+            if (glErr || !obj)
+            {
                 console.error("GL error on searching attributes: " + glErr);
                 continue;
             }
@@ -282,7 +377,8 @@ var Renderer = function (canvas)
         }
     }
 
-    function initTexture(url) {
+    function initTexture(url)
+    {
         var texture = gl.createTexture();
         texture.ready = false;
 
@@ -290,7 +386,8 @@ var Renderer = function (canvas)
         image.crossOrigin = '';
         image.src = url;
 
-        image.onload = function () {
+        image.onload = function ()
+        {
             gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
             gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -306,7 +403,8 @@ var Renderer = function (canvas)
             needRender = true;
         };
 
-        image.onerror = function () {
+        image.onerror = function ()
+        {
             console.error("Cannot load image '" + url + "'!");
         };
 
@@ -314,7 +412,8 @@ var Renderer = function (canvas)
     }
 
     // init buffer objects (dynamically attach buffer reference to obj)
-    function initBuffers(obj) {
+    function initBuffers(obj)
+    {
         obj.indexBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.indexBuffer);
         gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(obj.indices), gl.STATIC_DRAW);
@@ -337,14 +436,17 @@ var Renderer = function (canvas)
     // public section, methods
     //-------------------------------------------------------
     return {
-        initialize: function () {
-            if (!gl) {
+        initialize: function ()
+        {
+            if (!gl)
+            {
                 return false;
             }
 
             shaderProgram = initShader(vertexShader, fragmentShader);
 
-            if (!shaderProgram) {
+            if (!shaderProgram)
+            {
                 return false;
             }
 
@@ -357,10 +459,12 @@ var Renderer = function (canvas)
             return true;
         },
 
-        cleanup: function () {
+        cleanup: function ()
+        {
             var shaders = gl.getAttachedShaders(shaderProgram);
 
-            for (var i = 0; i < shaders.length; ++i) {
+            for (var i = 0; i < shaders.length; ++i)
+            {
                 gl.detachShader(shaderProgram, shaders[i]);
                 gl.deleteShader(shaders[i]);
             }
@@ -378,7 +482,8 @@ var Renderer = function (canvas)
             gl.deleteBuffer(myFirstObject.texCoordBuffer);
         },
 
-        drawScene: function () {
+        drawScene: function ()
+        {
             gl.clearColor(0.2, 0.6, 0.3, 1.0);
             gl.clearDepth(1.0);
 
@@ -387,7 +492,7 @@ var Renderer = function (canvas)
 
             gl.depthFunc(gl.LEQUAL);
             gl.enable(gl.DEPTH_TEST);
-            gl.enable(gl.CULL_FACE);
+//            gl.enable(gl.CULL_FACE);
 
             // activate shader
             gl.useProgram(shaderProgram);
@@ -397,7 +502,8 @@ var Renderer = function (canvas)
 
             gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(modelViewProjection));
 
-            if (myFirstObject.texture && myFirstObject.texture.ready) {
+            if (myFirstObject.texture && myFirstObject.texture.ready)
+            {
                 gl.uniform1f(shaderProgram.texLoaded, 1);
                 gl.uniform1i(shaderProgram.tex, 0);
 
@@ -416,7 +522,8 @@ var Renderer = function (canvas)
                 //gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
                 //gl.generateMipmap(gl.TEXTURE_2D);
             }
-            else {
+            else
+            {
                 gl.uniform1f(shaderProgram.texLoaded, 0);
             }
 
@@ -425,29 +532,29 @@ var Renderer = function (canvas)
 
             gl.bindBuffer(gl.ARRAY_BUFFER, myFirstObject.positionBuffer);
             gl.vertexAttribPointer(shaderProgram.position,  // index of attribute
-                    3,        // three position components (x,y,z)
-                    gl.FLOAT, // provided data type is float
-                    false,    // do not normalize values
-                    0,        // stride (in bytes)
-                    0);       // offset (in bytes)
+                3,        // three position components (x,y,z)
+                gl.FLOAT, // provided data type is float
+                false,    // do not normalize values
+                0,        // stride (in bytes)
+                0);       // offset (in bytes)
             gl.enableVertexAttribArray(shaderProgram.position);
 
             gl.bindBuffer(gl.ARRAY_BUFFER, myFirstObject.colorBuffer);
             gl.vertexAttribPointer(shaderProgram.color,  // index of attribute
-                    3,        // three color components (r,g,b)
-                    gl.FLOAT, // provided data type
-                    false,    // normalize values
-                    0,        // stride (in bytes)
-                    0);       // offset (in bytes)
+                3,        // three color components (r,g,b)
+                gl.FLOAT, // provided data type
+                false,    // normalize values
+                0,        // stride (in bytes)
+                0);       // offset (in bytes)
             gl.enableVertexAttribArray(shaderProgram.color);
 
             gl.bindBuffer(gl.ARRAY_BUFFER, myFirstObject.texCoordBuffer);
             gl.vertexAttribPointer(shaderProgram.texCoord,  // index of attribute
-                    2,        // two texCoord components (s,t)
-                    gl.FLOAT, // provided data type is float
-                    false,    // do not normalize values
-                    0,        // stride (in bytes)
-                    0);       // offset (in bytes)
+                2,        // two texCoord components (s,t)
+                gl.FLOAT, // provided data type is float
+                false,    // do not normalize values
+                0,        // stride (in bytes)
+                0);       // offset (in bytes)
             gl.enableVertexAttribArray(shaderProgram.texCoord);
 
             // draw call
@@ -461,18 +568,19 @@ var Renderer = function (canvas)
             gl.bindTexture(gl.TEXTURE_2D, null);
         },
 
-        animate: function (dT) {
-           
+        animate: function (dT)
+        {
+
             if (myFirstObject.animating) // If animation is aktive Rotation begins
             {
-              //Zeiger Rotation
+                //Zeiger Rotation
                 myFirstObject.angle += (2 * Math.PI * dT) / myFirstObject.numSeconds;
                 var tempMat = mat4.create();
 
                 var identity = mat4.create();
 
                 mat4.rotateZ(myFirstObject.transMat, identity, myFirstObject.angle);
-               //mat4.multiply(myFirstObject.transMat, myFirstObject.transMat, projectionMat); // wird manipuliert per tastatur
+                //mat4.multiply(myFirstObject.transMat, myFirstObject.transMat, projectionMat); // wird manipuliert per tastatur
 //                myFirstObject.transform[0] = Math.cos(myFirstObject.angle);
 //                myFirstObject.transform[1] = -Math.sin(myFirstObject.angle);
 //                myFirstObject.transform[4] = Math.sin(myFirstObject.angle);
@@ -481,17 +589,20 @@ var Renderer = function (canvas)
             }
         },
 
-        setDuration: function (s) {
+        setDuration: function (s)
+        {
             // one loop per numSeconds
             myFirstObject.numSeconds = s;
         },
 
-        toggleAnim: function () {
+        toggleAnim: function ()
+        {
             myFirstObject.animating = !myFirstObject.animating;
             return myFirstObject.animating;
         },
 
-        tick: function (stats) {
+        tick: function (stats)
+        {
             // first, calc new deltaT
             var currTime = Date.now();
             var dT = currTime - lastFrameTime;
@@ -500,14 +611,15 @@ var Renderer = function (canvas)
             dT /= 1000;
 
             // then, update and render scene
-           this.updateCamera();
+            this.updateCamera();
             this.animate(dT);
 
             //if (needRender)
-                this.drawScene();
+            this.drawScene();
 
             // finally, show some statistics
-            if (stats && needRender) {
+            if (stats && needRender)
+            {
                 fpsStr = (currTime / 1000).toFixed(3) + "<br>dT: " + dT + "<br>fps: " + fpsStr;
                 stats.innerHTML = fpsStr;
             }
@@ -515,7 +627,8 @@ var Renderer = function (canvas)
             needRender = false;
             lastFrameTime = currTime;
         },
-        updateCamera : function (){
+        updateCamera: function ()
+        {
 
             /**
              * Generates a perspective projection matrix with the given bounds
@@ -528,9 +641,9 @@ var Renderer = function (canvas)
              * @returns {mat4} out
              */
 
-            mat4.perspective(projectionMat, 45, canvas.width/canvas.height, 0.1, 1000)
+            mat4.perspective(projectionMat, 45, canvas.width / canvas.height, 0.1, 1000)
 
-            mat4.multiply(modelViewProjection,projectionMat,viewMat);
+            mat4.multiply(modelViewProjection, projectionMat, viewMat);
         }
 
     }
