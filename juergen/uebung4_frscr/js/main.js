@@ -1,4 +1,16 @@
-checkWebGL();
+// make sure browser knows requestAnimationFrame method
+if (!window.requestAnimationFrame) {
+    window.requestAnimationFrame = (function () {
+        return  window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback, element) {
+                window.setTimeout(callback, 16);
+            };
+    })();
+}
 
 
 // our main rendering class
@@ -33,6 +45,41 @@ var Renderer = function(canvas) {
 
     // access to Renderer from inside other functions
     var that = this;
+
+    var preamble = "#ifdef GL_FRAGMENT_PRECISION_HIGH\n" +
+        "  precision highp float;\n" +
+        "#else\n" +
+        "  precision mediump float;\n" +
+        "#endif\n\n";
+
+    // vertex shader string
+    var vertexShader = "attribute vec3 position;\n" +
+        "attribute vec2 texCoord;\n" +
+        "attribute vec3 color;\n" +
+        "uniform mat4 transMat;\n" +
+        "varying vec3 vColor;\n" +
+        "varying vec2 vTexCoord;\n" +
+        "void main() {\n" +
+        "    vColor = color;\n" +
+        "    vTexCoord = texCoord;\n" +
+        "    vec4 pos = transMat * vec4(position, 1.0);\n" +
+        "    gl_Position = pos;\n" +
+        "}\n";
+
+    // fragment shader string
+    var fragmentShader = preamble +
+        "uniform sampler2D tex;\n" +
+        "uniform float texLoaded;\n" +
+        "varying vec3 vColor;\n" +
+        "varying vec2 vTexCoord;\n" +
+        "void main() {\n" +
+        "    vec4 color = vec4(vColor, 1.0);\n" +
+        "    if (texLoaded == 1.0)\n" +
+        "        color = texture2D(tex, vTexCoord);\n" +
+        //"        color.rgb = texture2D(tex, (vTexCoord+0.5) / 2.0).rgb;\n" +
+        //"        color.rgb = texture2D(tex, 2.0*vTexCoord).rgb;\n" +
+        "    gl_FragColor = color;\n" +
+        "}\n";
 
     // shader program object
     var shaderProgram = null;
@@ -208,9 +255,9 @@ var Renderer = function(canvas) {
                 return false;
             }
 
-            myFirstObject.texture = initTexture(myFirstObject.imgSrc);
+            //cube.texture = initTexture(cube.imgSrc);
 
-            initBuffers(myFirstObject);
+            initBuffers(cube);
 
             lastFrameTime = Date.now();
 
@@ -228,18 +275,18 @@ var Renderer = function(canvas) {
             gl.deleteProgram(shaderProgram);
             shaderProgram = null;
 
-            if (myFirstObject.texture)
-                gl.deleteTexture(myFirstObject.texture);
+            if (cube.texture)
+                gl.deleteTexture(cube.texture);
 
             // delete VBOs, too
-            gl.deleteBuffer(myFirstObject.indexBuffer);
-            gl.deleteBuffer(myFirstObject.positionBuffer);
-            gl.deleteBuffer(myFirstObject.colorBuffer);
-            gl.deleteBuffer(myFirstObject.texCoordBuffer);
+            gl.deleteBuffer(cube.indexBuffer);
+            gl.deleteBuffer(cube.positionBuffer);
+            gl.deleteBuffer(cube.colorBuffer);
+            gl.deleteBuffer(cube.texCoordBuffer);
         },
 
         drawScene: function() {
-            gl.clearColor(0.0, 0.0, 0.0, 0.0);
+            gl.clearColor(0.0, 0.0, 1.0, 1.0);
             gl.clearDepth(1.0);
 
             gl.viewport(0, 0, canvas.width, canvas.height);
@@ -253,14 +300,14 @@ var Renderer = function(canvas) {
             gl.useProgram(shaderProgram);
 
             // set uniforms
-            gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(myFirstObject.transform));
+            gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(cube.transform));
 
-            if (myFirstObject.texture && myFirstObject.texture.ready) {
+            if (cube.texture && cube.texture.ready) {
                 gl.uniform1f(shaderProgram.texLoaded, 1);
                 gl.uniform1i(shaderProgram.tex, 0);
 
                 gl.activeTexture(gl.TEXTURE0);
-                gl.bindTexture(gl.TEXTURE_2D, myFirstObject.texture);
+                gl.bindTexture(gl.TEXTURE_2D, cube.texture);
 
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
                 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
@@ -279,9 +326,9 @@ var Renderer = function(canvas) {
             }
 
             // render object indexed
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, myFirstObject.indexBuffer);
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cube.indexBuffer);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, myFirstObject.positionBuffer);
+            gl.bindBuffer(gl.ARRAY_BUFFER, cube.positionBuffer);
             gl.vertexAttribPointer(shaderProgram.position,  // index of attribute
                 3,        // three position components (x,y,z)
                 gl.FLOAT, // provided data type is float
@@ -290,7 +337,7 @@ var Renderer = function(canvas) {
                 0);       // offset (in bytes)
             gl.enableVertexAttribArray(shaderProgram.position);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, myFirstObject.colorBuffer);
+            gl.bindBuffer(gl.ARRAY_BUFFER, cube.colorBuffer);
             gl.vertexAttribPointer(shaderProgram.color,  // index of attribute
                 3,        // three color components (r,g,b)
                 gl.FLOAT, // provided data type
@@ -299,7 +346,7 @@ var Renderer = function(canvas) {
                 0);       // offset (in bytes)
             gl.enableVertexAttribArray(shaderProgram.color);
 
-            gl.bindBuffer(gl.ARRAY_BUFFER, myFirstObject.texCoordBuffer);
+            gl.bindBuffer(gl.ARRAY_BUFFER, cube.texCoordBuffer);
             gl.vertexAttribPointer(shaderProgram.texCoord,  // index of attribute
                 2,        // two texCoord components (s,t)
                 gl.FLOAT, // provided data type is float
@@ -309,7 +356,7 @@ var Renderer = function(canvas) {
             gl.enableVertexAttribArray(shaderProgram.texCoord);
 
             // draw call
-            gl.drawElements(gl.TRIANGLES, myFirstObject.indices.length, gl.UNSIGNED_SHORT, 0);
+            gl.drawElements(gl.TRIANGLES, cube.indices.length, gl.UNSIGNED_SHORT, 0);
 
             gl.disableVertexAttribArray(shaderProgram.position);
             gl.disableVertexAttribArray(shaderProgram.color);
@@ -321,17 +368,17 @@ var Renderer = function(canvas) {
 
         animate: function(dT) {
             // update animation values
-            if (myFirstObject.animating) {
-                //myFirstObject.angle += -(2 * Math.PI * dT) / myFirstObject.numSeconds;
+            if (cube.animating) {
+                //cube.angle += -(2 * Math.PI * dT) / cube.numSeconds;
 
-                //  myFirstObject.transform[12] = 0.5 * Math.sin(myFirstObject.angle);
-                //  myFirstObject.transform[13] = 0.5 * Math.cos(myFirstObject.angle);
-                myFirstObject.angle += (2 * Math.PI * dT) / myFirstObject.numSeconds;
+                //  cube.transform[12] = 0.5 * Math.sin(cube.angle);
+                //  cube.transform[13] = 0.5 * Math.cos(cube.angle);
+                cube.angle += (2 * Math.PI * dT) / cube.numSeconds;
 
-                myFirstObject.transform[0] = Math.cos(myFirstObject.angle);
-                myFirstObject.transform[1] = -Math.sin(myFirstObject.angle);
-                myFirstObject.transform[4] = Math.sin(myFirstObject.angle);
-                myFirstObject.transform[5] = Math.cos(myFirstObject.angle);
+                cube.transform[0] = Math.cos(cube.angle);
+                cube.transform[1] = -Math.sin(cube.angle);
+                cube.transform[4] = Math.sin(cube.angle);
+                cube.transform[5] = Math.cos(cube.angle);
 
 
                 needRender = true;  // transform changed, need re-render
@@ -340,12 +387,12 @@ var Renderer = function(canvas) {
 
         setDuration: function(s) {
             // one loop per numSeconds
-            myFirstObject.numSeconds = s;
+            cube.numSeconds = s;
         },
 
         toggleAnim: function() {
-            myFirstObject.animating = !myFirstObject.animating;
-            return myFirstObject.animating;
+            cube.animating = !cube.animating;
+            return cube.animating;
         },
 
         tick: function(stats) {
@@ -422,22 +469,7 @@ var MyApp = {
     }
 };
 
-// Refactoring
-function checkWebGL() {
-    // make sure browser knows requestAnimationFrame method
-    if (!window.requestAnimationFrame) {
-        window.requestAnimationFrame = (function () {
-            return  window.requestAnimationFrame ||
-                window.webkitRequestAnimationFrame ||
-                window.mozRequestAnimationFrame ||
-                window.oRequestAnimationFrame ||
-                window.msRequestAnimationFrame ||
-                function (callback, element) {
-                    window.setTimeout(callback, 16);
-                };
-        })();
-    }
-}
+
 
 function getContext(canvas){
     var context = null;
@@ -464,3 +496,7 @@ function getSourceSynch(url, type) {
     req.send(null);
     return (req.status == 200) ? req.responseText : null;
 }
+
+window.onload = function() {
+    MyApp.initialize();
+};
