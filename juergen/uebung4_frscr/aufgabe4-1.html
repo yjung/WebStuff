@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aufgabe4-1</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="main.css"/>
+    <link rel="text/javascript" href="js/cube.js"/>
+    <link rel="text/javascript" href="js/main.js"/>
+</head>
+
+<body onload="MyApp.initialize();" onunload="MyApp.shutdown();">
+
+<canvas id="glCanvas" width="512" height="512"></canvas>
+
+<div class="container">
+    <div id="time"></div>
+    <div id="btns">
+        <button onclick="MyApp.setDuration(null);">Set Duration</button> to
+        <input id="sec" value="2" size="6" onkeyup="MyApp.setDuration(event);">
+        <label for="sec">sec</label><br>
+        <button onclick="MyApp.toggleAnim(this);">Start Animation</button>
+    </div>
+</div>
+
+</body>
+</html>
