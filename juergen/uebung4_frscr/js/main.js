@@ -1,22 +1,4 @@
-// make sure browser knows requestAnimationFrame method
-if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = (function () {
-        return  window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            function (callback, element) {
-                window.setTimeout(callback, 16);
-            };
-    })();
-}
-
-var viewMat = mat4.create();
-var projectionMat = mat4.create();
-var modelViewProjection = mat4.create();
-var modelView = mat4.create();
-
+checkWebGL();
 
 
 // our main rendering class
@@ -26,104 +8,34 @@ var Renderer = function(canvas) {
     // private section, variables
     //-------------------------------------------------------
 
+
+    document.addEventListener('keypress', function (evt) {
+        switch (evt.charCode) {
+            case 43: /* + */
+                break;
+            case 45: /* - */
+                break;
+        }
+    }, true);
+
+    document.addEventListener('keydown', function (evt) {
+        switch (evt.keyCode) {
+            case 37: /* left */
+                break;
+            case 38: /* up */
+                break;
+            case 39: /* right */
+                break;
+            case 40: /* down */
+                break;
+        }
+    }, true);
+
     // access to Renderer from inside other functions
     var that = this;
 
-    var preamble = "#ifdef GL_FRAGMENT_PRECISION_HIGH\n" +
-        "  precision highp float;\n" +
-        "#else\n" +
-        "  precision mediump float;\n" +
-        "#endif\n\n";
-
-    // vertex shader string
-    var vertexShader = "attribute vec3 position;\n" +
-        "attribute vec2 texCoord;\n" +
-        "attribute vec3 color;\n" +
-        "uniform mat4 transMat;\n" +
-        "varying vec3 vColor;\n" +
-        "varying vec2 vTexCoord;\n" +
-        "void main() {\n" +
-        "    vColor = color;\n" +
-        "    vTexCoord = texCoord;\n" +
-        "    vec4 pos = transMat * vec4(position, 1.0);\n" +
-        "    gl_Position = pos;\n" +
-        "}\n";
-
-    // fragment shader string
-    var fragmentShader = preamble +
-        "uniform sampler2D tex;\n" +
-        "uniform float texLoaded;\n" +
-        "varying vec3 vColor;\n" +
-        "varying vec2 vTexCoord;\n" +
-        "void main() {\n" +
-        "    vec4 color = vec4(vColor, 1.0);\n" +
-        "    if (texLoaded == 1.0)\n" +
-        "        color = texture2D(tex, vTexCoord);\n" +
-        //"        color.rgb = texture2D(tex, (vTexCoord+0.5) / 2.0).rgb;\n" +
-        //"        color.rgb = texture2D(tex, 2.0*vTexCoord).rgb;\n" +
-        "    gl_FragColor = color;\n" +
-        "}\n";
-
     // shader program object
     var shaderProgram = null;
-
-    // container for our first object
-    var myFirstObject = {
-        // the object's vertices
-        vertices: [
-            -0.5,  0,    0,    //LU  - 0
-            0.5, -0,    0,    //RU  - 1
-            -0.5,  0.5,  0,    //LO  - 2
-            0.5,  0.5,  0,    //RO  - 3
-            0,    0.75, 0,    //DS  - 4
-            -0.75, 0.5,  0,    //LOA - 5
-            0.75, 0.5,  0     //ROA - 6
-        ],
-        // the object's vertex colors
-        colors: [
-            0.5, 0.5, 0.5,
-            0.5, 0.5, 0.5,
-            0.5, 0.5, 0.5,
-            0.5, 0.5, 0.5,
-            1,   0,   0,
-            1,   0,   0,
-            1,   0,   0
-        ],
-        // the object's texture coordinates
-        texCoords: [
-            0,   0,
-            1,   0,
-            0,   1,
-            1,   1,
-            0.5, 1,
-            0,   0,
-            1,   0
-
-        ],
-        // index array for drawing a quad (consisting of two tris)
-        indices: [
-            0, 1, 2,
-            3, 2, 1,
-            4, 5, 6
-        ],
-
-        // for animation
-        // matrix elements must be provided in column major order!
-        transform: [
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1
-        ],
-        angle: 0,
-        numSeconds: 2,
-        animating: false,
-        transMat: mat4.create(),
-
-        // texture
-        imgSrc: "altedachziegeln_512.jpg",
-        texture: null
-    };
 
     var lastFrameTime = 0;
     var needRender = true;
@@ -134,24 +46,7 @@ var Renderer = function(canvas) {
     //-------------------------------------------------------
 
     // get GL context
-    var gl = (function(canvas) {
-        var context = null;
-        var validContextNames = ['webgl', 'experimental-webgl'];
-        var ctxAttribs = { alpha: true, depth: true, antialias: true, premultipliedAlpha: false };
-
-        for (var i=0; i<validContextNames.length; i++) {
-            try {
-                // provide context name and context creation params
-                if (context = canvas.getContext(validContextNames[i], ctxAttribs)) {
-                    console.log("Found '" + validContextNames[i] + "' context");
-                    break;
-                }
-            }
-            catch (e) { console.warn(e); }  // shouldn't happen on modern browsers
-        }
-
-        return context;
-    })(canvas);
+    var gl = getContext(canvas);
 
     // create shader part
     function getShader(source, type) {
@@ -358,8 +253,7 @@ var Renderer = function(canvas) {
             gl.useProgram(shaderProgram);
 
             // set uniforms
-            mat4.multiply(modelViewProjection, myFirstObject.transMat, modelViewProjection);
-            gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(modelViewProjection));
+            gl.uniformMatrix4fv(shaderProgram.transMat, false, new Float32Array(myFirstObject.transform));
 
             if (myFirstObject.texture && myFirstObject.texture.ready) {
                 gl.uniform1f(shaderProgram.texLoaded, 1);
@@ -428,8 +322,11 @@ var Renderer = function(canvas) {
         animate: function(dT) {
             // update animation values
             if (myFirstObject.animating) {
-                myFirstObject.angle += (2 * Math.PI * dT) / myFirstObject.numSeconds;
+                //myFirstObject.angle += -(2 * Math.PI * dT) / myFirstObject.numSeconds;
 
+                //  myFirstObject.transform[12] = 0.5 * Math.sin(myFirstObject.angle);
+                //  myFirstObject.transform[13] = 0.5 * Math.cos(myFirstObject.angle);
+                myFirstObject.angle += (2 * Math.PI * dT) / myFirstObject.numSeconds;
 
                 myFirstObject.transform[0] = Math.cos(myFirstObject.angle);
                 myFirstObject.transform[1] = -Math.sin(myFirstObject.angle);
@@ -507,34 +404,6 @@ var MyApp = {
     initialize: function() {
         var that = this;
         var canvas = document.getElementById("glCanvas");
-        canvas.setAttribute("tabindex", "0");
-
-        canvas.addEventListener('keypress', function(evt) {
-            console.log(evt.charCode);
-            switch (evt.charCode) {
-                case 43: /* + */
-                    var zoomVec = vec4.fromValues(-0.25, 0, 0, 0);
-                    mat4.translate(viewMat, viewMat, zoomVec);
-                    break;
-                case 45: /* - */
-                    break;
-            }
-        }, true);
-
-        canvas.addEventListener('keydown', function(evt) {
-            console.log(evt.keyCode);
-            switch (evt.keyCode) {
-                case 37: /* left */
-
-                    break;
-                case 38: /* up */
-                    break;
-                case 39: /* right */
-                    break;
-                case 40: /* down */
-                    break;
-            }
-        }, true);
 
         this.renderer = new Renderer(canvas);
 
@@ -550,6 +419,48 @@ var MyApp = {
             console.error("Could not initialize WebGL!");
             this.renderer = null;
         }
-
     }
 };
+
+// Refactoring
+function checkWebGL() {
+    // make sure browser knows requestAnimationFrame method
+    if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = (function () {
+            return  window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.oRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function (callback, element) {
+                    window.setTimeout(callback, 16);
+                };
+        })();
+    }
+}
+
+function getContext(canvas){
+    var context = null;
+    var validContextNames = ['webgl', 'experimental-webgl'];
+    var ctxAttribs = { alpha: true, depth: true, antialias: true, premultipliedAlpha: false };
+
+    for (var i=0; i<validContextNames.length; i++) {
+        try {
+            // provide context name and context creation params
+            if (context = canvas.getContext(validContextNames[i], ctxAttribs)) {
+                console.log("Found '" + validContextNames[i] + "' context");
+                break;
+            }
+        }
+        catch (e) { console.warn(e); }  // shouldn't happen on modern browsers
+    }
+
+    return context;
+}
+
+function getSourceSynch(url, type) {
+    var req = new XMLHttpRequest();
+    req.open("GET", url, false);
+    req.send(null);
+    return (req.status == 200) ? req.responseText : null;
+}
