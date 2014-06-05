@@ -76,6 +76,29 @@ var wuerfel = {
         -1.0,  0.0,  0.0
     ],
 
+    // the object's texture coordinates
+    texCoords: [
+        0.0, 1.0,
+        0.0, 1.0,
+        0.0, 1.0,
+        0.0, 1.0,
+
+        0.0, 1.0,
+        0.0, 1.0,
+        0.0, 1.0,
+        0.0, 1.0,
+
+        0.0, 1.0,
+        0.0, 1.0,
+        0.0, 1.0,
+        0.0, 1.0,
+
+        0.0, 1.0,
+        0.0, 1.0,
+        0.0, 1.0,
+        0.0, 1.0,
+    ],
+
     // the object's vertex colors
     colors: [
         // Front face
@@ -124,8 +147,22 @@ var wuerfel = {
     20, 21, 22,     20, 22, 23    // left
 ],
 
+    // for animation
+    // matrix elements must be provided in column major order!
+    transform: [
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+    ],
 
-    texture: null,
 
-    transMat: mat4.create()
+    angle: 0,
+    transMat: mat4.create(),
+    numSeconds: 2,
+    animating: false,
+
+    // texture
+    imgSrc: "img/todo.jpg",
+    texture: null
 };

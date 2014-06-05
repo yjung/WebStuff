@@ -83,13 +83,13 @@ textarea {
 }
 
 
-#glCanvas {
-	position:absolute;
-	top:0;
-	left:0;
-    border: solid 1px black;
-    z-index: 100;
-}
+/*#glCanvas {*/
+	/*position:absolute;*/
+	/*top:0;*/
+	/*left:0;*/
+    /*border: solid 1px black;*/
+    /*z-index: 100;*/
+/*}*/
 #time {
      margin: 10px;
 }
