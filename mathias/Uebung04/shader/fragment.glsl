@@ -6,6 +6,7 @@
 
 uniform sampler2D tex;
 uniform float texLoaded;
+
 varying vec3 vColor;
 varying vec2 vTexCoord;
 

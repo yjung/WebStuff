@@ -201,7 +201,7 @@ var Renderer = function(canvas) {
 		},
 
 		drawScene : function() {
-			gl.clearColor(0, 0, 0, 0);
+			gl.clearColor(0, 200, 0, 0);
 			gl.clearDepth(1.0);
 
 			gl.viewport(0, 0, canvas.width, canvas.height);
@@ -257,15 +257,15 @@ var Renderer = function(canvas) {
 			// offset (in bytes)
 			gl.enableVertexAttribArray(shaderProgram.color);
 
-			gl.bindBuffer(gl.ARRAY_BUFFER, myFirstObject.texCoordBuffer);
-			gl.vertexAttribPointer(shaderProgram.texCoord, // index of attribute
-			2, // two texCoord components (s,t)
-			gl.FLOAT, // provided data type is float
-			false, // do not normalize values
-			0, // stride (in bytes)
-			0);
-			// offset (in bytes)
-			gl.enableVertexAttribArray(shaderProgram.texCoord);
+//			gl.bindBuffer(gl.ARRAY_BUFFER, myFirstObject.texCoordBuffer);
+//			gl.vertexAttribPointer(shaderProgram.texCoord, // index of attribute
+//			2, // two texCoord components (s,t)
+//			gl.FLOAT, // provided data type is float
+//			false, // do not normalize values
+//			0, // stride (in bytes)
+//			0);
+//			// offset (in bytes)
+//			gl.enableVertexAttribArray(shaderProgram.texCoord);
 
 			// draw call
 			gl.drawElements(gl.TRIANGLES, myFirstObject.indices.length, gl.UNSIGNED_SHORT, 0);

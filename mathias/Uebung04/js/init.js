@@ -5,6 +5,11 @@ checkWebGL();
 var Anwendung = createApp();
 
 var viewMat = mat4.create();
+var kamerastart = vec4.fromValues(0,0,-5,0);
+mat4.translate(viewMat, viewMat, kamerastart);
+
+var kameraRotation = "";
+
 var projectionMat = mat4.create();
 var modelViewProjection = mat4.create();
 
@@ -56,20 +61,23 @@ var Renderer = function (canvas) {
         evt.preventDefault();
     }, false);
 
-    canvas.addEventListener('mouseup', function (evt) {
+    canvas.addEventListener('mousedown', function (evt) {
+        console.log(evt);
         switch (evt.button) {
                 case 0: /* left */
                     console.log("Left");
-//                var transVec = vec4.fromValues(-0.25, 0, 0, 0);
-//                mat4.translate(viewMat, viewMat, transVec);
+                    kameraRotation = "Links";
                     break;
                 case 2: /* up */
-                    console.log("Right");
-//                var transVec = vec4.fromValues(0, 0.25, 0, 0);
-//                mat4.translate(viewMat, viewMat, transVec);
+                    kameraRotation = "Rechts";
                     break;
             }
         },true);
+
+    canvas.addEventListener('mouseup', function (evt) {
+                kameraRotation = "";
+                kameraRotation = "";
+    },true);
 
 
     // access to Renderer from inside other functions
@@ -86,21 +94,28 @@ var Renderer = function (canvas) {
 
     // init buffer wuerfels (dynamically attach buffer reference to obj)
     function initBuffers(obj) {
-        obj.positionBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, obj.positionBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.vertices), gl.STATIC_DRAW);
 
-//        obj.texCoordBuffer = gl.createBuffer();
-//        gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);
-//        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.texCoords), gl.STATIC_DRAW);
+//        gl.bindBuffer(gl.ARRAY_BUFFER,null);                                                    // Sicherstellen, dass kein Buffer eingebunden
 
-        obj.colorBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ARRAY_BUFFER, obj.colorBuffer);
-        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.colors), gl.STATIC_DRAW);
+        obj.positionBuffer = gl.createBuffer();                                                 // Buffer zur Grafikkarte erzeugen
+        gl.bindBuffer(gl.ARRAY_BUFFER, obj.positionBuffer);                                     // Diesen Buffer spezifizieren und einbinden
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.vertices), gl.STATIC_DRAW);         // Speicherallokation und Buffering
+//        gl.bindBuffer(gl.ARRAY_BUFFER, null);                                                   // Verbindung aufloesen
 
-        obj.indexBuffer = gl.createBuffer();
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.indexBuffer);
-        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(obj.indices), gl.STATIC_DRAW);
+        obj.colorBuffer = gl.createBuffer();                                                    // Buffer zur Grafikkarte erzeugen
+        gl.bindBuffer(gl.ARRAY_BUFFER, obj.colorBuffer);                                        // Diesen Buffer spezifizieren und einbinden
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.colors), gl.STATIC_DRAW);           // Speicherallokation und Buffering
+//        gl.bindBuffer(gl.ARRAY_BUFFER, null);                                                   // Verbindung aufloesen
+
+        obj.indexBuffer = gl.createBuffer();                                                    // Buffer zur Grafikkarte erzeugen
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.indexBuffer);                                // Diesen Buffer spezifizieren und einbinden
+        gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(obj.indices), gl.STATIC_DRAW);   // Speicherallokation und Buffering
+//        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);                                           // Verbindung aufloesen
+
+        obj.texCoordBuffer = gl.createBuffer();                                               // Buffer zur Grafikkarte erzeugen
+        gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);                                   // Diesen Buffer spezifizieren und einbinden
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.texCoords), gl.STATIC_DRAW);      // Speicherallokation und Buffering
+        gl.bindBuffer(gl.ARRAY_BUFFER,null);                                                    // Verbindung aufloesen
         console.log("FERTIG: Buffer-Initialisierung");
     }
 
@@ -114,9 +129,11 @@ var Renderer = function (canvas) {
             if (!gl) {
                 return false;
             }
-
+            var vs = getSourceSynch("shader/vertex.glsl", "text");
+            var fs = getSourceSynch("shader/fragment.glsl", "text");
+//            console.log(vs, fs);
             // Shaderprogramm durch Initialisierung mit extern geladenen Shader-Sources als Parameter
-            shaderProgram = initShader(getSourceSynch("shader/vertex.glsl", "text"), getSourceSynch("shader/fragment.glsl", "text"));
+            shaderProgram = initShader(vs, fs);
 
             if (!shaderProgram) {
                 return false;
@@ -152,7 +169,7 @@ var Renderer = function (canvas) {
         },
 
         drawScene: function () {
-            gl.clearColor(1, 1, 1, 0);
+            gl.clearColor(1, 1, 1, 1);
             gl.clearDepth(1.0);
 
             gl.viewport(0, 0, canvas.width, canvas.height);
@@ -187,16 +204,13 @@ var Renderer = function (canvas) {
                 gl.uniform1f(shaderProgram.texLoaded, 0);                               // Textur nicht geladen
             }
 
-            // render wuerfel indexed
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wuerfel.indexBuffer);
-
-            gl.bindBuffer(gl.ARRAY_BUFFER, wuerfel.positionBuffer);
-            gl.vertexAttribPointer(shaderProgram.position,  // index of attribute
-                3,                                          // three position components (x,y,z)
-                gl.FLOAT,                                   // provided data type is float
-                false,                                      // do not normalize values
-                0,                                          // stride (in bytes)
-                0);                                         // offset (in bytes)
+            gl.bindBuffer(gl.ARRAY_BUFFER, wuerfel.positionBuffer);     // Buffer als Aktuellen setzen
+            gl.vertexAttribPointer(shaderProgram.position,              // Mit Shader-Attribut assozieren
+                3,                                                      // three position components (x,y,z)
+                gl.FLOAT,                                               // provided data type is float
+                false,                                                  // do not normalize values
+                0,                                                      // stride (in bytes)
+                0);                                                     // offset (in bytes)
             gl.enableVertexAttribArray(shaderProgram.position);
 
             gl.bindBuffer(gl.ARRAY_BUFFER, wuerfel.colorBuffer);
@@ -208,15 +222,25 @@ var Renderer = function (canvas) {
                 0);                                         // offset (in bytes)
             gl.enableVertexAttribArray(shaderProgram.color);
 
+            gl.bindBuffer(gl.ARRAY_BUFFER, wuerfel.texCoordBuffer);
+            gl.vertexAttribPointer(shaderProgram.texCoord,     // index of attribute
+                2,                                          // three color components (r,g,b)
+                gl.FLOAT,                                   // provided data type
+                false,                                      // normalize values
+                0,                                          // stride (in bytes)
+                0);                                         // offset (in bytes)
+            gl.enableVertexAttribArray(shaderProgram.texCoord);
 
-            // draw call
+            // render wuerfel indexed
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, wuerfel.indexBuffer);
+            // draw call (modus, anzahl, typ, offset)
             gl.drawElements(gl.TRIANGLES, wuerfel.indices.length, gl.UNSIGNED_SHORT, 0);
 
-            gl.disableVertexAttribArray(shaderProgram.position);
-            gl.disableVertexAttribArray(shaderProgram.color);
+//            gl.disableVertexAttribArray(shaderProgram.position);
+//            gl.disableVertexAttribArray(shaderProgram.color);
 
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, null);
+//            gl.activeTexture(gl.TEXTURE0);
+//            gl.bindTexture(gl.TEXTURE_2D, null);
         },
 
 
@@ -251,7 +275,7 @@ var Renderer = function (canvas) {
 
             // then, update
             this.animate(dT);
-            this.updateCamera();
+            this.updateCamera(dT);
             // and render scene
             this.drawScene();
 
@@ -263,7 +287,7 @@ var Renderer = function (canvas) {
             lastFrameTime = currTime;
         },
 
-        updateCamera: function () {
+        updateCamera: function (dT) {
 
             /**
              * Generates a perspective projection matrix with the given bounds
@@ -279,7 +303,16 @@ var Renderer = function (canvas) {
             mat4.perspective(projectionMat, 45, canvas.width / canvas.height, 0.1, 1000)
             mat4.multiply(modelViewProjection, projectionMat, viewMat);
 
-
+                switch (kameraRotation) {
+                    case "Links": /* left */
+                        var rotationswerte = (2 * Math.PI * dT) / wuerfel.numSeconds;
+                        mat4.rotateY(viewMat, viewMat, rotationswerte);
+                        break;
+                    case "Rechts": /* right */
+                        var rotationswerte = -(2 * Math.PI * dT) / wuerfel.numSeconds;
+                        mat4.rotateY(viewMat, viewMat, rotationswerte);
+                        break;
+                }
         }
     };
 };

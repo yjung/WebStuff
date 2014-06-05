@@ -28,7 +28,7 @@ var house = {
         0.75, 0.5,
         0.5, 1,
         0, 0.75,
-        1, 0.75,
+        1, 0.75
     ],
     // index array for drawing a quad (consisting of two tris)
     indices: [
