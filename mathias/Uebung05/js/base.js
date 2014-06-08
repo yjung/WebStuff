@@ -63,9 +63,7 @@ var Drawable = function ()
         // world transform
     this.transform = mat4.create();
 
-
-    /**
-     * Helpers
+     /* Helpers
      * */
     this.numSeconds = 60;
     this.animating = false;

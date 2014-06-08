@@ -1,3 +1,9 @@
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+	precision highp float;
+#else
+	precision mediump float;
+#endif;
+
 // texture
 uniform sampler2D tex0;
 // helpers to check if values are set

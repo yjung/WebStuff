@@ -1,60 +1,34 @@
-/**
- * Created with JetBrains WebStorm.
- * User: yjung
- */
-
-
-// our main rendering class
-// http://www.khronos.org/registry/webgl/specs/latest/1.0/
 var Renderer = function (canvas)
 {
     "use strict";
     //-------------------------------------------------------
     // private section, variables
     //-------------------------------------------------------
+    var that = this;              // access to Renderer from inside other functions
+    var INDEX_UINT_EXT = null;    // unsigned int indices GL extension
 
-    // access to Renderer from inside other functions
-    var that = this;
-
-    // unsigned int indices GL extension
-    var INDEX_UINT_EXT = null;
-
-    var preamble = "#ifdef GL_FRAGMENT_PRECISION_HIGH\n" +
-        "  precision highp float;\n" +
-        "#else\n" +
-        "  precision mediump float;\n" +
-        "#endif\n\n";
-
-    // vertex shader string
-    var vertexShader = loadStringFromFile("shaders/vertexShader.glsl");
-
-    // fragment shader string
-    var fragmentShader = preamble +
-        loadStringFromFile("shaders/fragmentShader.glsl");
+    // Shader
+    var vertexShader = getSourceSynch("shaders/vertexShader.glsl", "text");     // Vertexshader einlesen
+    var fragmentShader = getSourceSynch("shaders/fragmentShader.glsl", "text"); // Fragmentshader einlesen
+    var shaderProgram = null;                                                   // Deklaration Programm
 
 
-    // shader program object
-    var shaderProgram = null;
+    // Lichtquellen
+    var lightDir = vec3.fromValues(-1, -1, -1);                                 // Direktionales Licht in Weltkoordinaten
+    vec3.normalize(lightDir, lightDir);                                         // Lichtrichtung normalisiert
 
-    // more private module-global variables
-    var lastFrameTime = 0;
-    var needRender = true;
-
-    // directional light (given in world space)
-    var lightDir = vec3.fromValues(-1, -1, -1);
-    vec3.normalize(lightDir, lightDir);
-
-    // camera
-    var centerOfRotation = vec3.fromValues(0, 0, 0);
-    var viewMatrix = mat4.create()
-    var projectionMatrix = mat4.create();
+    // Kamera
+    var RotationsMittelpunkt = vec3.fromValues(0, 0, 0);                        // Zentrum der Kameraansicht
+    var viewMatrix = mat4.create()                                              // Einheitsmatrix zur Deklaration
+    var projectionMatrix = mat4.create();                                       // Einheitsmatrix zur Deklaration
 
     // mouse state helpers
     var lastX = -1;
     var lastY = -1;
     var lastButton = 0;
+    var lastFrameTime = 0;
 
-    // container for our objects
+    // Objekte-Array
     var drawables = [];
 
 
@@ -62,34 +36,10 @@ var Renderer = function (canvas)
     // private section, functions
     //-------------------------------------------------------
 
-    // get GL context
-    var gl = (function (canvas)
-    {
-        var context = null;
-        var validContextNames = ['webgl', 'experimental-webgl'];
-        var ctxAttribs = { alpha: true, depth: true, antialias: true, premultipliedAlpha: false };
-
-        for (var i = 0; i < validContextNames.length; i++)
-        {
-            // provide context name and context creation params
-            if (context = canvas.getContext(validContextNames[i], ctxAttribs))
-            {
-                console.log("Found '" + validContextNames[i] + "' context");
-                // check for 32 bit indices extension (not avail. on all platforms)
-                INDEX_UINT_EXT = context.getExtension("OES_element_index_uint");
-                console.log((INDEX_UINT_EXT ? "" : "No ") + "32 bit indices available.");
-                break;
-            }
-        }
-
-        return context;
-    })(canvas);
-
     // create shader part
     function getShader(source, type)
     {
         var shader = null;
-
         switch (type)
         {
             case "vertex":
@@ -214,9 +164,6 @@ var Renderer = function (canvas)
             texture.width = image.width;
             texture.height = image.height;
             texture.ready = true;
-
-            // async image loader, trigger re-render
-            needRender = true;
         };
 
         image.onerror = function ()
@@ -573,6 +520,8 @@ var Renderer = function (canvas)
     //-------------------------------------------------------
     // public section, methods
     //-------------------------------------------------------
+    var gl = getContext(canvas);
+
     return {
         initialize: function ()
         {
@@ -703,12 +652,6 @@ var Renderer = function (canvas)
                 animating = animating || drawables[i].animating;
             }
             return animating;
-        },
-
-        triggerRedraw: function ()
-        {
-            // flag is checked every frame
-            needRender = true;
         },
 
         // called in main loop

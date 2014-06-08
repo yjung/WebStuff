@@ -1,26 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: yjung
- */
-
-
-// make sure browser knows requestAnimationFrame method
-if (!window.requestAnimationFrame)
-{
-    window.requestAnimationFrame = (function ()
-    {
-        return window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            function (callback, element)
-            {
-                window.setTimeout(callback, 16);
-            };
-    })();
-}
-
 
 /** Helper to convert a point from node coordinates to page coordinates */
 function mousePosition(evt)
@@ -56,7 +33,7 @@ function mousePosition(evt)
 
 
 // Application object, used to minimize global variables
-var MyApp = {
+var Anwendung = {
     // ref to renderer
     renderer: null,
 
@@ -92,6 +69,7 @@ var MyApp = {
     {
         var that = this;
 
+
         var request = new XMLHttpRequest();
         request.open('GET', fileName, true);
         request.send();
@@ -112,7 +90,6 @@ var MyApp = {
                 app.imgSrc.push(geo.textureName);
 
             that.renderer.addObject(geo, app, transform);
-            that.renderer.triggerRedraw();
         };
     },
 
@@ -233,13 +210,13 @@ var MyApp = {
             canvas.mouse_dragging = true;
 
             that.onMousePress(canvas.mouse_drag_x, canvas.mouse_drag_y, canvas.mouse_button);
-            that.triggerRedraw();
+
         }, false);
 
         canvas.addEventListener('mouseup', function (evt)
         {
             that.onMouseRelease(canvas.mouse_drag_x, canvas.mouse_drag_y, canvas.mouse_button);
-            that.triggerRedraw();
+
 
             canvas.mouse_button = 0;
             canvas.mouse_dragging = false;
@@ -272,7 +249,6 @@ var MyApp = {
             {
                 that.onMouseMove(canvas.mouse_drag_x, canvas.mouse_drag_y, canvas.mouse_button);
             }
-            that.triggerRedraw();
 
             evt.preventDefault();
             evt.stopPropagation();
@@ -286,7 +262,6 @@ var MyApp = {
         canvas.addEventListener('mouseout', function (evt)
         {
             that.onMouseOut();
-            that.triggerRedraw();
 
             canvas.mouse_button = 0;
             canvas.mouse_dragging = false;
@@ -304,7 +279,7 @@ var MyApp = {
             canvas.mouse_drag_y += 2 * evt.detail;
 
             that.onMouseDrag(canvas.mouse_drag_x, canvas.mouse_drag_y, 2);
-            that.triggerRedraw();
+
 
             evt.preventDefault();
             evt.stopPropagation();
@@ -317,7 +292,6 @@ var MyApp = {
             canvas.mouse_drag_y -= 0.1 * evt.wheelDeltaY;
 
             that.onMouseDrag(canvas.mouse_drag_x, canvas.mouse_drag_y, 2);
-            that.triggerRedraw();
 
             evt.preventDefault();
             evt.stopPropagation();
@@ -328,34 +302,19 @@ var MyApp = {
         canvas.addEventListener('keypress', function (evt)
         {
             that.onKeyPress(evt.charCode);
-            that.triggerRedraw();
+
         }, true);
 
         canvas.addEventListener('keyup', function (evt)
         {
             that.onKeyUp(evt.keyCode);
-            that.triggerRedraw();
+
         }, true);
 
         canvas.addEventListener('keydown', function (evt)
         {
             that.onKeyDown(evt.keyCode);
-            that.triggerRedraw();
+
         }, true);
     }
 };
-
-
-// load app
-window.addEventListener('load', function ()
-{
-    "use strict";
-    MyApp.initialize();
-}, false);
-
-// unload app
-window.addEventListener('unload', function ()
-{
-    "use strict";
-    MyApp.shutdown();
-}, false);
