@@ -1,0 +1,39 @@
+html {
+    height: 100%;
+    background-color: #000000;
+}
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#glCanvas {
+    float:left;
+    border: solid 1px black;
+}
+#glCanvas:hover {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+#glCanvas:focus {
+    outline:none;
+}
+
+#time {
+    margin: 10px;
+}
+
+.container {
+    float:left;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 490px;
+    font-size: 14pt;
+    font-family: Arial, sans-serif;
+}
