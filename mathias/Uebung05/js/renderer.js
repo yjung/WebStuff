@@ -21,7 +21,7 @@ var Renderer = function (canvas)
     var rotationsMittelpunkt = vec3.fromValues(0, 0, 0);                        // Zentrum der Kameraansicht
     var kameraPostion = vec3.fromValues(0, 0, 3);                               // Kameraposition
     var aufVektor = vec3.fromValues(0, 1, 0);                                   // Auf-Vektor in Y
-    var viewMatrix = mat4.create()                                              // Einheitsmatrix zur Deklaration
+    var viewMatrix = mat4.create();                                              // Einheitsmatrix zur Deklaration
     var projectionMatrix = mat4.create();                                       // Einheitsmatrix zur Deklaration
 
     // mouse state helpers
@@ -441,7 +441,15 @@ var Renderer = function (canvas)
     /*  Initialisiere View-Matrix */
     function updateCameraMatrix()
     {
-        mat4.lookAt(viewMatrix, kameraPostion, rotationsMittelpunkt, aufVektor)     // viewmatrix mit veraenderten Werten neuschreiben
+        var rotationsMittelpunkt = vec3.fromValues(0,0,0);
+        var eye = vec3.fromValues(0,0,3);
+        var up = vec3.fromValues(0,1,0);
+
+        // view matrix
+        var cam =  mat4.create();
+        mat4.lookAt(cam, eye,rotationsMittelpunkt, up);
+
+        mat4.invert(viewMatrix, cam);
     }
 
     /*  Rotiere die Sicht per LMB */
@@ -454,64 +462,60 @@ var Renderer = function (canvas)
         var cam = mat4.create();
         mat4.invert(cam, viewMatrix); // we need to manipulate camToWorld, therefore invert
 
-        var up = vec3.fromValues(kameraPostion[0], kameraPostion[1] , kameraPostion[2]);
+        var eye = vec3.fromValues(cam[12], cam[13] , cam[14]);
+        console.log(viewMatrix);
+//        console.log(cam);
+//        console.log(eye);
+        vec3.subtract(eye, eye, rotationsMittelpunkt);
+        var up = vec3.fromValues(cam[4], cam[5] , cam[6]);
 
-        // eye position is translational part
-//        var eye = cam.e3();
-        // origin of camera's reference frame is defined by CoR
-        vec3.subtract(up, up, rotationsMittelpunkt);
-
-//        var up = cam.e1();         // get camera's up vector
-//        // rotation matrix around up
+        // Quaternion 1
         var quatUp = quat.create();
-        quat.setAxisAngle(quatUp, aufVektor, beta);
+        quat.setAxisAngle(quatUp, up, beta);
 
-        var matUp  = mat4.create();
-        mat4.fromQuat(matUp, quatUp);
+        var mat  = mat4.create();
+        mat4.fromQuat(mat, quatUp);
 
-        var eye = vec3.fromValues(matUp[0] * up[0] + matUp[1] * up[1] + matUp[2] * up[2] + matUp[3],
-                                  matUp[4] * up[0] + matUp[5] * up[1] + matUp[6] * up[2] + matUp[7],
-                                  matUp[8] * up[0] + matUp[9] * up[1] + matUp[10] * up[2] + matUp[11]);
+        vec3.set(eye, mat[0] * eye[0] + mat[4] * eye[1] + mat[8] * eye[2] + mat[12],
+                      mat[1] * eye[0] + mat[5] * eye[1] + mat[9] * eye[2] + mat[13],
+                      mat[2] * eye[0] + mat[6] * eye[1] + mat[10] * eye[2] + mat[14]);
 
         var v = vec3.create();
-
         vec3.negate(v,eye);       // get new viewing vector (we always look into direction of CoR)
         vec3.normalize(v,v);
 
         var s = vec3.create();
-        vec3.cross(s, v, aufVektor);
+        vec3.cross(s, v, up);
 
         // rotation matrix around side
 
         var quatSide = quat.create();
-        quat.setAxisAngle(quatSide, aufVektor, alpha);
-        var matSide  = mat4.create();
-        mat4.fromQuat(matSide, quatSide);
+        quat.setAxisAngle(quatSide, s, alpha);
+        mat4.fromQuat(mat, quatSide);
 
-        var eye = vec3.fromValues(matSide[0] * up[0] + matSide[1] * up[1] + matSide[2] * up[2] + matSide[3],
-                                  matSide[4] * up[0] + matSide[5] * up[1] + matSide[6] * up[2] + matSide[7],
-                                  matSide[8] * up[0] + matSide[9] * up[1] + matSide[10] * up[2] + matSide[11]);
+        vec3.set(eye,   mat[0] * eye[0] + mat[4] * eye[1] + mat[8] * eye[2] + mat[12],
+                        mat[1] * eye[0] + mat[5] * eye[1] + mat[9] * eye[2] + mat[13],
+                        mat[2] * eye[0] + mat[6] * eye[1] + mat[10] * eye[2] + mat[14]);
 
 
 
         vec3.negate(v,eye);       // get new viewing vector (we always look into direction of CoR)
         vec3.normalize(v,v);
 
-        vec3.cross(aufVektor, s, v);
-        vec3.add(aufVektor, aufVektor, rotationsMittelpunkt); // shift eye back according to pivot point (i.e., CoR)
+        vec3.cross(up, s, v);
 
-//        // update camera matrix with new base vectors and eye position
-//        cam.setValue(s, aufVektor, v.negate(), eye);
+        vec3.add(eye, eye, rotationsMittelpunkt); // shift eye back according to pivot point (i.e., CoR)
 
-        vec3.negate(v,v);
+        vec3.negate(v, v);
+
 //        viewMatrix = s[0], s[1], s[2], aufVektor[0],aufVektor[1], aufVektor[2], v[0], v[1], v[2], eye[0],eye[1],eye[1], 0, 0, 0, 1;
         viewMatrix[0] = s[0];
         viewMatrix[1] = s[1];
         viewMatrix[2] = s[2];
         viewMatrix[3] = 0;
-        viewMatrix[4] = aufVektor[0];
-        viewMatrix[5] = aufVektor[1];
-        viewMatrix[6] = aufVektor[2];
+        viewMatrix[4] = up[0];
+        viewMatrix[5] = up[1];
+        viewMatrix[6] = up[2];
         viewMatrix[7] = 0;
         viewMatrix[8] = v[0];
         viewMatrix[9] = v[1];
@@ -522,11 +526,8 @@ var Renderer = function (canvas)
         viewMatrix[14] = eye[2];
         viewMatrix[15] = 1;
 
-        var einheit = mat4.create();
-
-
         mat4.invert(viewMatrix, viewMatrix);
-        console.log(v[2]);
+//        console.log(viewMatrix);
     }
 
     /*  Rotiere die Sicht per MMB */
