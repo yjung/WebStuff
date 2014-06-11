@@ -18,25 +18,58 @@ var Renderer = function (canvas)
     vec3.normalize(lightDir, lightDir);                                         // Lichtrichtung normalisiert
 
     // Kamera
-    var RotationsMittelpunkt = vec3.fromValues(0, 0, 0);                        // Zentrum der Kameraansicht
+    var rotationsMittelpunkt = vec3.fromValues(0, 0, 0);                        // Zentrum der Kameraansicht
+    var kameraPostion = vec3.fromValues(0, 0, 3);                               // Kameraposition
+    var aufVektor = vec3.fromValues(0, 1, 0);                                   // Auf-Vektor in Y
     var viewMatrix = mat4.create()                                              // Einheitsmatrix zur Deklaration
     var projectionMatrix = mat4.create();                                       // Einheitsmatrix zur Deklaration
 
     // mouse state helpers
-    var lastX = -1;
-    var lastY = -1;
+    var lastX = -1;             // Letzte X-Position
+    var lastY = -1;             // Letzte Y-Position
     var lastButton = 0;
-    var lastFrameTime = 0;
+    var lastFrameTime = 0;      // Zeit des letzten Frames
 
     // Objekte-Array
-    var drawables = [];
+    var drawables = [];         // Allgemeine Sammelung ohne Unterscheidung nach Objekten bzw. zugehoerigen Shadern
 
+    var gl = getContext(canvas);
 
     //-------------------------------------------------------
     // private section, functions
     //-------------------------------------------------------
 
-    // create shader part
+    /* WebGL-Context fuer das Canvas erzeugen*/
+    function getContext(canvas)
+    {
+        var context = null;
+        var validContextNames = ['webgl'];
+        var ctxAttribs = {
+            alpha: true,
+            depth: true,
+            antialias: true,
+            premultipliedAlpha: false
+        };
+
+        for (var i = 0; i < validContextNames.length; i++)
+        {
+            try
+            {
+                // provide context name and context creation params
+                if (context = canvas.getContext(validContextNames[i], ctxAttribs))
+                {
+                    console.log("Found '" + validContextNames[i] + "' context");
+                    break;
+                }
+            } catch (e)
+            {
+                console.warn(e);
+            } // shouldn't happen on modern browsers
+        }
+        return context;
+    };
+
+    /* Shader erzeugen. source : ShaderCode, type : "vertex" / "fragment"  */
     function getShader(source, type)
     {
         var shader = null;
@@ -64,7 +97,7 @@ var Renderer = function (canvas)
         return shader;
     }
 
-    // create shader program
+    /* Shaderprogramm aus uebergebenen Verstex- und Fragmentshader */
     function initShader(vertexShaderStr, fragmentShaderStr)
     {
         var vs = getShader(vertexShaderStr, "vertex");
@@ -96,7 +129,7 @@ var Renderer = function (canvas)
         return null;
     }
 
-    // get uniform and attribute location
+    /* Arrays fuer den Zugriff auf die uniforms und attributes eines Programms erzeugen */
     function findShaderVariables(program)
     {
         var obj = null;
@@ -142,7 +175,7 @@ var Renderer = function (canvas)
         }
     }
 
-    // load texture
+    /* Bilddatei von url einladen und als WebGL-Textur initialisieren.*/
     function initTexture(url)
     {
         var texture = gl.createTexture();
@@ -174,76 +207,76 @@ var Renderer = function (canvas)
         return texture;
     }
 
-    // init buffer objects (dynamically attach buffer reference to obj)
+    /* Buffer-Objects dynamisch an uebergebenem Objekt obj initialisieren */
     function initBuffers(obj)
     {
-        if (obj.indices.length)
+        if (obj.indices.length)                                                                         // Falls indices vorhanden
         {
-            obj.indexBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.indexBuffer);
+            obj.indexBuffer = gl.createBuffer();                                                        // Buffer zur Grafikkarte erzeugen
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.indexBuffer);                                    // Diesen Buffer spezifizieren und einbinden
             if (INDEX_UINT_EXT && obj.positions.length > 65535)
-            {
-                obj.indexType = gl.UNSIGNED_INT;
-                gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint32Array(obj.indices), gl.STATIC_DRAW);
+            {                                       // Pruefen ob Uint32Array noetig
+                obj.indexType = gl.UNSIGNED_INT;                                                        // ggf. UNSINGED_INT als Tyo
+                gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint32Array(obj.indices), gl.STATIC_DRAW);   // Speicherallokation und Buffering
             }
             else
-            {
-                obj.indexType = gl.UNSIGNED_SHORT;
-                gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(obj.indices), gl.STATIC_DRAW);
+            {                                                                                      // anderfalls
+                obj.indexType = gl.UNSIGNED_SHORT;                                                      // UNSIGNED_SHORT als Typ ausreichend
+                gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(obj.indices), gl.STATIC_DRAW);   // Speicherallokation und Buffering
             }
         }
 
         if (obj.positions.length)
-        {
-            obj.positionBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, obj.positionBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.positions), gl.STATIC_DRAW);
+        {                                                                     // Falls positions vorhanden
+            obj.positionBuffer = gl.createBuffer();                                                     // Buffer zur Grafikkarte erzeugen
+            gl.bindBuffer(gl.ARRAY_BUFFER, obj.positionBuffer);                                         // Diesen Buffer spezifizieren und einbinden
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.positions), gl.STATIC_DRAW);            // Speicherallokation und Buffering
         }
 
         if (obj.normals.length)
-        {
-            obj.normalBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, obj.normalBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.normals), gl.STATIC_DRAW);
+        {                                                                       // Falls normals vorhanden
+            obj.normalBuffer = gl.createBuffer();                                                       // Buffer zur Grafikkarte erzeugen
+            gl.bindBuffer(gl.ARRAY_BUFFER, obj.normalBuffer);                                           // Diesen Buffer spezifizieren und einbinden
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.normals), gl.STATIC_DRAW);              // Speicherallokation und Buffering
         }
 
         if (obj.colors.length)
-        {
-            obj.colorBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, obj.colorBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.colors), gl.STATIC_DRAW);
+        {                                                                        // Falls positions vorhanden
+            obj.colorBuffer = gl.createBuffer();                                                        // Buffer zur Grafikkarte erzeugen
+            gl.bindBuffer(gl.ARRAY_BUFFER, obj.colorBuffer);                                            // Diesen Buffer spezifizieren und einbinden
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.colors), gl.STATIC_DRAW);               // Speicherallokation und Buffering
         }
 
         if (obj.texCoords.length)
-        {
-            obj.texCoordBuffer = gl.createBuffer();
-            gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.texCoords), gl.STATIC_DRAW);
+        {                                                                     // Falls positions vorhanden
+            obj.texCoordBuffer = gl.createBuffer();                                                     // Buffer zur Grafikkarte erzeugen
+            gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);                                         // Diesen Buffer spezifizieren und einbinden
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.texCoords), gl.STATIC_DRAW);            // Speicherallokation und Buffering
         }
     }
 
-    // delete texture and buffer objects
+    /* Texturen- und Buffer-Objekte des uebergebenen Objekt obj loeschen */
     function cleanupBuffers(obj)
     {
+        // Texturen loeschen
         for (var j = 0; j < obj.texture.length; ++j)
-        {
-            gl.deleteTexture(obj.texture[j]);
+        {      // Fuer alle Texturen des Objekts
+            gl.deleteTexture(obj.texture[j]);               // Die Textur loeschen
         }
-
-        // delete VBOs, too
-        if (obj.indexBuffer)
-            gl.deleteBuffer(obj.indexBuffer);
-        if (obj.positionBuffer)
-            gl.deleteBuffer(obj.positionBuffer);
-        if (obj.normalBuffer)
-            gl.deleteBuffer(obj.normalBuffer);
-        if (obj.colorBuffer)
-            gl.deleteBuffer(obj.colorBuffer);
-        if (obj.texCoordBuffer)
-            gl.deleteBuffer(obj.texCoordBuffer);
+        // Buffer-Objekte loeschen
+        if (obj.indexBuffer)                                // Falls Buffer vorhanden
+            gl.deleteBuffer(obj.indexBuffer);               // loeschen
+        if (obj.positionBuffer)                             // Falls Buffer vorhanden
+            gl.deleteBuffer(obj.positionBuffer);            // loeschen
+        if (obj.normalBuffer)                               // Falls Buffer vorhanden
+            gl.deleteBuffer(obj.normalBuffer);              // loeschen
+        if (obj.colorBuffer)                                // Falls Buffer vorhanden
+            gl.deleteBuffer(obj.colorBuffer);               // loeschen
+        if (obj.texCoordBuffer)                             // Falls Buffer vorhanden
+            gl.deleteBuffer(obj.texCoordBuffer);            // loeschen
     }
 
-    // object specific render code
+    /*  Uebergebenes Objekt obj mit Shaderprogramm sp rendern */
     function renderObject(obj, sp)
     {
         // activate shader
@@ -388,84 +421,115 @@ var Renderer = function (canvas)
         gl.bindTexture(gl.TEXTURE_2D, null);
     }
 
-    // load textures and create VBOs for geometry
+    /*  Lade Texturen und erzeuge Vertexbuffer-Objekte für die Geometrien */
     function initializeObject(obj)
     {
         // add little animation helper
+        //Füge animationshelfer hinzu(--)
         obj.angle = 0;
 
-        // init texture objects
+        // initialisiere Textur-Objekt
         for (var j = 0; j < obj.imgSrc.length; ++j)
         {
             obj.texture[j] = initTexture(obj.imgSrc[j]);
         }
 
-        // init VBOs
+        // initialisiere VertexBuffer-Objekt
         initBuffers(obj);
     }
 
-    // init viewing matrix
-    function initCameraMatrix()
+    /*  Initialisiere View-Matrix */
+    function updateCameraMatrix()
     {
-        var rotationsMittelpunkt = vec3.fromValues(0, 0, 0);
-        var kameraPostion = vec3.fromValues(0, 0, 3);
-        var aufVektor = vec3.fromValues(0, 1, 0);
-
-        mat4.lookAt(viewMatrix, kameraPostion, rotationsMittelpunkt, aufVektor)
-
-        // directly store inverse matrix since more efficient than inverting camToWorld every frame
-//        viewMatrix = cam.inverse();
+        mat4.lookAt(viewMatrix, kameraPostion, rotationsMittelpunkt, aufVektor)     // viewmatrix mit veraenderten Werten neuschreiben
     }
 
-    // rotate view (left btn)
+    /*  Rotiere die Sicht per LMB */
     function rotateView(dx, dy)
     {
-//        var alpha = -(dy * 2 * Math.PI) / canvas.width;
-//        var beta = -(dx * 2 * Math.PI) / canvas.height;
+        var alpha = -(dy * 2 * Math.PI) / canvas.width;     // berrechnet einen von zwei Drehwinkeln anhand des Maus-Deltas
+        var beta = -(dx * 2 * Math.PI) / canvas.height;     // beschreibt einen von zwei Drehwinkeln anhand des Maus-Deltas
 //
-//        // we need to manipulate camToWorld, therefore invert
-//        var cam = viewMatrix.inverse();
 //
-//        // eye position is translational part
+        var cam = mat4.create();
+        mat4.invert(cam, viewMatrix); // we need to manipulate camToWorld, therefore invert
+
+        var up = vec3.fromValues(kameraPostion[0], kameraPostion[1] , kameraPostion[2]);
+
+        // eye position is translational part
 //        var eye = cam.e3();
-//        // origin of camera's reference frame is defined by CoR
-//        eye = eye.subtract(centerOfRotation);
-//
-//        // get camera's up vector
-//        var up = cam.e1();
+        // origin of camera's reference frame is defined by CoR
+        vec3.subtract(up, up, rotationsMittelpunkt);
+
+//        var up = cam.e1();         // get camera's up vector
 //        // rotation matrix around up
-//        var mat = VecMath.Quaternion.axisAngle(up, beta).toMatrix();
-//
-//        // calc rotated camera position (part 1)
-//        eye = mat.multMatrixPnt(eye);
-//
-//        // get new viewing vector (we always look into direction of CoR)
-//        var v = eye.negate().normalize();
-//        // calc side vector (in case of identity matrix this would be x)
-//        var s = v.cross(up);
-//
-//        // rotation matrix around side
-//        mat = VecMath.Quaternion.axisAngle(s, alpha).toMatrix();
-//
-//        // calc rotated camera position (part 2)
-//        eye = mat.multMatrixPnt(eye);
-//
-//        // again, get new viewing vector as the old one is invalid now
-//        v = eye.negate().normalize();
-//        // the new camera's base vectors (s, up, v) must be orthogonal
-//        up = s.cross(v);
-//
-//        // shift eye back according to pivot point (i.e., CoR)
-//        eye = eye.add(centerOfRotation);
-//
+        var quatUp = quat.create();
+        quat.setAxisAngle(quatUp, aufVektor, beta);
+
+        var matUp  = mat4.create();
+        mat4.fromQuat(matUp, quatUp);
+
+        var eye = vec3.fromValues(matUp[0] * up[0] + matUp[1] * up[1] + matUp[2] * up[2] + matUp[3],
+                                  matUp[4] * up[0] + matUp[5] * up[1] + matUp[6] * up[2] + matUp[7],
+                                  matUp[8] * up[0] + matUp[9] * up[1] + matUp[10] * up[2] + matUp[11]);
+
+        var v = vec3.create();
+
+        vec3.negate(v,eye);       // get new viewing vector (we always look into direction of CoR)
+        vec3.normalize(v,v);
+
+        var s = vec3.create();
+        vec3.cross(s, v, aufVektor);
+
+        // rotation matrix around side
+
+        var quatSide = quat.create();
+        quat.setAxisAngle(quatSide, aufVektor, alpha);
+        var matSide  = mat4.create();
+        mat4.fromQuat(matSide, quatSide);
+
+        var eye = vec3.fromValues(matSide[0] * up[0] + matSide[1] * up[1] + matSide[2] * up[2] + matSide[3],
+                                  matSide[4] * up[0] + matSide[5] * up[1] + matSide[6] * up[2] + matSide[7],
+                                  matSide[8] * up[0] + matSide[9] * up[1] + matSide[10] * up[2] + matSide[11]);
+
+
+
+        vec3.negate(v,eye);       // get new viewing vector (we always look into direction of CoR)
+        vec3.normalize(v,v);
+
+        vec3.cross(aufVektor, s, v);
+        vec3.add(aufVektor, aufVektor, rotationsMittelpunkt); // shift eye back according to pivot point (i.e., CoR)
+
 //        // update camera matrix with new base vectors and eye position
-//        cam.setValue(s, up, v.negate(), eye);
-//        // alternatively use lookAt, but in both cases we need to invert
-//        //cam = VecMath.SFMatrix4f.lookAt(eye, centerOfRotation, up);
-//        viewMatrix = cam.inverse();
+//        cam.setValue(s, aufVektor, v.negate(), eye);
+
+        vec3.negate(v,v);
+//        viewMatrix = s[0], s[1], s[2], aufVektor[0],aufVektor[1], aufVektor[2], v[0], v[1], v[2], eye[0],eye[1],eye[1], 0, 0, 0, 1;
+        viewMatrix[0] = s[0];
+        viewMatrix[1] = s[1];
+        viewMatrix[2] = s[2];
+        viewMatrix[3] = 0;
+        viewMatrix[4] = aufVektor[0];
+        viewMatrix[5] = aufVektor[1];
+        viewMatrix[6] = aufVektor[2];
+        viewMatrix[7] = 0;
+        viewMatrix[8] = v[0];
+        viewMatrix[9] = v[1];
+        viewMatrix[10] = v[2];
+        viewMatrix[11] = 0;
+        viewMatrix[12] = eye[0];
+        viewMatrix[13] = eye[1];
+        viewMatrix[14] = eye[2];
+        viewMatrix[15] = 1;
+
+        var einheit = mat4.create();
+
+
+        mat4.invert(viewMatrix, viewMatrix);
+        console.log(v[2]);
     }
 
-    // pan view (middle btn)
+    /*  Rotiere die Sicht per MMB */
     function panView(dx, dy)
     {
 //        var tx = -2 * dx / canvas.width;
@@ -491,7 +555,7 @@ var Renderer = function (canvas)
 //        viewMatrix = cam.inverse();
     }
 
-    // zoom view (right btn)
+    /*  Rotiere die Sicht per RMB */
     function zoomView(dx, dy)
     {
 //        // we need to manipulate camToWorld, therefore invert
@@ -520,18 +584,17 @@ var Renderer = function (canvas)
     //-------------------------------------------------------
     // public section, methods
     //-------------------------------------------------------
-    var gl = getContext(canvas);
 
     return {
         initialize: function ()
         {
-            if (!gl)
+            if (!gl)                                                            //Check ob GL vorhanden
             {
                 return false;
             }
 
-            shaderProgram = initShader(vertexShader, fragmentShader);
-            if (!shaderProgram)
+            shaderProgram = initShader(vertexShader, fragmentShader);           //Initialisiere Vertex und Fragment shader
+            if (!shaderProgram)                                                 // Chek ob Shader Programm vorhanden
             {
                 return false;
             }
@@ -541,7 +604,7 @@ var Renderer = function (canvas)
             mat4.perspective(projectionMatrix, 45, aspect, 0.1, 1000)
 
             // init view matrix
-            initCameraMatrix();
+            updateCameraMatrix();
 
             lastFrameTime = Date.now();
 
@@ -777,7 +840,7 @@ var Renderer = function (canvas)
                     viewMatrix._23 -= 0.05;
                     break;
                 case 114: /* r */
-                    initCameraMatrix();
+                    updateCameraMatrix();
                     break;
                 default:
             }

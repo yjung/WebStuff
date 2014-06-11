@@ -1,4 +1,3 @@
-
 /** Helper to convert a point from node coordinates to page coordinates */
 function mousePosition(evt)
 {
