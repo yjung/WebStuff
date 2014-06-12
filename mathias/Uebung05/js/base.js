@@ -80,15 +80,25 @@ Drawable.prototype.setGeometry = function (param)
     if (param)
     {
         if (param.positions)
+        {
             this.positions = param.positions;
+        }
         if (param.normals)
+        {
             this.normals = param.normals;
+        }
         if (param.colors)
+        {
             this.colors = param.colors;
+        }
         if (param.texCoords)
+        {
             this.texCoords = param.texCoords;
+        }
         if (param.indices)
+        {
             this.indices = param.indices;
+        }
     }
 };
 
@@ -102,11 +112,17 @@ Drawable.prototype.setAppearance = function (param)
     if (param)
     {
         if (param.imgSrc)
+        {
             this.imgSrc = param.imgSrc;
+        }
         if (param.diffuseColor)
+        {
             this.diffuseColor = param.diffuseColor;
+        }
         if (param.specularColor)
+        {
             this.specularColor = param.specularColor;
+        }
     }
 };
 
@@ -116,5 +132,15 @@ Drawable.prototype.setAppearance = function (param)
 Drawable.prototype.setTransform = function (transform)
 {
     if (transform)
+    {
         this.transform = transform;
+    }
+};
+
+Drawable.prototype.setShaderprogram = function (shaderprogram)
+{
+    if (shaderprogram)
+    {
+        this.shaderprogram = shaderprogram;
+    }
 };

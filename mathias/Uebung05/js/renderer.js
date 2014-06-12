@@ -8,8 +8,8 @@ var Renderer = function (canvas)
     var INDEX_UINT_EXT = null;    // unsigned int indices GL extension
 
     // Shader
-    var vertexShader = getSourceSynch("shaders/vertexShader.glsl", "text");     // Vertexshader einlesen
-    var fragmentShader = getSourceSynch("shaders/fragmentShader.glsl", "text"); // Fragmentshader einlesen
+    var vertexShader = getSourceSynch("shaders/vs_position.glsl", "text");     // Vertexshader einlesen
+    var fragmentShader = getSourceSynch("shaders/fs_phong-Shading.glsl", "text"); // Fragmentshader einlesen
     var shaderProgram = null;                                                   // Deklaration Programm
 
 
@@ -277,11 +277,11 @@ var Renderer = function (canvas)
     }
 
     /*  Uebergebenes Objekt obj mit Shaderprogramm sp rendern */
-    function renderObject(obj, sp)
+    function renderObject(obj)
     {
         // activate shader
+        var sp = obj.shaderprogram;
         gl.useProgram(sp);
-
 
         // set uniforms, first all matrices
         var modelView = mat4.create();
@@ -624,13 +624,14 @@ var Renderer = function (canvas)
             return true;
         },
 
-        addObject: function (geometry, appearance, transform)
+        addObject: function (geometry, appearance, shaderprogramm, transform)
         {
             // create drawable object
             var drawable = new Drawable();
             drawable.setAppearance(appearance);
             drawable.setGeometry(geometry);
             drawable.setTransform(transform);
+            drawable.setShaderprogram(shaderprogramm);
 
             // initialize drawable
             initializeObject(drawable);
@@ -687,7 +688,7 @@ var Renderer = function (canvas)
             // render shapes
             for (var i = 0; i < drawables.length; i++)
             {
-                renderObject(drawables[i], shaderProgram);
+                renderObject(drawables[i]);
             }
         },
 
