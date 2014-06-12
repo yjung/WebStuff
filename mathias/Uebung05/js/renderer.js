@@ -8,11 +8,11 @@ var Renderer = function (canvas)
     var INDEX_UINT_EXT = null;    // unsigned int indices GL extension
 
     // Shader
-    var vertexShader_Postion = getSourceSynch("shaders/vs_position.glsl", "text");     // Vertexshader einlesen
-    var fragmentShader_Phong = getSourceSynch("shaders/fs_phong-Shading.glsl", "text"); // Fragmentshader einlesen
-    var fragmentShader_Cel = getSourceSynch("shaders/fs_cel.glsl");
-    var shaderProgram_Phong = null;                                                   // Deklaration Programm
-    var shaderProgram_Cel = null;
+    var vs_Position = getSourceSynch("shaders/vs_position.glsl", "text");     // Vertexshader einlesen
+    var fs_Phong = getSourceSynch("shaders/fs_phong-Shading.glsl", "text"); // Fragmentshader einlesen
+    var fs_Cel = getSourceSynch("shaders/fs_cel.glsl");
+    var sp_Phong = null;                                                   // Deklaration Programm
+    var sp_Cel = null;
 
     // Lichtquellen
     var lightDir = vec3.fromValues(-1, -1, -1);                                 // Direktionales Licht in Weltkoordinaten
@@ -277,7 +277,7 @@ var Renderer = function (canvas)
             gl.deleteBuffer(obj.texCoordBuffer);            // loeschen
     }
 
-    /* Dynamisch Matrix-Uniform-Variablen fuer den Vertex-Shader setzen*/
+    /* Dynamisch Matrix-Uniform-Variablen fuer den Vertex-Shader setzen.*/
     function setMatrixUniforms(obj) {
 
         // set uniforms, first all matrices
@@ -297,15 +297,8 @@ var Renderer = function (canvas)
         gl.uniformMatrix4fv(obj.shaderprogram.projectionMatrix, false, projectionMatrix);
     }
 
-    /*  Uebergebenes Objekt obj mit Shaderprogramm sp rendern */
-    function renderObject(obj)
-    {
-        // activate shader
-        gl.useProgram(obj.shaderprogram);
-
-        setMatrixUniforms(obj);
-
-        // set texture state
+    /* Dynamisch pruefen ob Textur / Vertex-Color vorhanden.*/
+    function setTextureColorState(obj){
         for (var i = 0, n = obj.texture.length; i < n; i++)
         {
             if (obj.texture[i] && obj.texture[i].ready)
@@ -330,90 +323,114 @@ var Renderer = function (canvas)
         {
             gl.uniform1f(obj.shaderprogram.tex0Loaded, 0);
         }
-        var hasTexCoords = (obj.texCoords.length > 0);
 
         // flag if vertex colors are given (for shader and attrib enable)
         var hasVertexColors = (obj.colors.length > 0);
 
         if (hasVertexColors)
         {
-            gl.uniform1f(obj.shaderprogram.vertexColors, 1);
+            gl.uniform1f(obj.shaderprogram.vertexColors, 1);                // Shader-Flag auf true
         }
         else
         {
-            gl.uniform1f(obj.shaderprogram.vertexColors, 0);
+            gl.uniform1f(obj.shaderprogram.vertexColors, 0);                // Shader-Flag auf false
         }
+        return hasVertexColors;                                             // Flag an renderObject zurueckliefern
+    }
 
-        // material
-        gl.uniform3fv(obj.shaderprogram.diffuseColor, obj.diffuseColor);
-        gl.uniform3fv(obj.shaderprogram.specularColor, obj.specularColor);
-
+    /* Dynamisch Lichtkonstanten an Shaderprogramm uebergeben. */
+    function setLightUniforms(obj){
         // directional light (given in world space, but here converted to eye space)
         var headlight = vec3.create();
         vec3.transformMat4(headlight, lightDir, viewMatrix);
 
         gl.uniform3fv(obj.shaderprogram.lightDirection, headlight);
+    }
 
+    function setMaterialUniforms(obj){
+        gl.uniform3fv(obj.shaderprogram.diffuseColor, obj.diffuseColor);
+        gl.uniform3fv(obj.shaderprogram.specularColor, obj.specularColor);
+    }
 
-        // render object indexed, activate buffers
-        if (obj.indices.length)
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.indexBuffer);
+    function bufferData(obj, hasColors){
 
-        if (obj.shaderprogram.position !== undefined)
+        var hasVertexColors = hasColors;
+
+        if (obj.indices.length)                                             // hat das Object Indices?
         {
-            gl.bindBuffer(gl.ARRAY_BUFFER, obj.positionBuffer);
-            gl.vertexAttribPointer(obj.shaderprogram.position,  // index of attribute
-                3,        // three position components (x,y,z)
-                gl.FLOAT, // provided data type is float
-                false,    // do not normalize values
-                0,        // stride (in bytes)
-                0);       // offset (in bytes)
-            gl.enableVertexAttribArray(obj.shaderprogram.position);
+            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.indexBuffer);        // ggf. Buffern
         }
 
-        if (obj.shaderprogram.normal !== undefined)
+        if (obj.shaderprogram.position !== undefined)                       // Definition von position pruefen
         {
-            gl.bindBuffer(gl.ARRAY_BUFFER, obj.normalBuffer);
-            gl.vertexAttribPointer(obj.shaderprogram.normal,  // index of attribute
-                3,        // three direction components (x,y,z)
-                gl.FLOAT, // provided data type is float
-                false,    // do not normalize values
-                0,        // stride (in bytes)
-                0);       // offset (in bytes)
-            gl.enableVertexAttribArray(obj.shaderprogram.normal);
+            gl.bindBuffer(gl.ARRAY_BUFFER, obj.positionBuffer);             // Buffer als Aktuellen setzen
+            gl.vertexAttribPointer(obj.shaderprogram.position,              // Mit Shader-Attribut assozieren
+                3,                                                          // 3 Werte (x,y,z)
+                gl.FLOAT,                                                   // Werte sind vom Typ float
+                false,                                                      // Werte nicht normalisiere
+                0,                                                          // stride (in bytes)
+                0);                                                         // offset (in bytes)
+            gl.enableVertexAttribArray(obj.shaderprogram.position);         // aktivieren
         }
 
-        if (obj.shaderprogram.color !== undefined && hasVertexColors)
+        if (obj.shaderprogram.normal !== undefined)                         // Definition von normal pruefen
         {
-            gl.bindBuffer(gl.ARRAY_BUFFER, obj.colorBuffer);
-            gl.vertexAttribPointer(obj.shaderprogram.color,  // index of attribute
-                4,        // four color components (r,g,b,a)
-                gl.FLOAT, // provided data type
-                false,    // normalize values
-                0,        // stride (in bytes)
-                0);       // offset (in bytes)
-            gl.enableVertexAttribArray(obj.shaderprogram.color);
+            gl.bindBuffer(gl.ARRAY_BUFFER, obj.normalBuffer);               // Buffer als Aktuellen setzen
+            gl.vertexAttribPointer(obj.shaderprogram.normal,                // Mit Shader-Attribut assozieren
+                3,                                                          // 3 Werte (x,y,z)
+                gl.FLOAT,                                                   // Werte sind vom Typ float
+                false,                                                      // Werte nicht normalisieren
+                0,                                                          // stride (in bytes)
+                0);                                                         // offset (in bytes)
+            gl.enableVertexAttribArray(obj.shaderprogram.normal);           // aktivieren
+        }
+        // Flag fuer colors setzen
+        if (obj.shaderprogram.color !== undefined && hasVertexColors)       // Flag pruefen
+        {
+            gl.bindBuffer(gl.ARRAY_BUFFER, obj.colorBuffer);                // Buffer als Aktuellen setzen
+            gl.vertexAttribPointer(obj.shaderprogram.color,                 // Mit Shader-Attribut assozieren
+                4,                                                          // 4 Werte fuer color (r,g,b,a)
+                gl.FLOAT,                                                   // Werte sind vom Typ float
+                false,                                                      // Werte nicht normalisieren
+                0,                                                          // stride (in bytes)
+                0);                                                         // offset (in bytes)
+            gl.enableVertexAttribArray(obj.shaderprogram.color);            // aktivieren
         }
 
-        if (obj.shaderprogram.texcoord !== undefined && hasTexCoords)
+        var hasTexCoords = (obj.texCoords.length > 0);                      // Flag fuer texCoords setzen
+        if (obj.shaderprogram.texcoord !== undefined && hasTexCoords)       // Flag pruefen
         {
-            gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);
-            gl.vertexAttribPointer(obj.shaderprogram.texcoord,  // index of attribute
-                2,        // two texCoord components (s,t)
-                gl.FLOAT, // provided data type is float
-                false,    // do not normalize values
-                0,        // stride (in bytes)
-                0);       // offset (in bytes)
-            gl.enableVertexAttribArray(obj.shaderprogram.texcoord);
+            gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);             // Buffer als Aktuellen setzen
+            gl.vertexAttribPointer(obj.shaderprogram.texcoord,              // Mit Shader-Attribut assozieren
+                2,                                                          // 2 Werte fuer Koordinate (s,t)
+                gl.FLOAT,                                                   // Werte sind vom Typ float
+                false,                                                      // Werte nicht normalisieren
+                0,                                                          // stride (in bytes)
+                0);                                                         // offset (in bytes)
+            gl.enableVertexAttribArray(obj.shaderprogram.texcoord);         // aktivieren
         }
+    }
 
+    /*  Uebergebenes Objekt obj mit Shaderprogramm sp rendern */
+    function renderObject(obj)
+    {
+        // activate shader
+        gl.useProgram(obj.shaderprogram);
 
-        // draw call
-        if (obj.indices.length)
-            gl.drawElements(gl.TRIANGLES, obj.indices.length, obj.indexType, 0);
-        else
-            gl.drawArrays(gl.TRIANGLES, 0, obj.positions.length / 3);
+        setMatrixUniforms(obj);                                 // Matrizen zur Berechnung im Shaderprogramm des Objekts initialisieren
+        var hasVertexColors = setTextureColorState(obj);        // Texturstatus im Shaderprogramm des Objekts initialisieren und Flag speichern
+        setLightUniforms(obj);                                  // Lichtkonstanten im Shaderprogramm des Objekts initialisieren
+        setMaterialUniforms(obj);                               // Materialkonstanten des Objekts im Shader setzen
+        bufferData(obj, hasVertexColors);                       // Buffert die VBOs zur Grafikkarte
 
+        // Draw-Call
+        if (obj.indices.length)                                                     // Indices fuer Objekt vorhanden?
+        {
+            gl.drawElements(gl.TRIANGLES, obj.indices.length, obj.indexType, 0);    // ggf. nach Indices zeichnen
+        }else
+        {
+            gl.drawArrays(gl.TRIANGLES, 0, obj.positions.length / 3);               // ggf. immer 3 Vertice pro Face
+        }
 
         // deactivate buffers
         deaktiviereBuffer(obj);
@@ -623,9 +640,9 @@ var Renderer = function (canvas)
                 return false;
             }
 
-            shaderProgram_Phong = initShader(vertexShader_Postion, fragmentShader_Phong);   //Initialisiere Vertex und Fragment Shader fuer Phong
-            shaderProgram_Cel = initShader(vertexShader_Postion, fragmentShader_Cel);   //Initialisiere Vertex und Fragment Shader fuer Cel
-            if (!shaderProgram_Phong || !shaderProgram_Cel)                                 // Chek ob Shader Programm vorhanden
+            sp_Phong = initShader(vs_Position, fs_Phong);   //Initialisiere Vertex und Fragment Shader fuer Phong
+            sp_Cel = initShader(vs_Position, fs_Cel);   //Initialisiere Vertex und Fragment Shader fuer Cel
+            if (!sp_Phong || !sp_Cel)                                 // Chek ob Shader Programm vorhanden
             {
                 return false;
             }
@@ -646,10 +663,10 @@ var Renderer = function (canvas)
         getShaderprogram : function (nameShaderprogramm){
             switch (nameShaderprogramm)
             {
-                case "shaderProgram_Phong":
-                    return shaderProgram_Phong;
-                case "shaderProgram_Cel":
-                    return shaderProgram_Cel;
+                case "sp_Phong":
+                    return sp_Phong;
+                case "sp_Cel":
+                    return sp_Cel;
 //                default:
             }
         },
