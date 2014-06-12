@@ -455,79 +455,83 @@ var Renderer = function (canvas)
     /*  Rotiere die Sicht per LMB */
     function rotateView(dx, dy)
     {
+        /* Drehwinkel fuer Rotation ueber Quaternionen anhand der Maus-Deltas definiren (in Radians)*/
         var alpha = -(dy * 2 * Math.PI) / canvas.width;     // berrechnet einen von zwei Drehwinkeln anhand des Maus-Deltas
         var beta = -(dx * 2 * Math.PI) / canvas.height;     // beschreibt einen von zwei Drehwinkeln anhand des Maus-Deltas
-//
-//
-        var cam = mat4.create();
-        mat4.invert(cam, viewMatrix); // we need to manipulate camToWorld, therefore invert
 
-        var eye = vec3.fromValues(cam[12], cam[13] , cam[14]);
-        console.log(viewMatrix);
-//        console.log(cam);
-//        console.log(eye);
-        vec3.subtract(eye, eye, rotationsMittelpunkt);
-        var up = vec3.fromValues(cam[4], cam[5] , cam[6]);
 
-        // Quaternion 1
-        var quatUp = quat.create();
-        quat.setAxisAngle(quatUp, up, beta);
+        /* Viewmatrix wird zur Manipulation zwischengespeichert und nach Abschluss neu zugewiesen*/
+        var cam = mat4.create();                            // Einheitsmatrix zur Repraesentation der Kamera
+        mat4.invert(cam, viewMatrix);                       // Invertierung weil wir die Kamera selbst verschieben
 
-        var mat  = mat4.create();
-        mat4.fromQuat(mat, quatUp);
+        /* Translationsteil und Auf-Vektor werden zur Manipulation extrahiert*/
+        var eye = vec3.fromValues(cam[12], cam[13] , cam[14]);  // Translationsteil der Kamera
+        vec3.subtract(eye, eye, rotationsMittelpunkt);          // Rotationszentrum vorbereitend abziehen (Wichtig falls nicht bei 0,0,0)
+        var up = vec3.fromValues(cam[4], cam[5] , cam[6]);      // Auf-Vektor
 
+        /* Quaternion zur Rotation anhand Delta-X erstellen und in Matrix ueberfuehren */
+        var quatUp = quat.create();             // Quaternion erstellen
+        quat.setAxisAngle(quatUp, up, beta);    // Mit Delta-X initialisieren
+        var mat  = mat4.create();               // Einheitsmatrix
+        mat4.fromQuat(mat, quatUp);             // Matrix aus Quaternion initialisieren
+
+        /* Neuen Translationsteil bestimmen: 3x4-Matrix aus Quaternionrotation * urspruenglichen Translationsteil */
         vec3.set(eye, mat[0] * eye[0] + mat[4] * eye[1] + mat[8] * eye[2] + mat[12],
                       mat[1] * eye[0] + mat[5] * eye[1] + mat[9] * eye[2] + mat[13],
                       mat[2] * eye[0] + mat[6] * eye[1] + mat[10] * eye[2] + mat[14]);
 
-        var v = vec3.create();
-        vec3.negate(v,eye);       // get new viewing vector (we always look into direction of CoR)
-        vec3.normalize(v,v);
+        // Blickrichtung korrigieren
+        var v = vec3.create();      // Einheitsvektor
+        vec3.negate(v,eye);         // Negieren um wieder ins Zentrum zu schauen
+        vec3.normalize(v,v);        // Normalisieren
 
-        var s = vec3.create();
-        vec3.cross(s, v, up);
+        // Seitenvektor aus Kreuzprodukt von Blickrichtung und Auf-Vektor bestimmen
+        var s = vec3.create();      // Einheitsvektor zum Speichern des Kreuzprodukts
+        vec3.cross(s, v, up);       // Kreuzprodukt von Blickrichtung und Auf-Vektor
 
-        // rotation matrix around side
+        /* Quaternion zur Rotation anhand Delta-Y erstellen und in Matrix ueberfuehren */
+        var quatSide = quat.create();           // Quaternion erstellen
+        quat.setAxisAngle(quatSide, s, alpha);  // Mit Delta-X initialisieren
+        mat4.fromQuat(mat, quatSide);           // Matrix aus Quaternion initialisieren
 
-        var quatSide = quat.create();
-        quat.setAxisAngle(quatSide, s, alpha);
-        mat4.fromQuat(mat, quatSide);
-
+        /* Neuen Translationsteil bestimmen: 3x4-Matrix aus Quaternionrotation * urspruenglichen Translationsteil */
         vec3.set(eye,   mat[0] * eye[0] + mat[4] * eye[1] + mat[8] * eye[2] + mat[12],
                         mat[1] * eye[0] + mat[5] * eye[1] + mat[9] * eye[2] + mat[13],
                         mat[2] * eye[0] + mat[6] * eye[1] + mat[10] * eye[2] + mat[14]);
 
 
 
-        vec3.negate(v,eye);       // get new viewing vector (we always look into direction of CoR)
-        vec3.normalize(v,v);
+        vec3.negate(v,eye);     // Negieren um wieder ins Zentrum zu schaue
+        vec3.normalize(v,v);    // Normalisieren
 
+        // Seitenvektor aus Kreuzprodukt von Blickrichtung und Auf-Vektor bestimmen
         vec3.cross(up, s, v);
+        // Position des Rotationszentrum aufaddieren um uerspruenglichen Abstand zu diesem wiederherzustellen
+        vec3.add(eye, eye, rotationsMittelpunkt);   // Addition Translationsteil und Rotationszentrums-Position
+        vec3.negate(v, v);  // // Negieren um wieder ins Zentrum zu schauen
 
-        vec3.add(eye, eye, rotationsMittelpunkt); // shift eye back according to pivot point (i.e., CoR)
+        // Viewmatrix mit den errechneten Bestandteilen umschreiben
+        viewMatrix[0] = s[0];       // vm00 Seitenvektor (X-Teil)
+        viewMatrix[1] = s[1];       // vm10 Seitenvektor (X-Teil)
+        viewMatrix[2] = s[2];       // vm20 Seitenvektor (X-Teil)
+        viewMatrix[3] = 0;          // vm30 Seitenvektor (X-Teil)
 
-        vec3.negate(v, v);
+        viewMatrix[4] = up[0];      // vm01 Auf-Vektor (Y-Teil)
+        viewMatrix[5] = up[1];      // vm11 Auf-Vektor (Y-Teil)
+        viewMatrix[6] = up[2];      // vm21 Auf-Vektor (Y-Teil)
+        viewMatrix[7] = 0;          // vm31 Auf-Vektor (Y-Teil)
 
-//        viewMatrix = s[0], s[1], s[2], aufVektor[0],aufVektor[1], aufVektor[2], v[0], v[1], v[2], eye[0],eye[1],eye[1], 0, 0, 0, 1;
-        viewMatrix[0] = s[0];
-        viewMatrix[1] = s[1];
-        viewMatrix[2] = s[2];
-        viewMatrix[3] = 0;
-        viewMatrix[4] = up[0];
-        viewMatrix[5] = up[1];
-        viewMatrix[6] = up[2];
-        viewMatrix[7] = 0;
-        viewMatrix[8] = v[0];
-        viewMatrix[9] = v[1];
-        viewMatrix[10] = v[2];
-        viewMatrix[11] = 0;
-        viewMatrix[12] = eye[0];
-        viewMatrix[13] = eye[1];
-        viewMatrix[14] = eye[2];
-        viewMatrix[15] = 1;
+        viewMatrix[8] = v[0];       // vm02 Blickrichtung (Z-Teil)
+        viewMatrix[9] = v[1];       // vm12 Blickrichtung (Z-Teil)
+        viewMatrix[10] = v[2];      // vm22 Blickrichtung (Z-Teil)
+        viewMatrix[11] = 0;         // vm32 Blickrichtung (Z-Teil)
 
-        mat4.invert(viewMatrix, viewMatrix);
-//        console.log(viewMatrix);
+        viewMatrix[12] = eye[0];    // vm03 Translationsteil
+        viewMatrix[13] = eye[1];    // vm13 Translationsteil
+        viewMatrix[14] = eye[2];    // vm23 Translationsteil
+        viewMatrix[15] = 1;         // vm33 Translationsteil
+
+        mat4.invert(viewMatrix, viewMatrix);    // Kamera wieder invertieren
     }
 
     /*  Rotiere die Sicht per MMB */
