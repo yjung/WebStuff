@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Libraries -->
+    <script type="text/javascript" src="lib/gl-matrix.js"></script>     <!-- math library -->
+    <script type="text/javascript" src="lib/fields.js"></script>        <!-- math library (VecMath) -->
+    <script type="text/javascript" src="lib/OBJLoader.js"></script>     <!-- Object Loader -->
+
+    <!-- Object Assets -->
+    <script type="text/javascript" src="assets/cube.js"></script>
+    <script type="text/javascript" src="assets/sphere.js"></script>
+
+    <!-- Rendering stuff -->
+    <script type="text/javascript" src="js/base.js"></script>
+    <script type="text/javascript" src="js/renderer.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+</head>
+
+<body>
+
+    <canvas id="glCanvas" width="800" height="600"></canvas>
+
+    <div class="container">
+        <div id="time"></div>
+        <div id="btns">
+            <button onclick="MyApp.setDuration(null);">Set Duration</button> to
+            <input id="sec" value="60" size="6" onkeyup="MyApp.setDuration(event);">
+            <label for="sec">sec</label>&nbsp;
+
+            <span style='float:right;'>
+            <label for="sel">Post-processing</label>
+            <select id='sel' onchange="MyApp.setEffect(this.value);">
+                <option selected value='None'>None
+                </option>
+                <option value='Grayscale'>Grayscale Wave
+                </option>
+                <option value='Sketch'>Sketch
+                </option>
+                <option value='Blur'>Blur
+                </option>
+                <option value='DepthOfField'>Depth-of-Field
+                </option>
+            </select>
+            </span><br>
+
+            <button onclick="MyApp.toggleAnim(this);">Start Animation</button>
+            <button onclick="MyApp.resetView();">Reset View</button>
+            <button onclick="MyApp.showAll();">Show All</button>
+
+            <span style='float:right;'>
+            <input id="cb2" type="checkbox" onclick="MyApp.enableShadows(this.checked);">
+            <label for="cb2">Shadows</label>
+            </span>
+        </div>
+    </div>
+
+</body>
+</html>
