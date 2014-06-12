@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html {
+            height: 100%;
+        }
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background: -moz-linear-gradient(top, #272727, #080a97);
+            background: -webkit-linear-gradient(top, #272727, #080a97);
+            background: -o-linear-gradient(top, #272727, #080a97);
+            background: -ms-linear-gradient(top, #272727, #080a97);
+            background: linear-gradient(top, #272727, #080a97);
+        }
+
+        #glCanvas {
+            border: solid 1px black;
+        }
+        #glCanvas:hover {
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+        }
+        #glCanvas:focus {
+            outline:none;
+        }
+
+        #time {
+            margin: 10px;
+        }
+
+        .container {
+            margin: 5px;
+            padding: 5px;
+            border-radius: 10px;
+            border: 1px solid rgb(255, 255, 255);
+            background-color: rgba(255, 255, 255, 0.5);
+            width: 490px;
+            font-size: 14pt;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+
+    <!-- VecMath -->
+    <script type="text/javascript" src="../js/fields.js"></script>
+    <script type="text/javascript" src="OBJLoader.js"></script>
+
+    <!-- Rendering stuff -->
+    <script type="text/javascript" src="base.js"></script>
+    <script type="text/javascript" src="renderer.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+
+<body>
+
+    <canvas id="glCanvas" width="800" height="600"></canvas>
+
+    <div class="container">
+        <div id="time"></div>
+        <div id="btns">
+            <button onclick="MyApp.setDuration(null);">Set Duration</button> to
+            <input id="sec" value="60" size="6" onkeyup="MyApp.setDuration(event);">
+            <label for="sec">sec</label><br>
+            <button onclick="MyApp.toggleAnim(this);">Start Animation</button>
+        </div>
+    </div>
+
+</body>
+</html>
