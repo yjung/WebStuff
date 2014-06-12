@@ -105,7 +105,7 @@ var Anwendung = {
         var translationsMatrix = mat4.create();                                             // Einheitsmatrix
         var verschiebungsVektor = vec3.fromValues(0.55, 0, 0);                              // Verschiebungsvektor
         mat4.translate(translationsMatrix, translationsMatrix, verschiebungsVektor);        // Translation
-        this.renderer.addObject(kugel.geometrie, kugel.aussehen, this.renderer.getShaderprogram("shaderProgram_Cel") ,translationsMatrix);       // In 3D-Szene
+        this.renderer.addObject(kugel.geometrie, kugel.aussehen, this.renderer.getShaderprogram("shaderProgram_Phong") ,translationsMatrix);       // In 3D-Szene
     },
 
     // main entry point

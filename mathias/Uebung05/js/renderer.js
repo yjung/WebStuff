@@ -277,13 +277,8 @@ var Renderer = function (canvas)
             gl.deleteBuffer(obj.texCoordBuffer);            // loeschen
     }
 
-    /*  Uebergebenes Objekt obj mit Shaderprogramm sp rendern */
-    function renderObject(obj)
-    {
-        console.log(obj);
-        // activate shader
-        var sp = obj.shaderprogram;
-        gl.useProgram(sp);
+    /* Dynamisch Matrix-Uniform-Variablen fuer den Vertex-Shader setzen*/
+    function setMatrixUniforms(obj) {
 
         // set uniforms, first all matrices
         var modelView = mat4.create();
@@ -296,17 +291,27 @@ var Renderer = function (canvas)
         var modelViewProjection = mat4.create();
         mat4.multiply(modelViewProjection, projectionMatrix, modelView);
 
-        gl.uniformMatrix4fv(sp.normalMatrix, false, new Float32Array(modelViewInvT));
-        gl.uniformMatrix4fv(sp.modelViewMatrix, false, new Float32Array(modelView));
-        gl.uniformMatrix4fv(sp.modelViewProjectionMatrix, false, new Float32Array(modelViewProjection));
+        gl.uniformMatrix4fv(obj.shaderprogram.normalMatrix, false, modelViewInvT);
+        gl.uniformMatrix4fv(obj.shaderprogram.modelViewMatrix, false, modelView);
+        gl.uniformMatrix4fv(obj.shaderprogram.modelViewProjectionMatrix, false, modelViewProjection);
+        gl.uniformMatrix4fv(obj.shaderprogram.projectionMatrix, false, projectionMatrix);
+    }
+
+    /*  Uebergebenes Objekt obj mit Shaderprogramm sp rendern */
+    function renderObject(obj)
+    {
+        // activate shader
+        gl.useProgram(obj.shaderprogram);
+
+        setMatrixUniforms(obj);
 
         // set texture state
         for (var i = 0, n = obj.texture.length; i < n; i++)
         {
             if (obj.texture[i] && obj.texture[i].ready)
             {
-                gl.uniform1f(sp["tex" + i + "Loaded"], 1);
-                gl.uniform1i(sp["tex" + i], i);
+                gl.uniform1f(obj.shaderprogram["tex" + i + "Loaded"], 1);
+                gl.uniform1i(obj.shaderprogram["tex" + i], i);
 
                 gl.activeTexture(gl.TEXTURE0 + i);
                 gl.bindTexture(gl.TEXTURE_2D, obj.texture[i]);
@@ -318,87 +323,88 @@ var Renderer = function (canvas)
             }
             else
             {
-                gl.uniform1f(sp["tex" + i + "Loaded"], 0);
+                gl.uniform1f(obj.shaderprogram["tex" + i + "Loaded"], 0);
             }
         }
         if (!n)
         {
-            gl.uniform1f(sp.tex0Loaded, 0);
+            gl.uniform1f(obj.shaderprogram.tex0Loaded, 0);
         }
         var hasTexCoords = (obj.texCoords.length > 0);
 
         // flag if vertex colors are given (for shader and attrib enable)
         var hasVertexColors = (obj.colors.length > 0);
+
         if (hasVertexColors)
         {
-            gl.uniform1f(sp.vertexColors, 1);
+            gl.uniform1f(obj.shaderprogram.vertexColors, 1);
         }
         else
         {
-            gl.uniform1f(sp.vertexColors, 0);
+            gl.uniform1f(obj.shaderprogram.vertexColors, 0);
         }
 
         // material
-        gl.uniform3fv(sp.diffuseColor, obj.diffuseColor);
-        gl.uniform3fv(sp.specularColor, obj.specularColor);
+        gl.uniform3fv(obj.shaderprogram.diffuseColor, obj.diffuseColor);
+        gl.uniform3fv(obj.shaderprogram.specularColor, obj.specularColor);
 
         // directional light (given in world space, but here converted to eye space)
         var headlight = vec3.create();
         vec3.transformMat4(headlight, lightDir, viewMatrix);
 
-        gl.uniform3fv(sp.lightDirection, headlight);
+        gl.uniform3fv(obj.shaderprogram.lightDirection, headlight);
 
 
         // render object indexed, activate buffers
         if (obj.indices.length)
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, obj.indexBuffer);
 
-        if (sp.position !== undefined)
+        if (obj.shaderprogram.position !== undefined)
         {
             gl.bindBuffer(gl.ARRAY_BUFFER, obj.positionBuffer);
-            gl.vertexAttribPointer(sp.position,  // index of attribute
+            gl.vertexAttribPointer(obj.shaderprogram.position,  // index of attribute
                 3,        // three position components (x,y,z)
                 gl.FLOAT, // provided data type is float
                 false,    // do not normalize values
                 0,        // stride (in bytes)
                 0);       // offset (in bytes)
-            gl.enableVertexAttribArray(sp.position);
+            gl.enableVertexAttribArray(obj.shaderprogram.position);
         }
 
-        if (sp.normal !== undefined)
+        if (obj.shaderprogram.normal !== undefined)
         {
             gl.bindBuffer(gl.ARRAY_BUFFER, obj.normalBuffer);
-            gl.vertexAttribPointer(sp.normal,  // index of attribute
+            gl.vertexAttribPointer(obj.shaderprogram.normal,  // index of attribute
                 3,        // three direction components (x,y,z)
                 gl.FLOAT, // provided data type is float
                 false,    // do not normalize values
                 0,        // stride (in bytes)
                 0);       // offset (in bytes)
-            gl.enableVertexAttribArray(sp.normal);
+            gl.enableVertexAttribArray(obj.shaderprogram.normal);
         }
 
-        if (sp.color !== undefined && hasVertexColors)
+        if (obj.shaderprogram.color !== undefined && hasVertexColors)
         {
             gl.bindBuffer(gl.ARRAY_BUFFER, obj.colorBuffer);
-            gl.vertexAttribPointer(sp.color,  // index of attribute
+            gl.vertexAttribPointer(obj.shaderprogram.color,  // index of attribute
                 4,        // four color components (r,g,b,a)
                 gl.FLOAT, // provided data type
                 false,    // normalize values
                 0,        // stride (in bytes)
                 0);       // offset (in bytes)
-            gl.enableVertexAttribArray(sp.color);
+            gl.enableVertexAttribArray(obj.shaderprogram.color);
         }
 
-        if (sp.texcoord !== undefined && hasTexCoords)
+        if (obj.shaderprogram.texcoord !== undefined && hasTexCoords)
         {
             gl.bindBuffer(gl.ARRAY_BUFFER, obj.texCoordBuffer);
-            gl.vertexAttribPointer(sp.texcoord,  // index of attribute
+            gl.vertexAttribPointer(obj.shaderprogram.texcoord,  // index of attribute
                 2,        // two texCoord components (s,t)
                 gl.FLOAT, // provided data type is float
                 false,    // do not normalize values
                 0,        // stride (in bytes)
                 0);       // offset (in bytes)
-            gl.enableVertexAttribArray(sp.texcoord);
+            gl.enableVertexAttribArray(obj.shaderprogram.texcoord);
         }
 
 
@@ -410,17 +416,26 @@ var Renderer = function (canvas)
 
 
         // deactivate buffers
-        if (sp.position !== undefined)
-            gl.disableVertexAttribArray(sp.position);
-        if (sp.normal !== undefined)
-            gl.disableVertexAttribArray(sp.normal);
-        if (sp.color !== undefined && hasVertexColors)
-            gl.disableVertexAttribArray(sp.color);
-        if (sp.texcoord !== undefined && hasTexCoords)
-            gl.disableVertexAttribArray(sp.texcoord);
+        deaktiviereBuffer(obj);
 
         gl.activeTexture(gl.TEXTURE0);
         gl.bindTexture(gl.TEXTURE_2D, null);
+    }
+
+    /* Buffer leeren */
+    function deaktiviereBuffer(obj){
+        // Pruefen ob Flags gesetzt wurden
+        var hasTexCoords = (obj.texCoords.length > 0);  // Flag fuer texCoords da?
+        var hasVertexColors = (obj.colors.length > 0);  // Flag fuer colors da?
+
+        if (obj.shaderprogram.position !== undefined)                   // Falls position vorhanden
+            gl.disableVertexAttribArray(obj.shaderprogram.position);    // deaktivieren
+        if (obj.shaderprogram.normal !== undefined)                     // Falls normal vorhanden
+            gl.disableVertexAttribArray(obj.shaderprogram.normal);      // deaktivieren
+        if (obj.shaderprogram.color !== undefined && hasVertexColors)   // Falls color vorhanden
+            gl.disableVertexAttribArray(obj.shaderprogram.color);       // deaktivieren
+        if (obj.shaderprogram.texcoord !== undefined && hasTexCoords)   // Falls texCoord vorhanden
+            gl.disableVertexAttribArray(obj.shaderprogram.texcoord);    // deaktivieren
     }
 
     /*  Lade Texturen und erzeuge Vertexbuffer-Objekte für die Geometrien */
@@ -627,6 +642,7 @@ var Renderer = function (canvas)
             return true;
         },
 
+        /* Vorher initialisierte Shaderprogramme fuer objektspezifische Zuweisung verfuegbar machen. */
         getShaderprogram : function (nameShaderprogramm){
             switch (nameShaderprogramm)
             {
@@ -689,8 +705,8 @@ var Renderer = function (canvas)
 
         drawScene: function ()
         {
-            gl.clearColor(0.2, 0.6, 0.3, 1.0);
-            gl.clearDepth(1.0);
+            gl.clearColor(0.5, 0.5, 0.5, 1.0);                      // Color-Buffer mit Hintergrundfarbe ueberschreiben
+            gl.clearDepth(1.0);                                     // Depth-Buffer mit groesstem Wert (1) zuruecksetzen
 
             gl.viewport(0, 0, canvas.width, canvas.height);
             gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -699,10 +715,10 @@ var Renderer = function (canvas)
             gl.enable(gl.DEPTH_TEST);
             gl.enable(gl.CULL_FACE);
 
-            // render shapes
-            for (var i = 0; i < drawables.length; i++)
+            // Renderaufruf
+            for (var i = 0; i < drawables.length; i++)  // Fuer alle Objekte der Szene
             {
-                renderObject(drawables[i]);
+                renderObject(drawables[i]);             // Render Objekt i
             }
         },
 
