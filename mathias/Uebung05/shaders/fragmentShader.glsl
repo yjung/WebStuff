@@ -31,7 +31,7 @@ vec4 toonify(float value) {
 }
 
 void main() {
-    vec3 color = diffuseColor;
+    vec3 color;
     vec4 finalCol = vec4(0.0, 0.0, 0.0, 1.0);
 
     vec3 lightColor = vec3(0.3, 0.3, 0.2);
@@ -43,22 +43,23 @@ void main() {
     vec3 view    = normalize(-vPosition);
     vec3 halfVec = normalize(light + view);
 
-  #if 1
+
     if (tex0Loaded == 1.0)
+    {
         color = texture2D(tex0, vTexcoord).rgb;
-    else if (vertexColors == 1.0)
-        color = vColor.rgb;
-  #endif
-  #if 0
-    // procedural checkerboard pattern
-    if (tex0Loaded == 1.0) {
-        // ...but only if texCoords are given (assume there are if tex loaded)
-        vec2 tc = floor(vTexcoord * 10.0);
-        color *= vec3(mod(tc.s + tc.t, 2.0));
     }
-  #endif
-    //color = (lightDirection + 1.0) / 2.0;
-    //color = (normal + 1.0) / 2.0;
+    else if (vertexColors == 1.0)
+    {
+        color = vColor.rgb;
+    }
+    else                                            // Falls keine Textur und keine Vertex-Colors definiert
+    {
+        color = diffuseColor;
+    }
+
+
+//    color = (lightDirection + 1.0) / 2.0;           // Lichtrichtung in Farbe visualisieren
+//    color = (normal + 1.0) / 2.0;                 // Normalen in Farbe visualisieren
 
     // headlight, light is at eye position
     // since l = v, half vector is viewing vector (or light vector respectively)
@@ -66,7 +67,7 @@ void main() {
     // very simple phong lighting with lightDir = viewDir and white light
     finalCol.rgb += ambient + NdotL * color + pow(NdotL, shininess) * specularColor;
 
-  #if 1
+
     // then add contribution of directional light
     NdotL = max(dot(normal, light), 0.0);
     vec3 diffuse = color * NdotL * lightColor;
@@ -76,8 +77,9 @@ void main() {
 
     finalCol.rgb += ambient + diffuse + specular;
     //finalCol.rgb = color.rgb;
-  #endif
 
+
+    //gl_FragColor = vec4(color, 1.0);
     gl_FragColor = finalCol;
     //gl_FragColor = toonify(NdotL);//normal.z);
 }
