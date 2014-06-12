@@ -99,13 +99,13 @@ var Anwendung = {
         var translationsmatrix = mat4.create();                                             // Einheitsmatrix
         var verschiebungsVektor = vec3.fromValues(-0.55, 0, 0);                             // Verschiebungsvektor
         mat4.translate(translationsmatrix, translationsmatrix, verschiebungsVektor);        // Translation
-        this.renderer.addObject(wuerfel.geometrie, wuerfel.aussehen, translationsmatrix);   // In 3D-Szene
+        this.renderer.addObject(wuerfel.geometrie, wuerfel.aussehen, this.renderer.getShaderprogram("shaderProgram_Phong"), translationsmatrix);   // In 3D-Szene
 
         // Kugel in Szene laden
         var translationsMatrix = mat4.create();                                             // Einheitsmatrix
         var verschiebungsVektor = vec3.fromValues(0.55, 0, 0);                              // Verschiebungsvektor
         mat4.translate(translationsMatrix, translationsMatrix, verschiebungsVektor);        // Translation
-        this.renderer.addObject(kugel.geometrie, kugel.aussehen, translationsMatrix);       // In 3D-Szene
+        this.renderer.addObject(kugel.geometrie, kugel.aussehen, this.renderer.getShaderprogram("shaderProgram_Cel") ,translationsMatrix);       // In 3D-Szene
     },
 
     // main entry point

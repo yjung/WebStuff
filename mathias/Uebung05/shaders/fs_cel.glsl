@@ -1,3 +1,9 @@
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+	precision highp float;
+#else
+	precision mediump float;
+#endif;
+
 // texture
 uniform sampler2D tex0;
 // helpers to check if values are set
@@ -72,6 +78,6 @@ void main() {
     //finalCol.rgb = color.rgb;
   #endif
 
-    gl_FragColor = finalCol;
-    //gl_FragColor = toonify(NdotL);//normal.z);
+    //gl_FragColor = finalCol;
+    gl_FragColor = toonify(NdotL);//normal.z);
 }

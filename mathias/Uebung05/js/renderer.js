@@ -8,10 +8,11 @@ var Renderer = function (canvas)
     var INDEX_UINT_EXT = null;    // unsigned int indices GL extension
 
     // Shader
-    var vertexShader = getSourceSynch("shaders/vs_position.glsl", "text");     // Vertexshader einlesen
-    var fragmentShader = getSourceSynch("shaders/fs_phong-Shading.glsl", "text"); // Fragmentshader einlesen
-    var shaderProgram = null;                                                   // Deklaration Programm
-
+    var vertexShader_Postion = getSourceSynch("shaders/vs_position.glsl", "text");     // Vertexshader einlesen
+    var fragmentShader_Phong = getSourceSynch("shaders/fs_phong-Shading.glsl", "text"); // Fragmentshader einlesen
+    var fragmentShader_Cel = getSourceSynch("shaders/fs_cel.glsl");
+    var shaderProgram_Phong = null;                                                   // Deklaration Programm
+    var shaderProgram_Cel = null;
 
     // Lichtquellen
     var lightDir = vec3.fromValues(-1, -1, -1);                                 // Direktionales Licht in Weltkoordinaten
@@ -279,6 +280,7 @@ var Renderer = function (canvas)
     /*  Uebergebenes Objekt obj mit Shaderprogramm sp rendern */
     function renderObject(obj)
     {
+        console.log(obj);
         // activate shader
         var sp = obj.shaderprogram;
         gl.useProgram(sp);
@@ -606,8 +608,9 @@ var Renderer = function (canvas)
                 return false;
             }
 
-            shaderProgram = initShader(vertexShader, fragmentShader);           //Initialisiere Vertex und Fragment shader
-            if (!shaderProgram)                                                 // Chek ob Shader Programm vorhanden
+            shaderProgram_Phong = initShader(vertexShader_Postion, fragmentShader_Phong);   //Initialisiere Vertex und Fragment Shader fuer Phong
+            shaderProgram_Cel = initShader(vertexShader_Postion, fragmentShader_Cel);   //Initialisiere Vertex und Fragment Shader fuer Cel
+            if (!shaderProgram_Phong || !shaderProgram_Cel)                                 // Chek ob Shader Programm vorhanden
             {
                 return false;
             }
@@ -622,6 +625,17 @@ var Renderer = function (canvas)
             lastFrameTime = Date.now();
 
             return true;
+        },
+
+        getShaderprogram : function (nameShaderprogramm){
+            switch (nameShaderprogramm)
+            {
+                case "shaderProgram_Phong":
+                    return shaderProgram_Phong;
+                case "shaderProgram_Cel":
+                    return shaderProgram_Cel;
+//                default:
+            }
         },
 
         addObject: function (geometry, appearance, shaderprogramm, transform)
