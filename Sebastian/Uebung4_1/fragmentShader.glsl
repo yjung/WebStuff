@@ -16,10 +16,17 @@ varying vec2 vTexcoord;
 vec4 toonify(float value) {
     vec4 color = vec4(0.3, 0.3, 0.3, 1.0);
 
-    if (abs(value) < 0.5)
+	if (abs(value) < 0.3)
         color.rgb = vec3(0.0);
-    if (value > 0.8)
-        color.rgb = vec3(0.5, 0.5, 0.5);
+        
+    if (value > 0.5)
+        color.rgb = vec3(0.4, 0.4, 0.4);;
+        
+    if (value > 0.7)
+        {color.rgb = vec3(0.5, 0.5, 0.5);}
+        
+    if (value > 0.9)
+    	{color.rgb = vec3(0.7,0.7,0.7);}
 
     return color;
 }
@@ -37,7 +44,7 @@ void main() {
     vec3 view    = normalize(-vPosition);
     vec3 halfVec = normalize(light + view);
 
-  #if 1
+  #if 0
     if (tex0Loaded == 1.0)
         color = texture2D(tex0, vTexcoord).rgb;
     else if (vertexColors == 1.0)
@@ -60,7 +67,7 @@ void main() {
     // very simple phong lighting with lightDir = viewDir and white light
     finalCol.rgb += ambient + NdotL * color + pow(NdotL, shininess) * specularColor;
 
-  #if 1
+  #if 0
     // then add contribution of directional light
     NdotL = max(dot(normal, light), 0.0);
     vec3 diffuse = color * NdotL * lightColor;

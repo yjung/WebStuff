@@ -147,7 +147,7 @@ var MyApp = {
             ]
         };
         var app = {
-            imgSrc: ["../models/todo.jpg"],
+            imgSrc: ["todo.jpg"],
             diffuseColor: new VecMath.SFColor(1, 0, 0),
             specularColor: new VecMath.SFColor(.5,.5,.5)
         };
