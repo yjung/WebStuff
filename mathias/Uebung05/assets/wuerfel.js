@@ -191,7 +191,5 @@ var wuerfel = {
         wuerfel.aussehen.imgSrc = ["img/htg.jpg"],
         wuerfel.aussehen.texture = null,
         wuerfel.aussehen.diffuseColor = vec3.fromValues(1, 0, 0),
-        wuerfel.aussehen.specularColor = vec3.fromValues(0.5, 0.5, 0.5)
-
-
+        wuerfel.aussehen.specularColor = vec3.fromValues(0.5, 0.5, 0.5);
 }());

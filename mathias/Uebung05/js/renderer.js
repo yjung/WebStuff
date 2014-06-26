@@ -7,12 +7,17 @@ var Renderer = function (canvas)
     var that = this;              // access to Renderer from inside other functions
     var INDEX_UINT_EXT = null;    // unsigned int indices GL extension
 
-    // Shader
-    var vs_Position = getSourceSynch("shaders/vs_position.glsl", "text");     // Vertexshader einlesen
-    var fs_Phong = getSourceSynch("shaders/fs_phong-Shading.glsl", "text"); // Fragmentshader einlesen
+    // Vertex-Shader
+    var vs_Position = getSourceSynch("shaders/vs_position.glsl", "text");   // Vertexshader einlesen
+    
+    // Fragment-Shader
+    var fs_Phong = getSourceSynch("shaders/fs_phong-Shading.glsl", "text");	// Fragmentshader einlesen
     var fs_Cel = getSourceSynch("shaders/fs_cel.glsl");
-    var sp_Phong = null;                                                   // Deklaration Programm
-    var sp_Cel = null;
+    
+    // Shader-Programme
+    var sp_Phong = null;                                                   	// Deklaration Programm Phong-Shading
+    var sp_Cel = null;														// Deklaration Programm Cel-Shading
+    var sp_Phong= null;														// Deklaration Programm Cel-Shading
 
     // Lichtquellen
     var lightDir = vec3.fromValues(-1, -1, -1);                                 // Direktionales Licht in Weltkoordinaten
@@ -416,6 +421,7 @@ var Renderer = function (canvas)
     {
         // activate shader
         gl.useProgram(obj.shaderprogram);
+		// gl.useProgram(obj.aussehen.shaderprogram);
 
         setMatrixUniforms(obj);                                 // Matrizen zur Berechnung im Shaderprogramm des Objekts initialisieren
         var hasVertexColors = setTextureColorState(obj);        // Texturstatus im Shaderprogramm des Objekts initialisieren und Flag speichern
@@ -670,15 +676,19 @@ var Renderer = function (canvas)
 //                default:
             }
         },
+        
+        changeShaderprogram: function (objectnumber, neuesShaderprogram){
+        	drawables[objectnumber].setShaderprogram(this.getShaderprogram(neuesShaderprogram));
+        },
 
-        addObject: function (geometry, appearance, shaderprogramm, transform)
+        addObject: function (geometry, appearance, shaderprogram, transform)
         {
             // create drawable object
             var drawable = new Drawable();
             drawable.setAppearance(appearance);
             drawable.setGeometry(geometry);
             drawable.setTransform(transform);
-            drawable.setShaderprogram(shaderprogramm);
+            drawable.setShaderprogram(shaderprogram);
 
             // initialize drawable
             initializeObject(drawable);
@@ -722,7 +732,7 @@ var Renderer = function (canvas)
 
         drawScene: function ()
         {
-            gl.clearColor(0.5, 0.5, 0.5, 1.0);                      // Color-Buffer mit Hintergrundfarbe ueberschreiben
+            gl.clearColor(0, 0, 0, 1.0);                      // Color-Buffer mit Hintergrundfarbe ueberschreiben
             gl.clearDepth(1.0);                                     // Depth-Buffer mit groesstem Wert (1) zuruecksetzen
 
             gl.viewport(0, 0, canvas.width, canvas.height);
@@ -796,7 +806,7 @@ var Renderer = function (canvas)
             // finally, show some statistics
             if (stats)
             {
-                fpsStr = (currTime / 1000).toFixed(3) + "<br>dT: " + dT + "<br>fps: " + fpsStr;
+                fpsStr = "FPS: " + fpsStr + "&nbsp;&nbsp;Delta-Time: " + dT;
                 stats.innerHTML = fpsStr;
             }
             lastFrameTime = currTime;
@@ -910,5 +920,5 @@ var Renderer = function (canvas)
             }
 //            updateCameraMatrix();
         }
-    }
+    };
 };
