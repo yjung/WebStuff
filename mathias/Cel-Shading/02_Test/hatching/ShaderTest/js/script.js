@@ -16,10 +16,10 @@ function initialisierung(){
         var colors = [ [ 0, 186, 233 ], [ 222, 0, 21 ], [ 233, 77, 0 ], [ 113, 206, 3 ], [ 219, 118, 255 ] ];
 
         var presets = {
-            'Default': { ambient: 8, diffuse: 100, specular: 100, rim: 46, shininess: 49, invertRim: false, displayOutline: false, model: 3, paper: 0, inkColor: [ 72, 72, 164 ] },
-            'Sketch': { ambient: 9.8, diffuse: 100, specular: 100, rim: 81, shininess: 12, invertRim: true, displayOutline: false, model: 5, paper: 2, inkColor: [ 175, 175, 175 ] },
-            'Classroom': { ambient: 13, diffuse: 27, specular: 100, rim: 76, shininess: 27, invertRim: false, displayOutline: true, model: 2, paper: 3, inkColor: [ 41, 41, 202 ] },
-            'Engraving': { ambient: 0, diffuse: 57, specular: 100, rim: 77, shininess: 15, invertRim: true, displayOutline: false, model: 4, paper: 1, inkColor: [ 90, 120, 111 ] }
+            'Default': { ambient: 8, diffuse: 100, specular: 100, rim: 46, shininess: 49, invertRim: false, displayOutline: false, inkColor: [ 72, 72, 164 ] },
+            'Sketch': { ambient: 9.8, diffuse: 100, specular: 100, rim: 81, shininess: 12, invertRim: true, displayOutline: false, inkColor: [ 175, 175, 175 ] },
+            'Classroom': { ambient: 13, diffuse: 27, specular: 100, rim: 76, shininess: 27, invertRim: false, displayOutline: true, inkColor: [ 41, 41, 202 ] },
+            'Engraving': { ambient: 0, diffuse: 57, specular: 100, rim: 77, shininess: 15, invertRim: true, displayOutline: false, inkColor: [ 90, 120, 111 ] }
         };
 
         var Settings = function() {
@@ -31,8 +31,6 @@ function initialisierung(){
             this.invertRim = false;
             this.displayOutline = false;
             this.inkColor = [ 0, 0, 90 ];
-            this.model = 3;
-            this.paper = 1;
             this.preset = 0;
         };
         
@@ -49,6 +47,7 @@ function initialisierung(){
 
         function init() {
 
+
             var presetSelector = {};
             for( var j in presets ) {
                 presetSelector[ j ] = j;
@@ -62,8 +61,6 @@ function initialisierung(){
             gui.add(  game.celShading.hatching.settings, 'shininess', 1, 100 );
             gui.add(  game.celShading.hatching.settings, 'invertRim' );
             gui.add(  game.celShading.hatching.settings, 'displayOutline' );
-            gui.add(  game.celShading.hatching.settings, 'model', { Cube: 1, Sphere: 2, TorusKnot: 3, Torus: 4, Distort: 5, Capsule: 6 } );
-            gui.add(  game.celShading.hatching.settings, 'paper', { Crumpled: 0, Grainy: 1, Fibers: 2, Squared: 3, Wrapper: 4, Parchment: 5 } );
             gui.addColor(  game.celShading.hatching.settings, 'inkColor' );
 
             camera = new THREE.PerspectiveCamera( fov, WIDTH / HEIGHT, 1, 1000 );
@@ -100,17 +97,12 @@ function initialisierung(){
                     hatch4: { type: 't', value: THREE.ImageUtils.loadTexture( id + '3.jpg' ) },
                     hatch5: { type: 't', value: THREE.ImageUtils.loadTexture( id + '4.jpg' ) },
                     hatch6: { type: 't', value: THREE.ImageUtils.loadTexture( id + '5.jpg' ) },
-                    paper: { type: 't', value: THREE.ImageUtils.loadTexture( 'placeholder.jpg' ) },
                     repeat: { type: 'v2', value: new THREE.Vector2( 0, 0 ) }
                 },
                 vertexShader:   document.getElementById( 'vertexshader' ).textContent,
                 fragmentShader: document.getElementById( 'fragmentshader' ).textContent
 
             });
-
-            material.uniforms.paper.value.generateMipmaps = false;
-            material.uniforms.paper.value.magFilter = THREE.LinearFilter;
-            material.uniforms.paper.value.minFilter = THREE.LinearFilter;
             
             material.uniforms.repeat.value.set( 1,1 );
             material.uniforms.hatch1.value.wrapS = material.uniforms.hatch1.value.wrapT = THREE.RepeatWrapping;
@@ -153,6 +145,8 @@ function initialisierung(){
 
             container.addEventListener( 'mousemove', onTouchMove );
             container.addEventListener( 'touchmove', onTouchMove );
+            
+            			erstelleModel();
 
             function onTouchMove( event ) {
 
@@ -219,22 +213,6 @@ function initialisierung(){
 
         }
 
-        function setPaper( id ) {
-
-            if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1) return;
-
-            var files = [ 'paper.jpg', 'paper2.jpg', 'brown.jpg', 'paper4.jpg', 'paper5.jpg', 'paper6.jpg', 'parchment.jpg' ];
-
-            var img = new Image();
-            img.addEventListener( 'load', function() {
-                material.uniforms.paper.value = THREE.ImageUtils.loadTexture( files[ id ] );
-                material.uniforms.paper.value.needsUpdate = true;
-                document.body.style.backgroundImage = 'url(' + files[ id ] + ')';
-                material.uniforms.bkgResolution.value.set( this.width, this.height );
-                 game.celShading.hatching.settings.currentPaper = id;
-            } );
-            img.src = files[ id ];
-        }
 
         function turbulence( x, y, z ) {
             var t = -.5;
@@ -244,54 +222,18 @@ function initialisierung(){
             return t;
         }
 
-        function setModel( id ) {
+        function erstelleModel() {
 
-            if( mesh ) scene.remove( mesh );
+            boxMesh = new THREE.Mesh( new THREE.BoxGeometry( 40, 40, 40 ), material );
+            SphereMesh = new THREE.Mesh( new THREE.SphereGeometry( 20, 36, 36 ), material ); 
+            TorusMesh = new THREE.Mesh( new THREE.TorusKnotGeometry( 25, 5, 100, 25, 1 ,3 ), material );
 
-            switch( id ) {
-                case 1: mesh = new THREE.Mesh( new THREE.BoxGeometry( 40, 40, 40 ), material ); material.uniforms.repeat.value.set( 1,1 ); break;
-                case 2: mesh = new THREE.Mesh( new THREE.SphereGeometry( 40, 36, 36 ), material ); material.uniforms.repeat.value.set( 4, 4 ); break;
-                case 3: mesh = new THREE.Mesh( new THREE.TorusKnotGeometry( 50, 10, 200, 50, 1 ,3 ), material ); material.uniforms.repeat.value.set( 20, 2 ); break;
-                case 4: mesh = new THREE.Mesh( new THREE.TorusGeometry( 50, 20, 200, 50 ), material ); material.uniforms.repeat.value.set( 4, 2 ); break;
-                case 5: 
-                    mesh = new THREE.Mesh( new THREE.IcosahedronGeometry( 40, 4 ), material ); 
-                    for( var j = 0; j < mesh.geometry.vertices.length; j++ ) {
-                        var v = mesh.geometry.vertices[ j ];
-                        var n = v.clone();
-                        n.normalize();
-                        var f = .05;
-                        //var d = - 10 * turbulence( f * v.x, f * v.y, f * v.z );
-                        var d = 10 * noise.noise( f * v.x, f * v.y, f * v.z );
-                        v.add( n.multiplyScalar( d ) );
-                    }
-                    mesh.geometry.verticesNeedUpdate = true;
-                    // mesh.geometry.computeCentroids();
-                    mesh.geometry.computeFaceNormals();
-                    mesh.geometry.computeVertexNormals();
-                    material.uniforms.repeat.value.set( 4, 4 ); break;
-                case 6:
-                    var r = 40;
-                    var capsuleGeometry = new THREE.Geometry();
-                    var geometry = new THREE.CylinderGeometry( 50, 50, 100, r, r, 1, false );
-                    var sphereGeometry = new THREE.SphereGeometry( 50, r, r );
-                    mesh = new THREE.Mesh( geometry, material );
-                    THREE.GeometryUtils.merge( capsuleGeometry, mesh );
-                    mesh = new THREE.Mesh( sphereGeometry, material );
-                    mesh.position.set( 0, -50, 0 );
-                    THREE.GeometryUtils.merge( capsuleGeometry, mesh );
-                    mesh = new THREE.Mesh( sphereGeometry, material );
-                    mesh.position.set( 0, 50, 0 );
-                    THREE.GeometryUtils.merge( capsuleGeometry, mesh );
+			boxMesh.position.z -= 40;
+			TorusMesh.position.z += 40;
 
-                    mesh = new THREE.Mesh( capsuleGeometry, material );
-                    mesh.scale.set( .5, .5, .5 );
-                    material.uniforms.repeat.value.set( 2, 1 );
-            }
-
-             game.celShading.hatching.settings.currentModel = id;
-
-            scene.add( mesh );
-
+            scene.add( boxMesh );
+            scene.add( SphereMesh );
+            scene.add( TorusMesh );
         }
 
         function onWindowResize() {
@@ -339,12 +281,6 @@ function initialisierung(){
 
             var pId =  game.celShading.hatching.settings.preset;
             if( pId !=  game.celShading.hatching.settings.currentPreset ) hatchingVoreinstellung( pId );
-
-            var mId = parseInt(  game.celShading.hatching.settings.model, 10 );
-            if( mId !=  game.celShading.hatching.settings.currentModel ) setModel( mId );
-
-            var pId = parseInt(  game.celShading.hatching.settings.paper, 10 );
-            if( pId !=  game.celShading.hatching.settings.currentPaper ) setPaper( pId );
             
             var time = Date.now() * 0.005;
 
