@@ -26,7 +26,7 @@ const float kernelValue4 = 1.0;
 void main() {
     vec4 color = vec4(1.0);
 
-#if 0
+#if 1
     vec2 tc = vTexcoord;
     //tc.x += sin(3.14159265 * (tc.x + tc.y + cycle) * 4.0) / 100.0;
     color = texture2D(tex0, tc);
