@@ -4,19 +4,17 @@
  */
 
 
-// make sure browser knows requestAnimationFrame method
-if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = (function () {
-        return window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            function (callback, element) {
-                window.setTimeout(callback, 16);
-            };
-    })();
-}
+// make sure browser knows requestAnimFrame method
+window.requestAnimFrame = (function () {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback, element) {
+            window.setTimeout(callback, 16);
+        };
+})();
 
 
 // Application object, used to minimize global variables
@@ -63,7 +61,7 @@ var MyApp = {
 
             (function mainLoop() {
                 that.renderer.tick(statsDiv);
-                window.requestAnimationFrame(mainLoop);
+                window.requestAnimFrame(mainLoop);
             })();
         }
         else {
@@ -104,18 +102,18 @@ var MyApp = {
             this.focus();
 
             switch (evt.button) {
-                case 0:  canvas.mouse_button = 1; break;  //left
-                case 1:  canvas.mouse_button = 4; break;  //middle
-                case 2:  canvas.mouse_button = 2; break;  //right
-                default: canvas.mouse_button = 0; break;
+                case 0:  this.mouse_button = 1; break;  //left
+                case 1:  this.mouse_button = 4; break;  //middle
+                case 2:  this.mouse_button = 2; break;  //right
+                default: this.mouse_button = 0; break;
             }
-            if (evt.shiftKey) { canvas.mouse_button = 1; }
-            if (evt.ctrlKey) { canvas.mouse_button = 4; }
-            if (evt.altKey) { canvas.mouse_button = 2; }
+            if (evt.shiftKey) { this.mouse_button = 1; }
+            if (evt.ctrlKey) { this.mouse_button = 4; }
+            if (evt.altKey) { this.mouse_button = 2; }
 
-            canvas.mouse_drag_x = evt.layerX;
-            canvas.mouse_drag_y = evt.layerY;
-            canvas.mouse_dragging = true;
+            this.mouse_drag_x = evt.layerX;
+            this.mouse_drag_y = evt.layerY;
+            this.mouse_dragging = true;
 
             that.onMousePress(this.mouse_drag_x, this.mouse_drag_y, this.mouse_button);
             that.triggerRedraw();
@@ -125,17 +123,17 @@ var MyApp = {
             that.onMouseRelease(this.mouse_drag_x, this.mouse_drag_y, this.mouse_button);
             that.triggerRedraw();
 
-            canvas.mouse_button = 0;
-            canvas.mouse_dragging = false;
+            this.mouse_button = 0;
+            this.mouse_dragging = false;
         }, false);
 
         canvas.addEventListener('mousemove', function (evt) {
-            if (evt.shiftKey) { canvas.mouse_button = 1; }
-            if (evt.ctrlKey) { canvas.mouse_button = 4; }
-            if (evt.altKey) { canvas.mouse_button = 2; }
+            if (evt.shiftKey) { this.mouse_button = 1; }
+            if (evt.ctrlKey) { this.mouse_button = 4; }
+            if (evt.altKey) { this.mouse_button = 2; }
 
-            canvas.mouse_drag_x = evt.layerX;
-            canvas.mouse_drag_y = evt.layerY;
+            this.mouse_drag_x = evt.layerX;
+            this.mouse_drag_y = evt.layerY;
 
             if (this.mouse_dragging) {
                 that.onMouseDrag(this.mouse_drag_x, this.mouse_drag_y, this.mouse_button);
@@ -164,7 +162,7 @@ var MyApp = {
         // Firefox
         canvas.addEventListener('DOMMouseScroll', function (evt) {
             this.focus();
-            canvas.mouse_drag_y += 2 * evt.detail;
+            this.mouse_drag_y += 2 * evt.detail;
 
             that.onMouseDrag(this.mouse_drag_x, this.mouse_drag_y, 2);
             that.triggerRedraw();
@@ -176,7 +174,7 @@ var MyApp = {
         // Chrome
         canvas.addEventListener('mousewheel', function (evt) {
             this.focus();
-            canvas.mouse_drag_y -= 0.1 * evt.wheelDeltaY;
+            this.mouse_drag_y -= 0.1 * evt.wheelDeltaY;
 
             that.onMouseDrag(this.mouse_drag_x, this.mouse_drag_y, 2);
             that.triggerRedraw();

@@ -26,19 +26,17 @@
     </style>
 
     <script>
-        // make sure browser knows requestAnimationFrame method
-        if (!window.requestAnimationFrame) {
-            window.requestAnimationFrame = (function () {
-                return  window.requestAnimationFrame ||
-                        window.webkitRequestAnimationFrame ||
-                        window.mozRequestAnimationFrame ||
-                        window.oRequestAnimationFrame ||
-                        window.msRequestAnimationFrame ||
-                        function (callback, element) {
-                            window.setTimeout(callback, 16);
-                        };
-            })();
-        }
+        // make sure browser knows requestAnimFrame method
+        window.requestAnimFrame = (function() {
+            return window.requestAnimationFrame ||
+                   window.webkitRequestAnimationFrame ||
+                   window.mozRequestAnimationFrame ||
+                   window.oRequestAnimationFrame ||
+                   window.msRequestAnimationFrame ||
+                   function(callback, element) {
+                       window.setTimeout(callback, 16);
+                   };
+        })();
 
         // our main rendering class
         var Renderer = function(canvas) {
@@ -171,8 +169,8 @@
                         return null;
                     }
 
-                    //initShaderVariables(program);
-                    findShaderVariables(program);
+                    initShaderVariables(program);
+                    //findShaderVariables(program);
 
                     return program;
                 }
@@ -323,7 +321,7 @@
                                            0);       // offset (in bytes)
                     gl.enableVertexAttribArray(shaderProgram.color);
 
-                    gl.drawArrays(gl.TRIANGLES, 0, 3);
+                    gl.drawArrays(gl.TRIANGLES, 0, myFirstObject.vertices.length / 3);
 
                     gl.disableVertexAttribArray(shaderProgram.position);
                     gl.disableVertexAttribArray(shaderProgram.color);
@@ -338,7 +336,7 @@
                     dT /= 1000;
 
                     fpsStr = (currTime / 1000).toFixed(3) + "<br>dT: " + dT + "<br>fps: " + fpsStr;
-                    document.getElementById("time").innerHTML = fpsStr + "<br>" + new Date().toTimeString();
+                    document.getElementById("time").innerHTML = fpsStr;
 
                     lastFrameTime = currTime;
 
@@ -389,7 +387,7 @@
                 if (this.renderer.initialize()) {
                     (function mainLoop() {
                         that.renderer.tick();
-                        window.requestAnimationFrame(mainLoop);
+                        window.requestAnimFrame(mainLoop);
                     })();
                 }
                 else {

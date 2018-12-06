@@ -60,7 +60,7 @@ void main() {
     // very simple phong lighting with lightDir = viewDir and white light
     finalCol.rgb += ambient + NdotL * color + pow(NdotL, shininess) * specularColor;
 
-  #if 1
+  #if 0
     // then add contribution of directional light
     NdotL = max(dot(normal, light), 0.0);
     vec3 diffuse = color * NdotL * lightColor;

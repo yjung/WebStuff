@@ -654,7 +654,7 @@ var Renderer = function(canvas) {
 
             // finally, show some statistics
             if (stats && needRender) {
-                fpsStr = (currTime / 1000).toFixed(3) + "<br>dT: " + dT + "<br>fps: " + fpsStr;
+                fpsStr = "dT: " + dT + "<br>fps: " + fpsStr;
                 stats.innerHTML = fpsStr;
             }
 

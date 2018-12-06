@@ -4,19 +4,17 @@
  */
 
 
-// make sure browser knows requestAnimationFrame method
-if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = (function () {
-        return window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            function (callback, element) {
-                window.setTimeout(callback, 16);
-            };
-    })();
-}
+// make sure browser knows requestAnimFrame method
+window.requestAnimFrame = (function () {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback, element) {
+            window.setTimeout(callback, 16);
+        };
+})();
 
 
 /** Helper to convert a point from node coordinates to page coordinates */
@@ -147,7 +145,7 @@ var MyApp = {
             ]
         };
         var app = {
-            imgSrc: ["../models/todo.jpg"],
+            imgSrc: ["todo.jpg"],
             diffuseColor: new VecMath.SFColor(1, 0, 0),
             specularColor: new VecMath.SFColor(.5,.5,.5)
         };
@@ -199,7 +197,7 @@ var MyApp = {
             }
         }
 
-        app.imgSrc = ["../models/todo.jpg"];
+        app.imgSrc = ["todo.jpg"];
         app.diffuseColor = new VecMath.SFColor(0, 0, 1);
         trafo = VecMath.SFMatrix4f.translation(new VecMath.SFVec3f(0.55, 0, 0));
 
@@ -208,14 +206,14 @@ var MyApp = {
 
         // and load/add file(s)
         trafo = VecMath.SFMatrix4f.translation(new VecMath.SFVec3f(0, 0.75, 0));
-        //this.loadObject('../models/buddha.obj', trafo, 0.4);
-        //this.loadObject('../models/bunny.obj' , trafo, 0.25);
-        this.loadObject('../models/cow.obj'   , trafo, 0.075);
-        //this.loadObject('../models/cube.obj'  , trafo, 0.2);
-        //this.loadObject('../models/dragon.obj', trafo, 0.4);
-        //this.loadObject('../models/horse.obj' , trafo, 0.5);
-        //this.loadObject('../models/teapot.obj', trafo, 0.1);
-        //this.loadObject('../models/terracotta.obj', trafo, 0.5);
+        //this.loadObject('models/buddha.obj', trafo, 0.4);
+        //this.loadObject('models/bunny.obj' , trafo, 0.25);
+        this.loadObject('models/cow.obj'   , trafo, 0.075);
+        //this.loadObject('models/cube.obj'  , trafo, 0.2);
+        //this.loadObject('models/dragon.obj', trafo, 0.4);
+        //this.loadObject('models/horse.obj' , trafo, 0.5);
+        //this.loadObject('models/teapot.obj', trafo, 0.1);
+        //this.loadObject('models/terracotta.obj', trafo, 0.5);
     },
 
     // main entry point
@@ -236,7 +234,7 @@ var MyApp = {
 
             (function mainLoop() {
                 that.renderer.tick(statsDiv);
-                window.requestAnimationFrame(mainLoop);
+                window.requestAnimFrame(mainLoop);
             })();
         }
         else {
@@ -277,46 +275,46 @@ var MyApp = {
             this.focus();
 
             switch (evt.button) {
-                case 0:  canvas.mouse_button = 1; break;  //left
-                case 1:  canvas.mouse_button = 4; break;  //middle
-                case 2:  canvas.mouse_button = 2; break;  //right
-                default: canvas.mouse_button = 0; break;
+                case 0:  this.mouse_button = 1; break;  //left
+                case 1:  this.mouse_button = 4; break;  //middle
+                case 2:  this.mouse_button = 2; break;  //right
+                default: this.mouse_button = 0; break;
             }
-            if (evt.shiftKey) { canvas.mouse_button = 1; }
-            if (evt.ctrlKey)  { canvas.mouse_button = 4; }
-            if (evt.altKey)   { canvas.mouse_button = 2; }
+            if (evt.shiftKey) { this.mouse_button = 1; }
+            if (evt.ctrlKey) { this.mouse_button = 4; }
+            if (evt.altKey) { this.mouse_button = 2; }
 
             var pos = mousePosition(evt);
-            canvas.mouse_drag_x = pos.x;
-            canvas.mouse_drag_y = pos.y;
-            canvas.mouse_dragging = true;
+            this.mouse_drag_x = pos.x;
+            this.mouse_drag_y = pos.y;
+            this.mouse_dragging = true;
 
-            that.onMousePress(canvas.mouse_drag_x, canvas.mouse_drag_y, canvas.mouse_button);
+            that.onMousePress(this.mouse_drag_x, this.mouse_drag_y, this.mouse_button);
             that.triggerRedraw();
         }, false);
 
         canvas.addEventListener('mouseup', function (evt) {
-            that.onMouseRelease(canvas.mouse_drag_x, canvas.mouse_drag_y, canvas.mouse_button);
+            that.onMouseRelease(this.mouse_drag_x, this.mouse_drag_y, this.mouse_button);
             that.triggerRedraw();
 
-            canvas.mouse_button = 0;
-            canvas.mouse_dragging = false;
+            this.mouse_button = 0;
+            this.mouse_dragging = false;
         }, false);
 
         canvas.addEventListener('mousemove', function (evt) {
-            if (evt.shiftKey) { canvas.mouse_button = 1; }
-            if (evt.ctrlKey)  { canvas.mouse_button = 4; }
-            if (evt.altKey)   { canvas.mouse_button = 2; }
+            if (evt.shiftKey) { this.mouse_button = 1; }
+            if (evt.ctrlKey) { this.mouse_button = 4; }
+            if (evt.altKey) { this.mouse_button = 2; }
 
             var pos = mousePosition(evt);
-            canvas.mouse_drag_x = pos.x;
-            canvas.mouse_drag_y = pos.y;
+            this.mouse_drag_x = pos.x;
+            this.mouse_drag_y = pos.y;
 
-            if (canvas.mouse_dragging) {
-                that.onMouseDrag(canvas.mouse_drag_x, canvas.mouse_drag_y, canvas.mouse_button);
+            if (this.mouse_dragging) {
+                that.onMouseDrag(this.mouse_drag_x, this.mouse_drag_y, this.mouse_button);
             }
             else {
-                that.onMouseMove(canvas.mouse_drag_x, canvas.mouse_drag_y, canvas.mouse_button);
+                that.onMouseMove(this.mouse_drag_x, this.mouse_drag_y, this.mouse_button);
             }
             that.triggerRedraw();
 
@@ -332,8 +330,8 @@ var MyApp = {
             that.onMouseOut();
             that.triggerRedraw();
 
-            canvas.mouse_button = 0;
-            canvas.mouse_dragging = false;
+            this.mouse_button = 0;
+            this.mouse_dragging = false;
         }, false);
 
         canvas.addEventListener('dblclick', function (evt) {
@@ -343,9 +341,9 @@ var MyApp = {
         // Firefox
         canvas.addEventListener('DOMMouseScroll', function (evt) {
             this.focus();
-            canvas.mouse_drag_y += 2 * evt.detail;
+            this.mouse_drag_y += 2 * evt.detail;
 
-            that.onMouseDrag(canvas.mouse_drag_x, canvas.mouse_drag_y, 2);
+            that.onMouseDrag(this.mouse_drag_x, this.mouse_drag_y, 2);
             that.triggerRedraw();
 
             evt.preventDefault();
@@ -355,9 +353,9 @@ var MyApp = {
         // Chrome
         canvas.addEventListener('mousewheel', function (evt) {
             this.focus();
-            canvas.mouse_drag_y -= 0.1 * evt.wheelDeltaY;
+            this.mouse_drag_y -= 0.1 * evt.wheelDeltaY;
 
-            that.onMouseDrag(canvas.mouse_drag_x, canvas.mouse_drag_y, 2);
+            that.onMouseDrag(this.mouse_drag_x, this.mouse_drag_y, 2);
             that.triggerRedraw();
 
             evt.preventDefault();

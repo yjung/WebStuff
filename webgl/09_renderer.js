@@ -403,7 +403,7 @@ var Renderer = function(canvas) {
         obj.angle = 0;
 
         // tex img
-        obj.imgSrc.push("models/todo.jpg");
+        obj.imgSrc.push("todo.jpg");
 
 
         // finally, init textures and VBOs

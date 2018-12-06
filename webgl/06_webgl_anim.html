@@ -9,19 +9,17 @@
     </style>
 
     <script>
-        // make sure browser knows requestAnimationFrame method
-        if (!window.requestAnimationFrame) {
-            window.requestAnimationFrame = (function () {
-                return  window.requestAnimationFrame ||
-                        window.webkitRequestAnimationFrame ||
-                        window.mozRequestAnimationFrame ||
-                        window.oRequestAnimationFrame ||
-                        window.msRequestAnimationFrame ||
-                        function (callback, element) {
-                            window.setTimeout(callback, 16);
-                        };
-            })();
-        }
+        // make sure browser knows requestAnimFrame method
+        window.requestAnimFrame = (function() {
+            return window.requestAnimationFrame ||
+                   window.webkitRequestAnimationFrame ||
+                   window.mozRequestAnimationFrame ||
+                   window.oRequestAnimationFrame ||
+                   window.msRequestAnimationFrame ||
+                   function(callback, element) {
+                       window.setTimeout(callback, 16);
+                   };
+        })();
 
         // our main rendering class
         var Renderer = function(canvas) {
@@ -291,7 +289,7 @@
                 if (this.renderer.initialize()) {
                     (function mainLoop() {
                         that.renderer.tick();
-                        window.requestAnimationFrame(mainLoop);
+                        window.requestAnimFrame(mainLoop);
                     })();
                 }
                 else {

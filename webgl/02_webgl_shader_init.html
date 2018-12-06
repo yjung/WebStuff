@@ -19,9 +19,10 @@
             var that = this;
 
             // vertex shader string
-            var vertexShader = "void main() {\n" +
+            var vertexShader = "attribute vec2 pos;\n" +
+                               "void main() {\n" +
                                "   gl_PointSize = 10.0;\n" +
-                               "   gl_Position = vec4(0.0, 0.0, 0.0, 1.0);\n" +
+                               "   gl_Position = vec4(pos, 0.0, 1.0);\n" +
                                "}\n";
 
             // fragment shader string
@@ -133,6 +134,15 @@
                 },
 
                 drawScene: function() {
+                    // some init code to generate a point's position and copy it to GPU
+                    var posBuf = gl.createBuffer();
+
+                    gl.bindBuffer(gl.ARRAY_BUFFER, posBuf);
+                    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0, 0]), gl.STATIC_DRAW);
+
+                    var posAttribLocation = gl.getAttribLocation(shaderProgram, "pos");
+
+
                     gl.clearColor(0.0, 0.0, 0.0, 1.0);
                     gl.clearDepth(1.0);
 
@@ -140,7 +150,20 @@
                     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
                     gl.useProgram(shaderProgram);
+
+                    gl.enableVertexAttribArray(posAttribLocation);
+
+                    // 2 components (x,y); 32bit floats; don't normalize; no stride and offset
+                    gl.vertexAttribPointer(posAttribLocation, 2, gl.FLOAT, false, 0, 0);
+
+                    // offset is 0, with 1 element
                     gl.drawArrays(gl.POINTS, 0, 1);
+
+                    gl.disableVertexAttribArray(posAttribLocation);
+
+
+                    // finally delete VBO
+                    gl.deleteBuffer(posBuf);
                 }
             }
         };

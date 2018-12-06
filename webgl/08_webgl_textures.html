@@ -39,19 +39,17 @@
     </style>
 
     <script>
-        // make sure browser knows requestAnimationFrame method
-        if (!window.requestAnimationFrame) {
-            window.requestAnimationFrame = (function () {
-                return  window.requestAnimationFrame ||
-                        window.webkitRequestAnimationFrame ||
-                        window.mozRequestAnimationFrame ||
-                        window.oRequestAnimationFrame ||
-                        window.msRequestAnimationFrame ||
-                        function (callback, element) {
-                            window.setTimeout(callback, 16);
-                        };
-            })();
-        }
+        // make sure browser knows requestAnimFrame method
+        window.requestAnimFrame = (function() {
+            return window.requestAnimationFrame ||
+                   window.webkitRequestAnimationFrame ||
+                   window.mozRequestAnimationFrame ||
+                   window.oRequestAnimationFrame ||
+                   window.msRequestAnimationFrame ||
+                   function(callback, element) {
+                       window.setTimeout(callback, 16);
+                   };
+        })();
 
         // our main rendering class
         // http://www.khronos.org/registry/webgl/specs/latest/1.0/
@@ -150,7 +148,7 @@
                 animating: false,
 
                 // texture
-                imgSrc: "models/todo.jpg",
+                imgSrc: "todo.jpg",
                 texture: null
             };
 
@@ -539,7 +537,7 @@
 
                     (function mainLoop() {
                         that.renderer.tick(statsDiv);
-                        window.requestAnimationFrame(mainLoop);
+                        window.requestAnimFrame(mainLoop);
                     })();
                 }
                 else {
